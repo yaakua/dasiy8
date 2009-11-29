@@ -1,0 +1,152 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+     <!--验证类 自己编写 代码-->
+    <bean id="regirstValidator"
+          class="com.daisy8.oyangk.dianping.web.action.register.RegisterValidator">
+    </bean>
+    <!--地区验证类-->
+    <bean id="valang_adminBack_area"
+          class="org.springmodules.validation.valang.ValangValidator">
+        <property name="valang">
+            <value>
+                <![CDATA[
+                        {name:? is not blank : '':'area.nameEmpty'}
+                        {name: length(?)>=2 and length(?)<=16 : '':'nameLengthLimt'}
+                   ]]>
+            </value>
+        </property>
+    </bean>
+     <!--菜单添加验证类-->
+    <bean id="valang_adminBack_menu"
+          class="org.springmodules.validation.valang.ValangValidator">
+        <property name="valang" value="{name:? is not blank : '':'nameEmpty'}"/>
+    </bean>
+    <!--权限验证类-->
+    <bean id="valang_adminBack_power"
+          class="org.springmodules.validation.valang.ValangValidator">
+        <property name="valang" value="{role.id:? is not blank : '':'nameEmpty'}"/>
+    </bean>
+    <!--管理员登录验证类-->
+    <bean id="valang_adminBack_login"
+          class="org.springmodules.validation.valang.ValangValidator">
+        <property name="valang">
+            <value>
+                <![CDATA[
+                        {name:? is not blank : '':'nameEmpty'}
+                        {name: length(?)>=3 and length(?)<=16 : '':'lengthLimt4to16'}
+                        {password:? is not blank : '':'nameEmpty'}
+                        {code:? is not blank : '':'nameEmpty'}
+                        {code: length(?)==4 : '':'lengthLimt4'}
+                   ]]>
+            </value>
+        </property>
+    </bean>
+
+
+<!--前台验证-->
+    <!--推荐店铺验证-->
+    <bean id="recommShopValang"
+          class="org.springmodules.validation.valang.ValangValidator">
+        <property name="valang">
+            <value>
+                <![CDATA[
+                        {shop.name:? is not blank : '':'nameEmpty'}
+                        {shop.name: length(?)>=1 and length(?)<=20 : '':'shop.nameLimt'}
+                        {shop.province.id:? is not blank : '':'nameEmpty'}
+                        {shop.city.id:? is not blank : '':'nameEmpty'}
+                        {shop.county.id:? is not blank : '':'nameEmpty'}
+                        {shop.street.id:? is not blank : '':'nameEmpty'}
+                        {shop.address:? is not blank : '':'nameEmpty'}
+                        {shop.mb2.id:? is not blank : '':'nameEmpty'}
+                        {shop.introduce:? is not blank : '':'nameEmpty'}
+                        {shop.introduce: length(?)>=1 and length(?)<=256 : '':'shop.introduce'}
+                        {shop.logo:? is not blank : '':'nameEmpty'}
+                   ]]>
+            </value>
+        </property>
+    </bean>
+<!--过滤器登录验证-->
+    <bean id="commloginValidator"
+          class="org.springmodules.validation.valang.ValangValidator">
+        <property name="valang">
+            <value>
+                <![CDATA[
+                        {name:? is not blank : '':'emailEmpty'}
+                        {password:? is not blank : '':'passwordEmpty'}
+                        {code:? not in '点击获取' : '':'nameEmpty'}
+                        {code: length(?)==4 : '':'lengthLimt4'}
+                   ]]>
+            </value>
+        </property>
+    </bean>
+
+    <!--发表日志验证器-->
+     <bean id="userLogValidator"
+          class="org.springmodules.validation.valang.ValangValidator">
+        <property name="valang">
+            <value>
+                <![CDATA[
+                        {title:? is not blank : '':'nameEmpty'}
+                        {content:? is not blank : '':'nameEmpty'}
+                        {content:length(?)<10000 : '':'shoplog.contentlength'}
+                   ]]>
+            </value>
+        </property>
+    </bean>
+    <!--注册验证 使用valang框架 演示使用-->
+    <bean id="regirstValang"
+          class="org.springmodules.validation.valang.ValangValidator">
+        <property name="valang">
+            <value>
+                <![CDATA[
+                        {name:? is not blank : '':'nameEmpty'}
+                        {password:? is not blank : '':'passwordEmpty'}
+                        {email:? is not blank : '':'emailEmpty'}
+                        {name: length(?)>=4 and length(?)<=16 : '':'nameLengthLimt'}
+                        {password: length(?)>=4 and length(?)<=16 : '':'passwordLengthLimt'}
+                        {email: email(?) is true : '':'isNotEmail'}
+                   ]]>
+            </value>
+        </property>
+    </bean>
+
+    <!--后台验证-->
+    <!--商品录入验证-->
+    <bean id="addGoodsValang"
+          class="org.springmodules.validation.valang.ValangValidator">
+        <property name="valang">
+            <value>
+                <![CDATA[
+                        {name:? is not blank : '':'notEmpty'}
+                        {name: length(?)>=1 and length(?)<=32 : '':'mall.name.limit'}
+                        {name2: length(?)>=0 and length(?)<=16 : '':'mall.name2.limit'}
+                        {goodsImgs[0].url:? is not blank : '':'notEmpty'}
+                        {st.id:? is not blank : '':'notEmpty'}
+                        {kind2.id:? is not blank : '':'notEmpty'}
+                        {brand.id:? is not blank : '':'notEmpty'}
+                        {info.intro:? is not blank : '':'notEmpty'}
+                        {info.param:? is not blank : '':'notEmpty'}
+                        {info.intro: length(?)>=1 and length(?)<=10000 : '':'mall.present'}
+                        {info.param: length(?)>=1 and length(?)<=10000 : '':'mall.param'}
+
+                   ]]>
+            </value>
+        </property>
+    </bean>
+
+    <!--充值验证-->
+       <bean id="supplementValang"
+          class="org.springmodules.validation.valang.ValangValidator">
+        <property name="valang">
+            <value>
+                <![CDATA[
+                        {money:? is not blank : '':'notEmpty'}
+                        {checkcode:? is not blank : '':'notEmpty'}
+                        {checkcode: length(?)==4 : '':'mall.supplement.checkcode.length'}
+                   ]]>
+            </value>
+        </property>
+    </bean>
+</beans>

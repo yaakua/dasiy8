@@ -1,0 +1,420 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+    <!-- ####################后台管理  开始 ######################## -->
+    <!--后台通用多请求控制器-->
+    <bean name="/adminback/commmulti.htm /adminbacklogin/exit.htm"
+          class="com.daisy8.oyangk.dianping.web.adminBack.comm.CommMultiCtrl"
+          parent="multiActionController">
+        <property name="baseConfigMana" ref="baseConfigMana"/>
+        <property name="xmlMana" ref="xmlMana"/>
+    </bean>
+    <!--地区管理设置-->
+    <bean name="/adminback/area/area.htm"
+          class="com.daisy8.oyangk.dianping.web.adminBack.area.AreaCtrl">
+        <property name="formView" value="adminBack/area/index"/>
+        <property name="successView" value="redirect:/adminback/area/area.htm?ok=true"/>
+        <property name="baseConfigMana" ref="baseConfigMana"/>
+        <property name="validator" ref="valang_adminBack_area"/>
+    </bean>
+    <!--后台首页控制器-->
+    <bean name="/adminback/index.htm" class="com.daisy8.oyangk.dianping.web.adminBack.index.IndexCtrl"
+          parent="multiActionController">
+        <property name="secureityMana" ref="securityMana"/>
+    </bean>
+    <!--菜单列表控制器 开始-->
+    <bean name="/adminback/menu/menu.htm" class="com.daisy8.oyangk.dianping.web.adminBack.menu.MenuMultiCtrl"
+          parent="multiActionController">
+        <property name="secureityMana" ref="securityMana"/>
+    </bean>
+    <bean name="/adminback/menu/add.htm"
+          class="com.daisy8.oyangk.dianping.web.adminBack.menu.MenuCtrl">
+        <property name="formView" value="adminBack/menu/add"/>
+        <property name="successView" value="redirect:/adminback/menu/add.htm?ok=true"/>
+        <property name="validator" ref="valang_adminBack_menu"/>
+        <property name="secureityMana" ref="securityMana"/>
+        <property name="sessionForm" value="true"/>
+    </bean>
+    <!--菜单列表控制器 结束-->
+
+    <!--权限设置控制器  开始-->
+    <bean name="/adminback/power/get.htm" class="com.daisy8.oyangk.dianping.web.adminBack.power.PowerMultiCtrl"
+          parent="multiActionController">
+        <property name="secureityMana" ref="securityMana"/>
+    </bean>
+    <bean name="/adminback/power/set.htm"
+          class="com.daisy8.oyangk.dianping.web.adminBack.power.PowerCtrl">
+        <property name="formView" value="adminBack/power/set"/>
+        <property name="successView" value="redirect:/adminback/power/set.htm?ok=true"/>
+        <property name="secureityMana" ref="securityMana"/>
+        <property name="baseConfigMana" ref="baseConfigMana"/>
+        <property name="validator" ref="valang_adminBack_power"/>
+    </bean>
+    <!--权限设置控制器  结束-->
+
+    <!--管理员登录控制器-->
+    <bean name="/adminbacklogin/login.htm"
+          class="com.daisy8.oyangk.dianping.web.adminBack.login.LoginCtrl">
+        <property name="formView" value="adminBack/login/index"/>
+        <property name="successView" value="redirect:/adminback/index.htm"/>
+        <property name="secureityMana" ref="securityMana"/>
+        <property name="validator" ref="valang_adminBack_login"/>
+    </bean>
+
+  
+    <!-- ####################后台管理  结束 ######################## -->
+
+
+    <!-- ####################前台控制器  开始 ######################## -->
+    <!--用户注册控制器-->
+    <bean name="/dou/register.htm"
+          class="com.daisy8.oyangk.dianping.web.action.register.RegisterCtrl">
+        <property name="formView" value="register/index"/>
+        <property name="successView" value="register/registerOk"/>
+        <property name="validator" ref="regirstValang"/>
+    </bean>
+
+    <!--注册激活控制器-->
+    <bean name="/active.htm"
+          class="com.daisy8.oyangk.dianping.web.action.index.ActiveCtrl">
+        <property name="ism" ref="securityMana"/>
+    </bean>
+
+    <!--过滤器跳转后的登录控制器-->
+    <bean name="/comm/login.htm"
+          class="com.daisy8.oyangk.dianping.web.action.index.CommLoginCtrl">
+        <property name="formView" value="frontPage/loginAndRegister/commlogin"/>
+        <property name="successView" value="redirect:/index.htm"/>
+        <property name="ism" ref="securityMana"/>
+        <property name="validator" ref="commloginValidator"/>
+    </bean>
+
+    <!--店铺推荐控制器-->
+    <bean name="/user/recommend.htm"
+          class="com.daisy8.oyangk.dianping.web.action.recommendShop.AddCtrl">
+        <property name="formView" value="frontPage/recommendShop/recommendIndex"/>
+        <property name="successView" value="redirect:/redirect.htm?method=recommok"/>
+        <property name="ism" ref="shopMana"/>
+        <property name="ibcm" ref="baseConfigMana"/>
+        <property name="imgURL" value="${reNameURL}"/>
+        <property name="validator" ref="recommShopValang"/>
+    </bean>
+    <!--重定向控制器-->
+    <bean name="/redirect.htm" class="com.daisy8.oyangk.dianping.web.action.redirect.RedirectCtrl"
+          parent="multiActionController">
+    </bean>
+    <!--搜索控制器-->
+    <bean name="/s.htm" class="com.daisy8.oyangk.dianping.web.action.search.SearchCtrl"
+          parent="multiActionController">
+        <property name="shopSearch" ref="shopSearch"/>
+        <property name="comntentMana" ref="contentMana"/>
+    </bean>
+
+
+    <bean name="/adminback/emp/emporia.htm"
+          class="com.daisy8.oyangk.dianping.web.adminBack.bussinessCenter.EmporiaCtrl">
+        <property name="formView" value="adminBack/bussinessCenter/add"/>
+        <property name="successView" value="redirect:/adminback/emp/otherEmporia.htm?method=getList&amp;okmsg=ok"/>
+        <property name="baseConfigMana" ref="baseConfigMana"/>
+        <property name="validator" ref="emporiaValidator"/>
+    </bean>
+    <!--使用valang框架-->
+    <bean id="emporiaValidator"
+          class="org.springmodules.validation.valang.ValangValidator">
+        <property name="valang">
+            <value>
+                <![CDATA[
+                        {name:? is not blank : '':'emporia.nameEmpty'}
+                        {district.parent.parent.id:? is not blank : '':'emporia.shenEmpty'}
+                        {district.parent.id:? is not blank : '':'emporia.shiEmpty'}
+                        {district.id:? is not blank : '':'emporia.quEmpty'}
+                   ]]>
+            </value>
+        </property>
+    </bean>
+    <bean name="/adminback/emp/otherEmporia.htm"
+          class="com.daisy8.oyangk.dianping.web.adminBack.bussinessCenter.OtherEmporiaCtrl"
+          parent="multiActionController">
+        <property name="baseConfigMana" ref="baseConfigMana"/>
+        <property name="xmlMana" ref="xmlMana"/>
+    </bean>
+
+    <bean name="/adminback/backstreet/street.htm"
+          class="com.daisy8.oyangk.dianping.web.adminBack.street.StreetCtrl">
+        <property name="formView" value="adminBack/street/add"/>
+        <property name="successView"
+                  value="redirect:/adminback/backstreet/otherStreet.htm?method=getList&amp;okmsg=ok"/>
+        <property name="baseConfigMana" ref="baseConfigMana"/>
+        <property name="validator" ref="streetValidator"/>
+    </bean>
+    <bean id="streetValidator"
+          class="org.springmodules.validation.valang.ValangValidator">
+        <property name="valang">
+            <value>
+                <![CDATA[
+                        {name:? is not blank : '':'street.nameEmpty'}
+                        {firstLetter:? is not blank : '':'street.firstLetterEmpty'}
+                        {district.parent.parent.id:? is not blank : '':'street.shenEmpty'}
+                        {district.parent.id:? is not blank : '':'street.shiEmpty'}
+                        {district.id:? is not blank : '':'street.quEmpty'}
+                   ]]>
+            </value>
+        </property>
+    </bean>
+    <bean name="/adminback/backstreet/otherStreet.htm"
+          class="com.daisy8.oyangk.dianping.web.adminBack.street.OtherStreetCtrl">
+        <property name="formView" value="adminBack/street/index"/>
+        <property name="successView" value="adminBack/street/index"/>
+        <property name="baseConfigMana" ref="baseConfigMana"/>
+    </bean>
+
+    <!--站内信控制器-->
+    <bean name="/adminback/notice/noticeTemplate.htm"
+          class="com.daisy8.oyangk.dianping.web.adminBack.doudouNotice.DoudouNoticeCtrl"
+          parent="multiActionController">
+        <property name="icm" ref="contentMana"/>
+    </bean>
+
+    <!--站内信添加/修改控制器-->
+    <bean name="/adminback/notice/addNoticeTemplate.htm"
+          class="com.daisy8.oyangk.dianping.web.adminBack.doudouNotice.DoudouNoticeDoCtrl">
+        <property name="formView" value="adminBack/content/doudouNotice/addNoticeTemplate"/>
+        <property name="successView" value="redirect:/adminback/notice/noticeList.htm"/>
+        <property name="icm" ref="contentMana"/>
+        <property name="validator" ref="noticeValang"/>
+    </bean>
+    <!--站内信列表-->
+    <bean name="/adminback/notice/noticeList.htm"
+          class="com.daisy8.oyangk.dianping.web.adminBack.doudouNotice.DoudouNoticeListCtrl">
+        <property name="formView" value="adminBack/content/doudouNotice/noticeTemplateList"/>
+        <property name="successView" value="adminBack/content/doudouNotice/noticeTemplateList"/>
+        <property name="icm" ref="contentMana"/>
+    </bean>
+    <!--站内信验证 使用valang框架-->
+    <bean id="noticeValang"
+          class="org.springmodules.validation.valang.ValangValidator">
+        <property name="valang">
+            <value>
+                <![CDATA[
+                        {title:? is not blank : '':'nameEmpty'}
+                        {title: length(?)>=4 and length(?)<=64 : '':'letter.nameLength'}
+                        {content:? is not blank : '':'nameEmpty'}
+                   ]]>
+            </value>
+        </property>
+    </bean>
+    <!--后台设置首页店铺展示的页面-->
+    <bean name="/adminback/set/shoshow.htm"
+          class="com.daisy8.oyangk.dianping.web.adminBack.backSet.ShopShowCtrl"
+          parent="multiActionController">
+    </bean>
+    <!--后台设置本月主打星-->
+    <bean name="/adminback/set/mainStar.htm"
+          class="com.daisy8.oyangk.dianping.web.adminBack.backSet.MainStarCtrl"
+          parent="multiActionController">
+        <property name="xmlMana" ref="xmlMana"/>
+    </bean>
+    <!--后台管理员操作记录的控制器-->
+    <bean name="/adminback/admin/history.htm"
+          class="com.daisy8.oyangk.dianping.web.adminBack.adminOperateHistory.HistoryCtrl"
+          parent="multiActionController">
+        <property name="securityMana" ref="securityMana"/>
+    </bean>
+
+
+    <bean name="/index.htm" class="com.daisy8.oyangk.dianping.web.action.index.IndexCtrl"
+          parent="multiActionController">
+        <property name="ism" ref="securityMana"/>
+    </bean>
+
+    <bean name="/register.htm"
+          class="com.daisy8.oyangk.dianping.web.action.index.RegisterCtrl">
+        <property name="formView" value="frontPage/loginAndRegister/register"/>
+        <property name="successView" value="frontPage/loginAndRegister/activePage"/>
+        <property name="ism" ref="securityMana"/>
+        <property name="validator" ref="registerValidator"/>
+    </bean>
+    <bean id="registerValidator"
+          class="org.springmodules.validation.valang.ValangValidator">
+        <property name="valang">
+            <value>
+                <![CDATA[
+                        {name:? is not blank : '':'nameEmpty'}
+                        {email:? is not blank : '':'emailEmpty'}
+                        {password:? is not blank : '':'passwordEmpty'}
+                        {name: length(?)>=3 and length(?)<=8 : '':'nameLengthLimt'}
+                        {password: length(?)>=4 and length(?)<=16 : '':'passwordLengthLimt'}
+                        {secondPwd:?==password:'':'notsamepassword'}
+                   ]]>
+            </value>
+        </property>
+    </bean>
+
+    <bean name="/login.htm"
+          class="com.daisy8.oyangk.dianping.web.action.index.LoginCtrl">
+        <property name="formView" value="frontPage/loginAndRegister/login"/>
+        <property name="successView" value="redirect:/index.htm"/>
+        <property name="ism" ref="securityMana"/>
+        <property name="validator" ref="loginValidator"/>
+    </bean>
+    <bean id="loginValidator"
+          class="org.springmodules.validation.valang.ValangValidator">
+        <property name="valang">
+            <value>
+                <![CDATA[
+                        {name:? is not blank : '':'emailEmpty'}
+                        {password:? is not blank : '':'passwordEmpty'}
+                   ]]>
+            </value>
+        </property>
+    </bean>
+
+    <bean name="/shopdp.htm"
+          class="com.daisy8.oyangk.dianping.web.action.index.dianping.ShopDPCtrl"
+          parent="multiActionController">
+        <property name="shopMana" ref="shopMana"/>
+    </bean>
+
+    <bean name="/shoppage.htm"
+          class="com.daisy8.oyangk.dianping.web.action.index.dianping.ShopPageCtrl">
+        <property name="formView" value="frontPage/dianping/shopDP"/>
+        <property name="successView" value="frontPage/dianping/shopDP"/>
+        <property name="shopMana" ref="shopMana"/>
+    </bean>
+
+    <!--后台主营页面配置-->
+    <bean name="/adminback/ht/zhuying.htm"
+          class="com.daisy8.oyangk.dianping.web.adminBack.zhuying.ZhuyingCtrl">
+        <property name="formView" value="adminBack/zhuying/index"/>
+        <property name="successView" value="redirect:/adminback/ht/zhuying.htm"/>
+        <property name="ibcm" ref="baseConfigMana"/>
+        <property name="validator" ref="mainBusinessValang"/>
+    </bean>
+
+    <!--后台主营 使用valang框架-->
+    <bean id="mainBusinessValang"
+          class="org.springmodules.validation.valang.ValangValidator">
+        <property name="valang">
+            <value>
+                <![CDATA[
+                        {name:? is not blank : '':'nameEmpty'}
+                        {name: length(?)>=4 and length(?)<=16 : '':'nameLengthLimt'}
+                   ]]>
+            </value>
+        </property>
+    </bean>
+    <!--后台主营修改配置-->
+    <bean name="/adminback/ht/zyModify.htm"
+          class="com.daisy8.oyangk.dianping.web.adminBack.zhuying.ModifyCtrl" parent="multiActionController">
+        <property name="ibcm" ref="baseConfigMana"/>
+        <property name="ixml" ref="xmlMana"/>
+    </bean>
+
+    <!--管理员设置控制器-->
+    <bean name="/adminback/user/admin.htm" class="com.daisy8.oyangk.dianping.web.adminBack.admin.AdminCtrl"
+          parent="multiActionController">
+        <property name="ibcm" ref="baseConfigMana"/>
+        <property name="ism" ref="securityMana"/>
+    </bean>
+
+    <!--管理员添加控制器-->
+    <bean name="/adminback/user/addAdmin.htm" class="com.daisy8.oyangk.dianping.web.adminBack.admin.AddCtrl">
+        <property name="formView" value="adminBack/admin/add"/>
+        <property name="successView" value="redirect:/adminback/user/admin.htm"/>
+        <property name="ibcm" ref="baseConfigMana"/>
+        <property name="ism" ref="securityMana"/>
+        <property name="validator" ref="adminValang"/>
+    </bean>
+
+    <!--字典数据控制器-->
+    <bean name="/adminback/zd/DictData.htm" class="com.daisy8.oyangk.dianping.web.adminBack.dictData.DictDataCtrl"
+          parent="multiActionController">
+        <property name="ibcm" ref="baseConfigMana"/>
+    </bean>
+
+    <!--站内信模板控制器-->
+    <bean name="/adminback/letter/emailTemplate.htm"
+          class="com.daisy8.oyangk.dianping.web.adminBack.emailTemplate.ZnxCtrl" parent="multiActionController">
+        <property name="icm" ref="contentMana"/>
+    </bean>
+
+    <!--站内信添加/修改控制器-->
+    <bean name="/adminback/letter/addTemplate.htm"
+          class="com.daisy8.oyangk.dianping.web.adminBack.emailTemplate.ZnxDoCtrl">
+        <property name="formView" value="adminBack/content/emailTemplate/addTemplate"/>
+        <property name="successView" value="redirect:/adminback/letter/emailTemplate.htm"/>
+        <property name="icm" ref="contentMana"/>
+        <property name="ibcm" ref="baseConfigMana"/>
+        <property name="validator" ref="letterValang"/>
+    </bean>
+
+    <!--街道XML控制器-->
+    <bean name="/adminback/backstreet/xmlStreet.htm"
+          class="com.daisy8.oyangk.dianping.web.adminBack.street.StreetMultiActionCtrl"
+          parent="multiActionController">
+        <property name="ixml" ref="xmlMana"/>
+    </bean>
+
+    <!--后台审核店铺列表控制器-->
+    <bean name="/adminback/auditing/auditingShop.htm"
+          class="com.daisy8.oyangk.dianping.web.adminBack.auditing.AuditingShopCtrl" parent="multiActionController">
+        <property name="ism" ref="shopMana"/>
+    </bean>
+
+    <!--后台店铺审核控制器-->
+    <bean name="/adminback/auditing/auditing.htm"
+          class="com.daisy8.oyangk.dianping.web.adminBack.auditing.AuditingCtrl">
+        <property name="formView" value="adminBack/auditing/auditingShop"/>
+        <property name="successView" value="redirect:/adminback/auditing/auditingShop.htm"/>
+        <property name="ism" ref="shopMana"/>
+    </bean>
+
+    <!--注册验证 使用valang框架-->
+    <bean id="adminValang"
+          class="org.springmodules.validation.valang.ValangValidator">
+        <property name="valang">
+            <value>
+                <![CDATA[
+                        {name:? is not blank : '':'nameEmpty'}
+                        {realName:? is not blank : '':'nameEmpty'}
+                        {password:? is not blank : '':'passwordEmpty'}
+                        {email:? is not blank : '':'emailEmpty'}
+                        {name: length(?)>=4 and length(?)<=16 : '':'nameLengthLimt'}
+                        {password: length(?)>=4 and length(?)<=32 : '':'passwordLengthLimt'}
+                        {email: email(?) is true : '':'isNotEmail'}
+                   ]]>
+            </value>
+        </property>
+    </bean>
+
+    <!--站内信模板验证 使用valang框架-->
+    <bean id="letterValang"
+          class="org.springmodules.validation.valang.ValangValidator">
+        <property name="valang">
+            <value>
+                <![CDATA[
+                        {title:? is not blank : '':'nameEmpty'}
+                        {title: length(?)>=4 and length(?)<=64 : '':'letter.nameLength'}
+                        {content:? is not blank : '':'nameEmpty'}
+                   ]]>
+            </value>
+        </property>
+    </bean>
+
+    <!--++++++++++++++++++++++++++++以上为后台部分控制器+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++-->
+    <!--店铺推荐控制器-->
+    <bean name="/user/recommend/recommendShop.htm"
+          class="com.daisy8.oyangk.dianping.web.action.recommendShop.RecommendShopCtrl">
+        <property name="formView" value="frontPage/recommendShop/recommendIndex"/>
+        <property name="successView" value="redirect:/user/recommend/recommendShop.htm"/>
+        <property name="ism" ref="shopMana"/>
+        <property name="ibcm" ref="baseConfigMana"/>
+    </bean>
+    <!--店铺推荐页面信息控制器-->
+    <bean name="/user/recommend/recommend.htm"
+          class="com.daisy8.oyangk.dianping.web.action.recommendShop.RecommendCtrl" parent="multiActionController">
+        <property name="ism" ref="shopMana"/>
+    </bean>
+
+</beans>
