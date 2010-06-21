@@ -1,13 +1,14 @@
 package cn.doitoo.game.framework.event;
 
+import cn.doitoo.game.framework.context.GameContext;
 import android.view.MotionEvent;
 
-public interface ITouchEventHandler {
+public abstract class ITouchEventHandler extends GameContext{
 
-	void onTouchDown(MotionEvent event);
+  public abstract void onTouchDown(MotionEvent event);
 
-	void onTouchMove(MotionEvent event);
+  public abstract void onTouchMove(MotionEvent event);
 
-	void onTouchUp(MotionEvent event);
+  public abstract void onTouchUp(MotionEvent event);
   
 }

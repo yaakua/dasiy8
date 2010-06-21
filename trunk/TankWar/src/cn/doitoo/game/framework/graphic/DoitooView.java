@@ -56,12 +56,12 @@ public  abstract class DoitooView extends SurfaceView implements SurfaceHolder.C
 		}
 		Task.taskList.clear();
 		Clock.time = 0;
-		initTasks();
+		initTasks(holder);
 	}
     /**
      * add Task here to start game
      */
-	protected abstract void initTasks() ;
+	protected abstract void initTasks(SurfaceHolder holder) ;
 
 	public void surfaceDestroyed(SurfaceHolder holder) {
 		// TODO Auto-generated method stub

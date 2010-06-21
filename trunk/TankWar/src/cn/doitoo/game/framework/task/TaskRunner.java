@@ -77,7 +77,7 @@ public class TaskRunner extends TimerTask {
 		 // Log.v(this.getClass().getCanonicalName(), "t:"+t.getClass().getName()+"  startTime:"+t.getStartTime()+" interval:"+t.getIntervalTime());
 		
 			if(Clock.time>=t.getForceEndTime()){
-			
+			    t.setEnd(true);
 				//Log.v(this.getClass().getName(), "end remove task "+t.getClass().getName());
 				taskList.remove(t);
 				continue;
