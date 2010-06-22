@@ -4,6 +4,8 @@ import java.util.LinkedList;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
+import android.util.Log;
+
 import cn.doitoo.game.framework.context.GameContext;
 
 public abstract class Task extends GameContext implements Runnable {
@@ -121,7 +123,8 @@ public abstract class Task extends GameContext implements Runnable {
 	protected abstract void doTask();
 
 	public void run() {//AOP
-	   if(parentTask!=null&&parentTask.isEnd)
+		Log.d("Task", "run");
+	   //if((parentTask!=null&&parentTask.isEnd)||parentTask==null)
 		doTask();
 		//Log.v("Task",this.getClass() + " lastStartTime:" + getStartTime()
 				//+ " now :" + Clock.time);

@@ -18,7 +18,8 @@ public class TankWar extends Activity {
         //Œﬁ±ÍÃ‚
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         
-        setContentView(new GameView(this));
+       setContentView(new GameView(this));
+         //setContentView(R.layout.main);
     }
     
     
