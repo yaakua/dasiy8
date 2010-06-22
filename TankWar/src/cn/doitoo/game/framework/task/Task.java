@@ -87,31 +87,24 @@ public abstract class Task extends GameContext implements Runnable {
 	 * @param t
 	 */
 	public void endTask() {
+		if(this.isEnd)return;
 		if(tr.taskList.contains(this))
 		tr.taskList.remove(this);// TODO:考虑并发
 		this.setEnd(true);
 
 	}
 
-	/**
-	 * 立即结束一个任务，这个任务可以是自己。
-	 * 
-	 * @param t
-	 */
-	public void endTask(Task t) {
-		if(tr.taskList.contains(t))
-		tr.taskList.remove(t);// TODO:考虑并发
-        t.setEnd(true);
-	}
+
 
 	/**
-	 * 在未来时间内结束一个任务
+	 * 未来时间内结束任务
 	 * 
 	 * @param t
 	 * @param time
 	 */
-	public void endTask(Task t, long time) {
-		t.setForceEndTime(time);
+	public void endTask(long time) {
+		if(isEnd)return;
+		setForceEndTime(time);
 	}
 
 	public void sendMessage(Task t, Object msg) {
