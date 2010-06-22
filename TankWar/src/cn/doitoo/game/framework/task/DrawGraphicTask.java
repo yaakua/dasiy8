@@ -4,6 +4,7 @@ package cn.doitoo.game.framework.task;
 
 import android.os.Handler;
 import android.os.Message;
+import android.util.Log;
 
 public abstract class DrawGraphicTask extends Task{
  
@@ -14,10 +15,12 @@ public abstract class DrawGraphicTask extends Task{
 	}
 	@Override
 	protected void doTask() {
+		Log.d("DrawGraphicTask", "doTask");
+		draw();
 		//TODO: the drawing will be paused because of gc
-		Message msg = new Message();
-		msg.what=1;
-		new DrawHandler().sendMessage(msg);//high speed drawing
+//		Message msg = new Message();
+//		msg.what=1;
+//		new DrawHandler().handleMessage(msg);//high speed drawing
 
 		
 	}
@@ -25,6 +28,7 @@ public abstract class DrawGraphicTask extends Task{
 	class DrawHandler extends Handler {
 		@Override
 		public void handleMessage(Message msg) {
+			Log.d("draw", "drawing");
 			draw();
 		}
 	}

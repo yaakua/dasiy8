@@ -2,6 +2,7 @@ package cn.doitoo.game.framework.task;
 
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
+import android.util.Log;
 import android.view.SurfaceHolder;
 
 /**
@@ -25,6 +26,7 @@ public abstract class SpriteTask extends DrawGraphicTask{
 
 	@Override
 	public void draw() {
+		Log.d("SpriteTask", "drawing");
 		Canvas c =this.holder.lockCanvas();
 		c.drawBitmap(this.spriteBm, 0, 0,null);
 		drawTextOrOther();
