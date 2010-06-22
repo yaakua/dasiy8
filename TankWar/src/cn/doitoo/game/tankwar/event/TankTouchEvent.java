@@ -10,7 +10,7 @@ public class TankTouchEvent extends ITouchEventHandler {
 	@Override
 	public void onTouchDown(MotionEvent event) {
 		onTouch(event);
-		//todo
+		// todo
 	}
 
 	@Override
@@ -24,11 +24,14 @@ public class TankTouchEvent extends ITouchEventHandler {
 		onTouch(event);
 
 	}
-	
-	private void onTouch(MotionEvent event) {
-		 Task.taskByName(TankSpriteTask.class.getName()).endTask();
 
-		
+	private void onTouch(MotionEvent event) {
+		Task t = Task.taskByName(TankSpriteTask.class.getName());
+		if (t != null)
+			t.endTask();
+		if (ITouchEventHandler.touchList.contains(this))
+			ITouchEventHandler.touchList.remove(this);
+
 	}
 
 }
