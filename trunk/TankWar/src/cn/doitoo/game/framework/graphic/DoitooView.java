@@ -8,33 +8,32 @@ import cn.doitoo.game.framework.event.ITouchEventHandler;
 import cn.doitoo.game.framework.task.Clock;
 import cn.doitoo.game.framework.task.Task;
 import android.content.Context;
+import android.util.Log;
 import android.view.MotionEvent;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
 
 public  abstract class DoitooView extends SurfaceView implements SurfaceHolder.Callback {
-	private  List<ITouchEventHandler> touchEventHandlerList;
-
-	public DoitooView(Context context,List<ITouchEventHandler> touchEventHandlerList) {
+    
+	public DoitooView(Context context) {
 		super(context);
-	    this.touchEventHandlerList =touchEventHandlerList;
+	  
 	}
 
 	
 	@Override
 	public boolean onTouchEvent(MotionEvent event) {
-		if(this.touchEventHandlerList==null)return true;
 		switch (event.getAction()) {
 		case MotionEvent.ACTION_DOWN:
-			for(ITouchEventHandler handlerList :touchEventHandlerList)
+			for(ITouchEventHandler handlerList :ITouchEventHandler.touchList)
 				handlerList.onTouchDown(event);
 			break;
 		case MotionEvent.ACTION_MOVE:
-			for(ITouchEventHandler handlerList :touchEventHandlerList)
+			for(ITouchEventHandler handlerList :ITouchEventHandler.touchList)
 				handlerList.onTouchMove(event);
 			break;
 		case MotionEvent.ACTION_UP:
-			for(ITouchEventHandler handlerList :touchEventHandlerList)
+			for(ITouchEventHandler handlerList :ITouchEventHandler.touchList)
 				handlerList.onTouchUp(event);
 			break;
 		}
@@ -51,6 +50,7 @@ public  abstract class DoitooView extends SurfaceView implements SurfaceHolder.C
 	
 
 	public void surfaceCreated(SurfaceHolder holder) {
+		  Log.d("surfaceCreated", "surfaceCreated");
          startGame(holder);
 
 	}
