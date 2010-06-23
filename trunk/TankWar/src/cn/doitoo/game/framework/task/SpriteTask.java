@@ -29,13 +29,13 @@ public abstract class SpriteTask extends DrawGraphicTask{
 		Log.d("SpriteTask", "drawing");
 		Canvas c =this.holder.lockCanvas();
 		c.drawBitmap(this.spriteBm, 0, 0,null);
-		drawTextOrOther();
+		drawTextOrOther(c);
 		this.holder.unlockCanvasAndPost(c);
 		
 	}
 
 
-	public abstract void drawTextOrOther();
+	public abstract void drawTextOrOther(Canvas c);
 
 	
 }
