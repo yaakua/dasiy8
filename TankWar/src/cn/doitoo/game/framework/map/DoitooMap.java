@@ -1,10 +1,9 @@
 package cn.doitoo.game.framework.map;
 
-import cn.doitoo.game.framework.context.GameContext;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
 
-public class DoitooMap extends GameContext{
+public class DoitooMap {
 
 	private int[][] mapRect;
 	private int rows;
