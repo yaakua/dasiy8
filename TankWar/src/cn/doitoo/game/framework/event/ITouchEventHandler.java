@@ -6,7 +6,7 @@ import java.util.List;
 import cn.doitoo.game.framework.context.GameContext;
 import android.view.MotionEvent;
 
-public abstract class ITouchEventHandler extends GameContext{
+public abstract class ITouchEventHandler {
 	
   public static List<ITouchEventHandler>   touchList = new ArrayList<ITouchEventHandler>();
 
