@@ -11,7 +11,7 @@ import android.graphics.Canvas;
  * @author Oliver O
  *
  */
-public abstract class MovableRole extends GameContext{
+public abstract class MovableRole{
 	private float oldX;
 
 	private float oldY;
