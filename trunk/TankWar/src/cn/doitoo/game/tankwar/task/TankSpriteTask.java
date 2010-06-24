@@ -3,6 +3,7 @@ package cn.doitoo.game.tankwar.task;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
+import android.graphics.Paint;
 import android.util.Log;
 import android.view.SurfaceHolder;
 import cn.doitoo.game.framework.task.DrawGraphicTask;
@@ -23,9 +24,11 @@ public class TankSpriteTask extends DrawGraphicTask{
 	public void draw() {
 		Log.d("TankSpriteTask", "draw");
 		Canvas c =this.holder.lockCanvas();
-		c.drawBitmap(this.spriteBm, 0, 0,null);
-		c.drawBitmap(this.startGame, 0, 0,null);
+		c.drawBitmap(this.spriteBm, 0, 0,new Paint());
+		c.drawBitmap(this.startGame, 150, 150,null);
 		this.holder.unlockCanvasAndPost(c);
 	}
 
+	
+	
 }
