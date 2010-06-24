@@ -4,16 +4,27 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
 
-public abstract class GameContext {
+/**
+ * 
+ * @author Oliver O
+ *
+ */
+public  class GameContext {
   
 	private static Map<String,Object> map = new HashMap<String,Object>();
     
-	public  Object get(String key){
+	public  static Object get(String key){
 		return map.get(key);
 	}
 	
-	protected  void set(String key,Object value){
+	public static  void set(String key,Object value){
+		if(!map.containsKey(key))
 		map.put(key, value);
+	}
+	public static  void set(String key,Object value,boolean modifiable){
+		if(modifiable&&!map.containsKey(key))map.put(key, value);
+		else if(modifiable&&map.containsKey(key))throw new RuntimeException("Access deny: "+key+" is not modifiable!");
+		else set(key, value);
 	}
 	
 	public  String listKeys(){
