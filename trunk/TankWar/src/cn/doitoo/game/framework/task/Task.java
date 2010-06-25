@@ -26,8 +26,8 @@ public abstract class Task  implements Runnable {
 	 */
 	private long forceEndTime = Long.MAX_VALUE;
 	private static ExecutorService es;
-	public static TaskRunner tr = TaskRunner.getInstance();
-	public static LinkedList<Task> taskList = tr.taskList;
+	private static TaskRunner tr = TaskRunner.getInstance();
+	public static LinkedList<Task> taskList = new LinkedList<Task>();
 	
 	protected boolean needThreadPool=true;//是否使用线程池
 	private Task parentTask;
@@ -42,7 +42,8 @@ public abstract class Task  implements Runnable {
 	 * @param t
 	 */
 	public static void add(Task t) {
-		tr.add(t);
+		taskList.add(t);//静态不变的任务队列
+		tr.add(t);//动态变化的任务队列
 	}
 
 	/**
@@ -52,7 +53,7 @@ public abstract class Task  implements Runnable {
 	 * @param parentTask
 	 */
 	public static void add(Task t,Task parentTask){
-		tr.add(t);
+	    add(t);
 		t.setParentTask(parentTask);
 	}
 	
@@ -90,6 +91,8 @@ public abstract class Task  implements Runnable {
 		if(this.isEnd)return;
 		if(tr.taskList.contains(this))
 		tr.taskList.remove(this);// TODO:考虑并发
+		if(taskList.contains(this))
+			taskList.remove(this);
 		this.setEnd(true);
 
 	}
@@ -121,7 +124,7 @@ public abstract class Task  implements Runnable {
 	protected abstract void doTask();
 
 	public void run() {//AOP
-		Log.d("Task", "run");
+		
 	   //if((parentTask!=null&&parentTask.isEnd)||parentTask==null)
 		doTask();
 		//Log.v("Task",this.getClass() + " lastStartTime:" + getStartTime()

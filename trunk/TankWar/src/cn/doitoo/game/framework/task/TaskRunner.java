@@ -36,7 +36,10 @@ public class TaskRunner extends TimerTask {
 	}
 
 	
-
+    /**
+     * 这是按照任务启动时间插入排序
+     * @param task
+     */
 	private void insert(Task task) {
 		synchronized (taskList) {
 			int index = -1;
@@ -82,8 +85,7 @@ public class TaskRunner extends TimerTask {
 				taskList.remove(t);
 				continue;
 			}
-			if (t.getStartTime() <= Clock.time) {
-				
+			if (t.getStartTime() <= Clock.time) {				
 			//	Log.v(this.getClass().getName(), "start remove task "+t.getClass().getName());
 				taskList.remove(t);
 				t.exec();

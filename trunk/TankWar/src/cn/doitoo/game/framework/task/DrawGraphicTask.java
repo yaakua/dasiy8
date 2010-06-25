@@ -13,7 +13,7 @@ public abstract class DrawGraphicTask extends Task{
 	}
 	@Override
 	protected void doTask() {
-		Log.d("DrawGraphicTask", "doTask");
+		
 		draw();
 		//TODO: the drawing will be paused because of gc
 //		Message msg = new Message();

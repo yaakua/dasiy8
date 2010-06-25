@@ -14,7 +14,7 @@ public class MapMoveEvent extends ITouchEventHandler{
 	private GestureDetector gestureDetector;
 	
 	public MapMoveEvent() {
-		map = (DoitooMap)GameContext.get(DrawMapTask.class.getName());
+		map = (DoitooMap)GameContext.get(DoitooMap.class.getName());
 		gestureDetector = new GestureDetector(new MyGestureDetector());
 	}
 
