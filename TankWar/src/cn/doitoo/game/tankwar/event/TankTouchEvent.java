@@ -1,6 +1,7 @@
 package cn.doitoo.game.tankwar.event;
 
 import android.graphics.Rect;
+import android.util.Log;
 import android.view.MotionEvent;
 import cn.doitoo.game.framework.event.ITouchEventHandler;
 import cn.doitoo.game.framework.task.Task;
@@ -16,6 +17,7 @@ public class TankTouchEvent extends ITouchEventHandler {
 		int ax = (int) event.getX();
 		int ay = (int) event.getY();
 		if(this.startGameRect.contains(ax, ay)){
+			Log.d("TankTouchEvent", t==null?"null":"not null");
 			if (t != null){
 				t.endTask();
 				//开始绘制地图task

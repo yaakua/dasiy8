@@ -21,7 +21,7 @@ public class DoitooMap {
 	 *  //则在 当前集合当中应当包含有此三种类型对应的Bitmap对象
 	 * </code>
 	 */
-	public static Map<Integer, Bitmap> ElementBitmaps = new LinkedHashMap<Integer, Bitmap>();
+	public static Map<String, Bitmap> ElementBitmaps = new LinkedHashMap<String, Bitmap>();
 
 	/**
 	 * 当前地图排列数据
@@ -47,11 +47,11 @@ public class DoitooMap {
 	/**
 	 * 地图每张元素的宽度
 	 */
-	private float elementWidth;
+	private float elementWidth=-1;
 	/**
 	 * 地图每张元素的高度
 	 */
-	private float elementHeight;
+	private float elementHeight=-1;
 
 	/**
 	 * 地图在当前屏幕当中的X坐标
@@ -85,15 +85,15 @@ public class DoitooMap {
 		for (int i = 0; i < resIds.length; i++) {
 			int resid = resIds[i];
 			Bitmap bitmap = Util.getBitMapById(context, resid);
-			ElementBitmaps.put(resid, bitmap);
+			if(this.elementHeight==-1)this.elementHeight=bitmap.getHeight();
+			if(this.elementWidth ==-1)this.elementWidth=bitmap.getWidth();
+			ElementBitmaps.put(""+(i+1), bitmap);
 		}
 		if (ElementBitmaps.isEmpty()) {
 			throw new ViewException("ElementBitmaps is empty 地图当中的图片资源为空");
 		}
 		// 初始化世界地图的高度与宽度及地图元素的高度与宽度，默认取第一张元素的高宽为标准
-		Bitmap bitmap = ElementBitmaps.get(0);
-		this.elementHeight = bitmap.getHeight();
-		this.elementWidth = bitmap.getWidth();
+	
 		width = this.cols * elementHeight;
 		height = this.rows * elementWidth;
 	}
@@ -115,7 +115,7 @@ public class DoitooMap {
 				int elementX = (int) (deltaX + j * this.elementWidth);
 				int elementY = (int) (deltaY + i * this.elementWidth);
 				int index = mapRect[i][j];
-				Bitmap source = ElementBitmaps.get(index);
+				Bitmap source = ElementBitmaps.get(""+index);
 				Rect src = new Rect(0, 0, (int) this.elementWidth, (int) this.elementWidth);
 				Rect dst = new Rect(elementX, elementY, (int) (elementX + this.elementWidth), (int) (elementY + this.elementWidth));
 				c.drawBitmap(source, src, dst, null);
