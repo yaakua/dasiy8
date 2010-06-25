@@ -88,9 +88,7 @@ public abstract class Task  implements Runnable {
 	 * @param t
 	 */
 	public void endTask() {
-		if(this.isEnd)return;
-		if(tr.taskList.contains(this))
-		tr.taskList.remove(this);// TODO:¿¼ÂÇ²¢·¢
+		if(this.isEnd)return;		
 		if(taskList.contains(this))
 			taskList.remove(this);
 		this.setEnd(true);
