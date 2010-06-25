@@ -5,106 +5,108 @@ import java.util.Timer;
 import java.util.TimerTask;
 
 /**
- * how to use:
- * Task.add(task);
- * the task will be run at the startTime
+ * how to use: Task.add(task); the task will be run at the startTime
+ * 
  * @author Oliver O
- *
+ * 
  */
 public class TaskRunner extends TimerTask {
 
 	public LinkedList<Task> taskList = new LinkedList<Task>();
 
 	private static TaskRunner tr;
-	
+
 	private Timer t;
-	
-	private TaskRunner(){
-		
+
+	private TaskRunner() {
+
 	}
-	public static TaskRunner getInstance(){
-		if(tr ==null)	tr = new TaskRunner();
+
+	public static TaskRunner getInstance() {
+		if (tr == null)
+			tr = new TaskRunner();
 		return tr;
 	}
 
 	public void add(Task task) {
 		if (t == null) {
-		   t = new Timer();
-		   t.scheduleAtFixedRate(this, 0, 1);//1 ms
+			t = new Timer();
+			t.scheduleAtFixedRate(this, 0, 1);// 1 ms
 		}
 		insert(task);
 	}
 
-	
-    /**
-     * 这是按照任务启动时间插入排序
-     * @param task
-     */
+	/**
+	 * 这是按照任务启动时间插入排序
+	 * 
+	 * @param task
+	 */
 	private void insert(Task task) {
 		synchronized (taskList) {
 			int index = -1;
 			for (int i = 0; i < taskList.size(); i++) {
 				Task t = taskList.get(i);
 				if (task.getStartTime() <= t.getStartTime()) {
-					index=i;
+					index = i;
 					break;
 				}
-				
+
 			}
-			if(index!=-1){
-				taskList.add(index,task);
-			}
-			else {// insert into the end
+			if (index != -1) {
+				taskList.add(index, task);
+			} else {// insert into the end
 				taskList.add(task);
-				
+
 			}
-		
-			if(!taskList.contains(task)){
-				throw new RuntimeException(task.getClass().getName()+" insert failed!");
+
+			if (!taskList.contains(task)) {
+				throw new RuntimeException(task.getClass().getName()
+						+ " insert failed!");
 			}
 		}
-		
-	}
-	
 
+	}
 
 	@Override
 	public void run() {
 		Clock.time += 1;
 		synchronized (taskList) {
-		int size = taskList.size();
-		
-		for (int i = 0; i < size; i++) {
-			Task t = taskList.get(i);
-		   if(t.isEnd()){
-			   taskList.remove(t);
-			   continue;
-		   }
-		 // Log.v(this.getClass().getCanonicalName(), "t:"+t.getClass().getName()+"  startTime:"+t.getStartTime()+" interval:"+t.getIntervalTime());
-		
-			if(Clock.time>=t.getForceEndTime()){
-			    t.setEnd(true);
-				//Log.v(this.getClass().getName(), "end remove task "+t.getClass().getName());
-				taskList.remove(t);
-				continue;
-			}
-			if (t.getStartTime() <= Clock.time) {				
-			//	Log.v(this.getClass().getName(), "start remove task "+t.getClass().getName());
-				taskList.remove(t);
-				t.exec();
-				if (t.getIntervalTime() >= 0) {
-					t.setStartTime(Clock.time + t.getIntervalTime());
-					insert(t);
-				}
+			int size = taskList.size();
 
-			} else {
-				
-				break;
+			for (int i = 0; i < size; i++) {
+				Task t = taskList.get(i);
+				if (t.isEnd()) {
+					taskList.remove(t);
+					continue;
+				}
+				// Log.v(this.getClass().getCanonicalName(),
+				// "t:"+t.getClass().getName()+"  startTime:"+t.getStartTime()+" interval:"+t.getIntervalTime());
+
+				if (Clock.time >= t.getForceEndTime()) {
+					t.setEnd(true);
+					// Log.v(this.getClass().getName(),
+					// "end remove task "+t.getClass().getName());
+					taskList.remove(t);
+					continue;
+				}
+				if (t.getStartTime() <= Clock.time) {
+					// Log.v(this.getClass().getName(),
+					// "start remove task "+t.getClass().getName());
+					taskList.remove(t);
+					t.exec();
+					if (t.getIntervalTime() >= 0) {
+						t.setStartTime(Clock.time + t.getIntervalTime());
+						insert(t);
+					}
+
+				} else {
+
+					break;
+				}
 			}
+
 		}
 
 	}
-		
-	}
-	
+
 }
