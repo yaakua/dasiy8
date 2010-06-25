@@ -15,4 +15,6 @@ public class Util {
 	public static Bitmap getBitMapById(Context context,int id){
 		return  BitmapFactory.decodeStream(context.getResources().openRawResource(id));
 	}
+	
+	
 }
