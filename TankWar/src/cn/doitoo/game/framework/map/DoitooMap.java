@@ -3,6 +3,7 @@ package cn.doitoo.game.framework.map;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
+import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Rect;
@@ -71,7 +72,7 @@ public class DoitooMap {
 	 * @param resIds
 	 *            地图元素ID数组
 	 */
-	public DoitooMap(int[][] mapRect,  int[] resIds) {
+	public DoitooMap(int[][] mapRect,  int[] resIds,Context context) {
 		// 初始化世界地图的行与列数
 		this.rows = mapRect.length;
 		if (this.rows == 0) {
@@ -83,7 +84,7 @@ public class DoitooMap {
 		// 获取当前地图元素对应的图片资源，下标与排列数组当中的元素类型保持一致
 		for (int i = 0; i < resIds.length; i++) {
 			int resid = resIds[i];
-			Bitmap bitmap = Util.getBitMapById(CONTEXT, resid);
+			Bitmap bitmap = Util.getBitMapById(context, resid);
 			ElementBitmaps.put(resid, bitmap);
 		}
 		if (ElementBitmaps.isEmpty()) {

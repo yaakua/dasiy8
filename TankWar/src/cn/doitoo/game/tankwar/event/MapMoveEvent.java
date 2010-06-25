@@ -3,6 +3,7 @@ package cn.doitoo.game.tankwar.event;
 import android.view.GestureDetector;
 import android.view.MotionEvent;
 import android.view.GestureDetector.SimpleOnGestureListener;
+import cn.doitoo.game.framework.context.GameContext;
 import cn.doitoo.game.framework.event.ITouchEventHandler;
 import cn.doitoo.game.framework.exception.ViewException;
 import cn.doitoo.game.framework.map.DoitooMap;
@@ -13,7 +14,7 @@ public class MapMoveEvent extends ITouchEventHandler{
 	private GestureDetector gestureDetector;
 	
 	public MapMoveEvent() {
-		map = (DoitooMap)this.get(DrawMapTask.class.getName());
+		map = (DoitooMap)GameContext.get(DrawMapTask.class.getName());
 		gestureDetector = new GestureDetector(new MyGestureDetector());
 	}
 

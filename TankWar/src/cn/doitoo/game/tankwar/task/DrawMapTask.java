@@ -1,7 +1,10 @@
 package cn.doitoo.game.tankwar.task;
 
+import android.content.Context;
 import android.graphics.Canvas;
 import android.util.Log;
+import android.view.SurfaceHolder;
+import cn.doitoo.game.framework.context.GameContext;
 import cn.doitoo.game.framework.map.DoitooMap;
 import cn.doitoo.game.framework.task.DrawGraphicTask;
 import cn.doitoo.game.tankwar.R;
@@ -9,6 +12,8 @@ import cn.doitoo.game.tankwar.R;
 public class DrawMapTask extends DrawGraphicTask{
 
 	private DoitooMap map =null;
+
+	private SurfaceHolder holder;
 	
 	/**
 	 * 地图分布图（第一关）
@@ -33,19 +38,21 @@ public class DrawMapTask extends DrawGraphicTask{
 	
 	
 	public DrawMapTask() {
+		this.holder = (SurfaceHolder)GameContext.get("holder");
+		Context context = (Context)GameContext.get("context");
 		int[] resIds = {R.drawable.tile_breakable,R.drawable.tile_breakable1
 				,R.drawable.tile_regular2,R.drawable.tile_trench1};
-		 map = new DoitooMap(tank_map1,resIds);
+		 map = new DoitooMap(tank_map1,resIds,context);
 		 //保存当前map对象至全局变量当中，以便其它类获取当前地图对象
-		 this.set(this.getName(), map);
+		 GameContext.set(map.getClass().getName(), map);
 	}
 
 	@Override
 	public void draw() {
 		Log.d("DrawMapTask", "draw");
-		Canvas c =HOLDER.lockCanvas();
+		Canvas c =holder.lockCanvas();
 		map.draw(c);
-		HOLDER.unlockCanvasAndPost(c);
+		holder.unlockCanvasAndPost(c);
 		
 	}
 

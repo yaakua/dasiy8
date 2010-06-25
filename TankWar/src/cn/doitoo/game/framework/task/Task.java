@@ -6,9 +6,7 @@ import java.util.concurrent.Executors;
 
 import android.util.Log;
 
-import cn.doitoo.game.framework.context.GameContext;
-
-public abstract class Task extends GameContext implements Runnable {
+public abstract class Task  implements Runnable {
 	/**
 	 * 相对Clock.time的时间
 	 */

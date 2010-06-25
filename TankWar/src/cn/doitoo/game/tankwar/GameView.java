@@ -20,11 +20,10 @@ public class GameView extends DoitooView {
 	@Override
 	protected void initTasks(SurfaceHolder holder) {
 		 Log.d(TAG, "initTasks");
-		 //第一步必须 初始化 GameContext
-		 Context context = getContext();
-		 GameContext.init(holder, context);
-		 ITouchEventHandler.touchList.add(new TankTouchEvent());
-		 
+		 //第一步必须 初始化 GameContext	
+		 GameContext.set("holder", holder);
+		 GameContext.set("context", getContext());
+		 ITouchEventHandler.touchList.add(new TankTouchEvent());		 
 		 Task tankSpriteTask = new TankSpriteTask();
          Task.add(tankSpriteTask);
 	}
