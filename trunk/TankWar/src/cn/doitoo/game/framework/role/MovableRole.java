@@ -21,6 +21,20 @@ public abstract class MovableRole{
 	private float y;
 	
 	private boolean isMoving;
+	
+	/**
+	 * 角色动画步骤
+	 */
+	private int[] step_array = {0};
+	/**
+	 * 当前角色所处动画的步数
+	 */
+	private int step;
+	
+	/**
+	 * 是否显示
+	 */
+	private boolean isVisabled;
 
 	public enum move_direct {
 		LEFT, UP, DOWN, RIGHT
@@ -28,10 +42,13 @@ public abstract class MovableRole{
 
 	public static List<MovableRole> movableRoleList = new LinkedList<MovableRole>();
 
-	public MovableRole() {
-
+	public MovableRole(float x,float y) {
+		super();
+		this.x = x;
+		this.y = y;
+		this.oldX = x;
+		this.oldY = y;
 		movableRoleList.add(this);
-
 	}
 
 	public abstract int getWidth();
@@ -85,6 +102,30 @@ public abstract class MovableRole{
 
 	public boolean isMoving() {
 		return isMoving;
+	}
+
+	public boolean isVisabled() {
+		return isVisabled;
+	}
+
+	public void setVisabled(boolean isVisabled) {
+		this.isVisabled = isVisabled;
+	}
+
+	public int[] getStep_array() {
+		return step_array;
+	}
+
+	public void setStep_array(int[] step_array) {
+		this.step_array = step_array;
+	}
+
+	public int getStep() {
+		return step;
+	}
+
+	public void setStep(int step) {
+		this.step = step;
 	}
 
 }

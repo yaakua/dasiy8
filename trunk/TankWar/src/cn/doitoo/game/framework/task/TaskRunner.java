@@ -56,11 +56,11 @@ public class TaskRunner extends TimerTask {
 				
 			}
 		
+			if(!taskList.contains(task)){
+				throw new RuntimeException(task.getClass().getName()+" insert failed!");
+			}
 		}
 		
-		if(!taskList.contains(task)){
-			throw new RuntimeException(task.getClass().getName()+" insert failed!");
-		}
 	}
 	
 

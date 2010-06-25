@@ -3,6 +3,7 @@ package cn.doitoo.game.tankwar;
 import android.app.Activity;
 import android.content.pm.ActivityInfo;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Window;
 import android.view.WindowManager;
 
@@ -19,6 +20,7 @@ public class TankWar extends Activity {
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         
        setContentView(new GameView(this));
+       Log.d("TankWar","onCreate");
          //setContentView(R.layout.main);
     }
     
