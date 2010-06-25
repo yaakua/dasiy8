@@ -7,11 +7,9 @@ import android.os.Message;
 import android.util.Log;
 
 public abstract class DrawGraphicTask extends Task{
- 
 	public DrawGraphicTask(){
 		needThreadPool = false;
 		setIntervalTime(1);
-		
 	}
 	@Override
 	protected void doTask() {
@@ -34,6 +32,4 @@ public abstract class DrawGraphicTask extends Task{
 	}
 
 	public abstract void draw();
-   
-   
 }

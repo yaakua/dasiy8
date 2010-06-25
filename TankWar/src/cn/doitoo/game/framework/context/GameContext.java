@@ -4,15 +4,28 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
 
+import cn.doitoo.game.framework.exception.ViewException;
+
+import android.content.Context;
+import android.view.SurfaceHolder;
+
 /**
  * 
  * @author Oliver O
  *
  */
 public  class GameContext {
-  
+	protected static SurfaceHolder HOLDER;
+	protected static Context CONTEXT;
+	
+	public GameContext() {
+		if(HOLDER==null ||CONTEXT==null){
+			throw new ViewException("GameContext.HOLDER or GameContext.CONTEXT is null");
+		}
+	}
+
 	private static Map<String,Object> map = new HashMap<String,Object>();
-    
+	
 	public  static Object get(String key){
 		return map.get(key);
 	}
@@ -35,6 +48,9 @@ public  class GameContext {
 		}
 		return sb.toString();
 	}
-  
-  
+
+	public static void init(SurfaceHolder holder,Context context){
+		GameContext.HOLDER =holder;
+		GameContext.CONTEXT = context;
+	}
 }
