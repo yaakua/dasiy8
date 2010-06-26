@@ -19,7 +19,7 @@ public class UtilTest {
         System.out.println("j-length:"+vector[0].length);
     }
     @Test
-    public static void testD(String[] args) {
+    public  void testD() {
 		int gameMap[][] =Util.gameMap01Vector(DrawMapTask.tank_map1, 1);
 		int [][] adjVect = Floyd.gameMap2adjVect(gameMap,gameMap[0].length,gameMap.length);
 		for (int i = 0; i < adjVect.length; i++) {

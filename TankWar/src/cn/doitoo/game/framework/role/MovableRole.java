@@ -49,9 +49,9 @@ public abstract class MovableRole{
 		movableRoleList.add(this);
 	}
 
-	public abstract int getWidth();
+	public abstract float getWidth();
 
-	public abstract int getHeight();
+	public abstract float getHeight();
 	
 	public abstract void move();
 	
@@ -62,32 +62,26 @@ public abstract class MovableRole{
 	 */
 	public abstract void paint(Canvas c);
 
-	public void setOldY(float oldY) {
-		this.oldY = oldY;
-	}
+    public void stay(){
+        this.x = this.oldX;
+        this.y = this.oldY;
+    }
 
-	public float getOldY() {
-		return oldY;
-	}
-
-	public void setOldX(float oldX) {
-		this.oldX = oldX;
-	}
-
-	public float getOldX() {
-		return oldX;
-	}
-
-	public void setX(float x) {
+	/**
+	 * 先保存角色改变前的坐标再改变角色坐标，
+	 * @param x 角色新的X坐标
+	 * @param y 角色新的Y坐标
+	 */
+	public void setPosition(float x, float y) {
+		this.oldX = getX();
+		this.oldY = getY();
 		this.x = x;
+        this.y = y;
+
 	}
 
 	public float getX() {
 		return x;
-	}
-
-	public void setY(float y) {
-		this.y = y;
 	}
 
 	public float getY() {

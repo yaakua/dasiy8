@@ -8,9 +8,10 @@ import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Rect;
 import cn.doitoo.game.framework.exception.ViewException;
+import cn.doitoo.game.framework.role.MovableRole;
 import cn.doitoo.game.framework.util.Util;
 
-public class DoitooMap {
+public class DoitooMap extends MovableRole {
 
 	/**
 	 * 世界地图元素组成集合，与地图排列数组当中的值的类型一致。 <code>
@@ -52,14 +53,6 @@ public class DoitooMap {
 	 */
 	private float elementHeight=-1;
 
-	/**
-	 * 地图在当前屏幕当中的X坐标
-	 */
-	private float x = 0;
-	/**
-	 * 地图在当前屏幕当中的Y坐标
-	 */
-	private float y = 0;
 
 	/**
 	 * 构造世界地图，并初始化地图的高宽，加载地图元素对应的图片资源
@@ -70,9 +63,12 @@ public class DoitooMap {
 	 *            资源上下文
 	 * @param resIds
 	 *            地图元素ID数组
+     * @param x 地图初始化X坐标
+     * @param y 地图初始化Y坐标
 	 */
-	public DoitooMap(int[][] mapRect,  int[] resIds,Context context) {
-		// 初始化世界地图的行与列数
+	public DoitooMap(int[][] mapRect,  int[] resIds,Context context,float x,float y) {
+		super(x,y);
+        // 初始化世界地图的行与列数
 		this.rows = mapRect.length;
 		if (this.rows == 0) {
 			throw new ViewException("地图排列数组为空");
@@ -96,49 +92,31 @@ public class DoitooMap {
 		width = this.cols * elementHeight;
 		height = this.rows * elementWidth;
 	}
+      @Override
+    public void move() {
+       //地图暂时不需要自动移动
+    }
 
-	/**
+    /**
 	 * 绘出世界地图
-	 * 
-	 * @param c
-	 * @param deltaX
-	 *            世界地图在屏幕上的X坐标
-	 * @param deltaY
-	 *            世界地图在屏幕上的Y坐标
+	 * @param c  Canvas
 	 */
-	public void draw(Canvas c) {
-		float deltaX = getX();
+    @Override
+    public void paint(Canvas c) {
+        float deltaX = getX();
 		float deltaY = getY();
 		for (int i = 0; i < rows; i++) {
 			for (int j = 0; j < cols; j++) {
 				int elementX = (int) (deltaX + j * this.elementWidth);
-				int elementY = (int) (deltaY + i * this.elementWidth);
+				int elementY = (int) (deltaY + i * this.elementHeight);
 				int index = mapRect[i][j];
 				Bitmap source = ElementBitmaps.get(""+index);
 				Rect src = new Rect(0, 0, (int) this.elementWidth, (int) this.elementWidth);
-				Rect dst = new Rect(elementX, elementY, (int) (elementX + this.elementWidth), (int) (elementY + this.elementWidth));
+				Rect dst = new Rect(elementX, elementY, (int) (elementX + this.elementWidth), (int) (elementY + this.elementHeight));
 				c.drawBitmap(source, src, dst, null);
-				// c.drawBitmap(bms[mapRect[i][j]-1], left, top, null);
 			}
-
 		}
-	}
-
-	public float getX() {
-		return x;
-	}
-
-	public void setX(float x) {
-		this.x = x;
-	}
-
-	public float getY() {
-		return y;
-	}
-
-	public void setY(float y) {
-		this.y = y;
-	}
+    }
 
 	public float getWidth() {
 		return width;
@@ -152,7 +130,9 @@ public class DoitooMap {
 		return height;
 	}
 
-	public void setHeight(float height) {
+
+
+    public void setHeight(float height) {
 		this.height = height;
 	}
 }
