@@ -8,8 +8,18 @@ import cn.doitoo.game.framework.math.LinearSolver;
 
 public class GestureMoveEvent extends ITouchEventHandler{
 	
-	private float preX;
-	private float preY;
+	private float preX=-1;
+	private float preY=-1;
+	private DoitooMap map;
+	private Float screenHeight;
+	private Float screenWidth;
+
+    
+    public GestureMoveEvent(){
+      map = (DoitooMap) G.get(DoitooMap.class.getName());
+        screenHeight = (Float) G.get("screenHeight");
+        screenWidth = (Float) G.get("screenWidth");
+    }
 
 	@Override
 	public void onTouchDown(MotionEvent event) {
@@ -22,12 +32,13 @@ public class GestureMoveEvent extends ITouchEventHandler{
 	public void onTouchMove(MotionEvent event) {
       float x =  event.getX();
       float y = event.getY();
-      if(LinearSolver.distance(preX, preY, x, y)<2)return ;
+    
       float deltaX = x-preX;
       float deltaY = y-preY;
       
-      DoitooMap  map = (DoitooMap) G.get(DoitooMap.class.getName());
-      map.setPosition(map.getX()+deltaX, map.getY()+deltaY);
+      float px =Math.min(Math.max(map.getX()+deltaX, screenWidth-map.getWidth()), 0); 
+      float py = Math.min(Math.max(map.getY()+deltaY, screenHeight-map.getHeight()), 0);
+      map.setPosition(px, py);
       preX = x;
       preY = y;
 		
