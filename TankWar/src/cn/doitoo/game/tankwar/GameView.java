@@ -3,7 +3,7 @@ package cn.doitoo.game.tankwar;
 import android.content.Context;
 import android.util.Log;
 import android.view.SurfaceHolder;
-import cn.doitoo.game.framework.context.GameContext;
+import cn.doitoo.game.framework.context.G;
 import cn.doitoo.game.framework.event.ITouchEventHandler;
 import cn.doitoo.game.framework.graphic.DoitooView;
 import cn.doitoo.game.framework.task.Task;
@@ -20,9 +20,9 @@ public class GameView extends DoitooView {
 	@Override
 	protected void initTasks(SurfaceHolder holder) {
 		 Log.d(TAG, "initTasks");
-		 //第一步必须 初始化 GameContext	
-		 GameContext.set("holder", holder);
-		 GameContext.set("context", getContext());
+		 //第一步必须 初始化 G
+		 G.set("holder", holder);
+		 G.set("context", getContext());
 		 ITouchEventHandler.touchList.add(new TankTouchEvent());		 
 		 Task tankSpriteTask = new TankSpriteTask();
          Task.add(tankSpriteTask);

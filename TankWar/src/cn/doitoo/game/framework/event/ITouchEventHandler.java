@@ -3,8 +3,6 @@ package cn.doitoo.game.framework.event;
 import java.util.ArrayList;
 import java.util.List;
 
-import cn.doitoo.game.framework.context.GameContext;
-
 import android.view.MotionEvent;
 
 public abstract class ITouchEventHandler {
