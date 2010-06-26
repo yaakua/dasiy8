@@ -47,7 +47,7 @@ public class DrawMapTask extends DrawGraphicTask{
 		Context context = (Context) G.get("context");
 		int[] resIds = {R.drawable.tile_regular2,R.drawable.tile_breakable,R.drawable.tile_breakable1
 				,R.drawable.tile_trench1};
-		 map = new DoitooMap(tank_map1,resIds,context);
+		 map = new DoitooMap(tank_map1,resIds,context,0,0);
 		 //保存当前map对象至全局变量当中，以便其它类获取当前地图对象
 		 G.set(map.getClass().getName(), map);
 	}
@@ -55,7 +55,7 @@ public class DrawMapTask extends DrawGraphicTask{
 	@Override
 	public void draw() {
 		Canvas c =holder.lockCanvas();
-		map.draw(c);
+		map.paint(c);
 		holder.unlockCanvasAndPost(c);
 		
 	}
