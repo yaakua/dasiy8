@@ -23,7 +23,7 @@ public class TankTouchEvent extends ITouchEventHandler {
 				//开始绘制地图task
 				DrawMapTask drawMapTask = new DrawMapTask();
 				Task.add(drawMapTask);
-				ITouchEventHandler.touchList.add(new MapMoveEvent());
+				ITouchEventHandler.touchList.add(new GestureMoveEvent());
 				if (ITouchEventHandler.touchList.contains(this))
 					ITouchEventHandler.touchList.remove(this);
 			}

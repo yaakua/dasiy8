@@ -8,7 +8,11 @@ import cn.doitoo.game.framework.context.G;
 import cn.doitoo.game.framework.event.ITouchEventHandler;
 import cn.doitoo.game.framework.exception.ViewException;
 import cn.doitoo.game.framework.map.DoitooMap;
+import cn.doitoo.game.framework.math.LinearSolver;
 
+/**
+ * @deprecated
+ */
 public class MapMoveEvent extends ITouchEventHandler {
     private DoitooMap map = null;
     private GestureDetector gestureDetector;
@@ -23,16 +27,20 @@ public class MapMoveEvent extends ITouchEventHandler {
     /**
      * ´¥ÃþÎó²î·¶Î§
      */
-    private int touchRect = 5;
+    private int touchRect = 2;
 
     /**
      * µØÍ¼ÒÆ¶¯ËÙ¶È
      */
     private int speed = 10;
 
+    private float touchDownX;
+    private float touchDownY;
+
+
     public MapMoveEvent() {
         map = (DoitooMap) G.get(DoitooMap.class.getName());
-        gestureDetector = new GestureDetector(new MyGestureDetector());
+//        gestureDetector = new GestureDetector(new MyGestureDetector());
         screenHeight = (Float) G.get("screenHeight");
         screenWidth = (Float) G.get("screenWidth");
     }
@@ -42,7 +50,9 @@ public class MapMoveEvent extends ITouchEventHandler {
         if (map == null) {
             throw new ViewException("map is null");
         }
-        gestureDetector.onTouchEvent(event);
+        touchDownX = event.getX();
+        touchDownY = event.getY();
+//        gestureDetector.onTouchEvent(event);
     }
 
     @Override
@@ -50,15 +60,39 @@ public class MapMoveEvent extends ITouchEventHandler {
         if (map == null) {
             throw new ViewException("map is null");
         }
-        gestureDetector.onTouchEvent(event);
+
+        float distanceX = touchDownX - event.getX();
+        float distanceY =touchDownY - event.getY();
+        float x = map.getX();
+        float y = map.getY();
+//        if(LinearSolver.distance(touchDownX, touchDownY, x, y)<2)return ;
+        
+        if (distanceX > 0 && Math.abs(distanceX) > touchRect && Math.abs(distanceX) > Math.abs(distanceY)) {  //Left
+            if (x <= screenWidth - map.getWidth()) x = screenWidth - map.getWidth();
+            Log.d("Fling", "left");
+        } else if (distanceX < 0 && Math.abs(distanceX) > touchRect && Math.abs(distanceX) > Math.abs(distanceY)) { //right
+            if (x >= 0) x = 0;
+            Log.d("Fling", "right");
+        } else if (distanceY > 0 && Math.abs(distanceY) > touchRect && Math.abs(distanceY) > Math.abs(distanceX)) {   //top
+            if (y <= screenHeight - map.getHeight())
+                y = (screenHeight - map.getHeight());
+            Log.d("Fling", "top");
+        } else if (distanceY < 0 && Math.abs(distanceY) > touchRect && Math.abs(distanceY) > Math.abs(distanceX)) {    //bottom
+            if (y >= 0) y = 0;
+            Log.d("Fling", "bottom");
+        }
+        map.setPosition(x+distanceX, y+distanceY);
+
+
+//        gestureDetector.onTouchEvent(event);
     }
 
     @Override
     public void onTouchUp(MotionEvent event) {
-         if (map == null) {
+        if (map == null) {
             throw new ViewException("map is null");
         }
-        gestureDetector.onTouchEvent(event);
+//        gestureDetector.onTouchEvent(event);
     }
 
     class MyGestureDetector extends SimpleOnGestureListener {
@@ -83,22 +117,22 @@ public class MapMoveEvent extends ITouchEventHandler {
             Log.i("Fling", "onScroll");
             float x = map.getX();
             float y = map.getY();
-            if (distanceX > 0 && Math.abs(distanceX) > touchRect &&Math.abs(distanceX)>Math.abs(distanceY)) {  //Left
+            if (distanceX > 0 && Math.abs(distanceX) > touchRect && Math.abs(distanceX) > Math.abs(distanceY)) {  //Left
                 x -= Math.abs(distanceX);
-               if(x<=screenWidth - map.getWidth())x =screenWidth - map.getWidth();
+                if (x <= screenWidth - map.getWidth()) x = screenWidth - map.getWidth();
                 Log.d("Fling", "left");
-            } else if (distanceX < 0 && Math.abs(distanceX) > touchRect&&Math.abs(distanceX)>Math.abs(distanceY)) { //right
+            } else if (distanceX < 0 && Math.abs(distanceX) > touchRect && Math.abs(distanceX) > Math.abs(distanceY)) { //right
                 x += Math.abs(distanceX);
-                if (x>= 0) x = 0;
+                if (x >= 0) x = 0;
                 Log.d("Fling", "right");
-            } else if (distanceY > 0 && Math.abs(distanceY) > touchRect&&Math.abs(distanceY)>Math.abs(distanceX)) {   //top
+            } else if (distanceY > 0 && Math.abs(distanceY) > touchRect && Math.abs(distanceY) > Math.abs(distanceX)) {   //top
                 y -= Math.abs(distanceY);
                 if (y <= screenHeight - map.getHeight())
                     y = (screenHeight - map.getHeight());
 
                 Log.d("Fling", "top");
-            } else if (distanceY < 0 && Math.abs(distanceY) > touchRect&&Math.abs(distanceY)>Math.abs(distanceX)) {    //bottom
-                 y += Math.abs(distanceY);
+            } else if (distanceY < 0 && Math.abs(distanceY) > touchRect && Math.abs(distanceY) > Math.abs(distanceX)) {    //bottom
+                y += Math.abs(distanceY);
                 if (y >= 0) y = 0;
                 Log.d("Fling", "bottom");
             }
