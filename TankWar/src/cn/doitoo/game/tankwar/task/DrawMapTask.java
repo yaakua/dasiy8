@@ -36,10 +36,10 @@ public class DrawMapTask extends DrawGraphicTask{
 		};
 
     /**
-     * 当前地图排列数组当中代表非障碍物的类型
-     * 凡是小于等于此值都为非障碍物
+     * 当前地图排列数组当中代表通道的类型
+     * 凡是小于等于此值都为通道
      */
-	public static final int tank_map_bg = 1;
+	public static final int passValue = 1;
 
 
 	public DrawMapTask() {

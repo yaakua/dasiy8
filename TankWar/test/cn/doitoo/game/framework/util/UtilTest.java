@@ -12,7 +12,7 @@ import org.junit.Test;
 public class UtilTest {
     @Test
     public void testGameMap01Vector() throws Exception {
-        int[][] vector = Util.gameMap01Vector(DrawMapTask.tank_map1,DrawMapTask.tank_map_bg);
+        int[][] vector = Util.gameMap01Vector(DrawMapTask.tank_map1,DrawMapTask.passValue);
         System.out.println("i-length:"+vector.length);
         System.out.println("j-length:"+vector[0].length);
     }
