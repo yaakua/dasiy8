@@ -3,8 +3,6 @@ package cn.doitoo.game.framework.role;
 import java.util.LinkedList;
 import java.util.List;
 
-import cn.doitoo.game.framework.context.GameContext;
-
 import android.graphics.Canvas;
 /**
  * TODO add other functions 

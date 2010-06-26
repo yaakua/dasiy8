@@ -9,7 +9,7 @@ import java.util.Set;
  * @author Oliver O
  * 
  */
-public class GameContext {
+public class G {
 
 	private static Map<String, Object> map = new LinkedHashMap<String, Object>();
 

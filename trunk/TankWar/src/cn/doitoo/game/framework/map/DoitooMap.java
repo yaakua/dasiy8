@@ -7,7 +7,6 @@ import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Rect;
-import cn.doitoo.game.framework.context.GameContext;
 import cn.doitoo.game.framework.exception.ViewException;
 import cn.doitoo.game.framework.util.Util;
 

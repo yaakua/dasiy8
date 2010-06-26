@@ -6,7 +6,7 @@ import android.graphics.Canvas;
 import android.graphics.Paint;
 import android.util.Log;
 import android.view.SurfaceHolder;
-import cn.doitoo.game.framework.context.GameContext;
+import cn.doitoo.game.framework.context.G;
 import cn.doitoo.game.framework.task.DrawGraphicTask;
 import cn.doitoo.game.framework.util.Util;
 import cn.doitoo.game.tankwar.R;
@@ -16,8 +16,8 @@ public class TankSpriteTask extends DrawGraphicTask{
 	private Bitmap startGame;
 	private SurfaceHolder holder;
 	public TankSpriteTask() {
-		this.holder = (SurfaceHolder)GameContext.get("holder");
-		Context context = (Context)GameContext.get("context");
+		this.holder = (SurfaceHolder) G.get("holder");
+		Context context = (Context) G.get("context");
 		spriteBm = Util.getBitMapById(context, R.drawable.loadmain);
 		startGame = Util.getBitMapById(context, R.drawable.btstart);
 	}	
