@@ -53,7 +53,7 @@ public abstract class DoitooView extends SurfaceView implements
 	}
 
 	public void surfaceDestroyed(SurfaceHolder holder) {
-		// TODO Auto-generated method stub
+		System.exit(1);
 		
 	}
 
