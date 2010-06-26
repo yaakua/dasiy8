@@ -35,11 +35,14 @@ public class MapMoveEvent extends ITouchEventHandler {
         gestureDetector = new GestureDetector(new MyGestureDetector());
         screenHeight = (Float) G.get("screenHeight");
         screenWidth = (Float) G.get("screenWidth");
-
     }
 
     @Override
     public void onTouchDown(MotionEvent event) {
+        if (map == null) {
+            throw new ViewException("map is null");
+        }
+        gestureDetector.onTouchEvent(event);
     }
 
     @Override
@@ -48,15 +51,14 @@ public class MapMoveEvent extends ITouchEventHandler {
             throw new ViewException("map is null");
         }
         gestureDetector.onTouchEvent(event);
-        // if (gestureDetector.onTouchEvent(event))
-        // return true;
-        // else
-        // return false;
     }
 
     @Override
     public void onTouchUp(MotionEvent event) {
-
+         if (map == null) {
+            throw new ViewException("map is null");
+        }
+        gestureDetector.onTouchEvent(event);
     }
 
     class MyGestureDetector extends SimpleOnGestureListener {
@@ -81,25 +83,23 @@ public class MapMoveEvent extends ITouchEventHandler {
             Log.i("Fling", "onScroll");
             float x = map.getX();
             float y = map.getY();
-
-            if (distanceX > 0 && Math.abs(distanceX) > touchRect) {  //Left
-                x -= speed;
-//                if (x >= screenWidth - map.getWidth())
-//                    x = (screenWidth - map.getWidth());
+            if (distanceX > 0 && Math.abs(distanceX) > touchRect &&Math.abs(distanceX)>Math.abs(distanceY)) {  //Left
+                x -= Math.abs(distanceX);
+               if(x<=screenWidth - map.getWidth())x =screenWidth - map.getWidth();
                 Log.d("Fling", "left");
-            } else if (distanceX < 0 && Math.abs(distanceX) > touchRect) { //right
-                x += speed;
-//                if (x <= 0) x = 0;
+            } else if (distanceX < 0 && Math.abs(distanceX) > touchRect&&Math.abs(distanceX)>Math.abs(distanceY)) { //right
+                x += Math.abs(distanceX);
+                if (x>= 0) x = 0;
                 Log.d("Fling", "right");
-            } else if (distanceY > 0 && Math.abs(distanceY) > touchRect) {   //top
-                y -= speed;
-//                if (y >= screenHeight - map.getHeight())
-//                    y = (screenHeight - map.getHeight());
+            } else if (distanceY > 0 && Math.abs(distanceY) > touchRect&&Math.abs(distanceY)>Math.abs(distanceX)) {   //top
+                y -= Math.abs(distanceY);
+                if (y <= screenHeight - map.getHeight())
+                    y = (screenHeight - map.getHeight());
 
                 Log.d("Fling", "top");
-            } else if (distanceY < 0 && Math.abs(distanceY) > touchRect) {    //bottom
-                 y += speed;
-//                if (y <= 0) y = 0;
+            } else if (distanceY < 0 && Math.abs(distanceY) > touchRect&&Math.abs(distanceY)>Math.abs(distanceX)) {    //bottom
+                 y += Math.abs(distanceY);
+                if (y >= 0) y = 0;
                 Log.d("Fling", "bottom");
             }
             map.setPosition(x, y);
@@ -123,7 +123,7 @@ public class MapMoveEvent extends ITouchEventHandler {
                 Log.i("Fling", "left bottom");
             }*/
 
-            return super.onScroll(e1, e2, distanceX, distanceY);
+            return true;
         }
 
         @Override
@@ -160,7 +160,6 @@ public class MapMoveEvent extends ITouchEventHandler {
         public boolean onFling(MotionEvent e1, MotionEvent e2, float velocityX, float velocityY) {
             Log.i("Fling", "onFling");
             if (e1.getX() - e2.getX() > SWIPE_MIN_DISTANCE && Math.abs(velocityX) > SWIPE_THRESHOLD_VELOCITY) {
-                Log.i("Fling", "left");
             }
 
             return super.onFling(e1, e2, velocityX, velocityY);
