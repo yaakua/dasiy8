@@ -25,13 +25,9 @@ public abstract class SpriteTask extends DrawGraphicTask{
 
 
 	@Override
-	public void draw() {
-		Log.d("SpriteTask", "drawing");
-		Canvas c =this.holder.lockCanvas();
+	public void draw(Canvas c) {
 		c.drawBitmap(this.spriteBm, 0, 0,null);
 		drawTextOrOther(c);
-		this.holder.unlockCanvasAndPost(c);
-		
 	}
 
 

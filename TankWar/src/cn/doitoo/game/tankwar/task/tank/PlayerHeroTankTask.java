@@ -1,4 +1,4 @@
-package cn.doitoo.game.tankwar.event.tank;
+package cn.doitoo.game.tankwar.task.tank;
 
 import android.graphics.Canvas;
 import android.graphics.Point;
@@ -25,10 +25,10 @@ public class PlayerHeroTankTask extends DrawGraphicTask {
     private List<Rect> passRectList;
 
     public PlayerHeroTankTask() {
-        map = (DoitooMap) G.get(DoitooMap.class.getName());
-        if (map == null) {
-            throw new ViewException("Doitoomap is null");
-        }
+//        map = (DoitooMap) G.get(DoitooMap.class.getName());
+//        if (map == null) {
+//            throw new ViewException("Doitoomap is null");
+//        }
 //
 //        passRectList = map.getPassRectList();
 //        //随机获取屏幕上一个为通道的矩形，用于初始化坦克坐标
@@ -41,10 +41,7 @@ public class PlayerHeroTankTask extends DrawGraphicTask {
     }
 
     @Override
-    public void draw() {
-        SurfaceHolder holder = (SurfaceHolder) G.get("holder");
-        Canvas c = holder.lockCanvas();
+    public void draw(Canvas c) {
         player.paint(c);
-        holder.unlockCanvasAndPost(c);
     }
 }

@@ -23,13 +23,9 @@ public class TankSpriteTask extends DrawGraphicTask{
 	}	
 
 	@Override
-	public void draw() {
-		Log.d("TankSpriteTask", "drawing");
-		Canvas c =holder.lockCanvas();
+	public void draw(Canvas c) {
 		c.drawBitmap(this.spriteBm, 0, 0,new Paint());
 		c.drawBitmap(this.startGame, 150, 150,null);
-		holder.unlockCanvasAndPost(c);
 	}
-	
 	
 }
