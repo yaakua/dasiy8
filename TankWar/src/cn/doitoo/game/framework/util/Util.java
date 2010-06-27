@@ -45,7 +45,7 @@ public class Util {
 
 	/**
 	 * 
-	 * @param x begin at 0
+	 * @param x begin at 0 游戏地图矩阵坐标，非屏幕坐标系中的坐标
 	 * @param y begin at 0
 	 * @return begin at 0
 	 */
@@ -54,11 +54,46 @@ public class Util {
 	}
 	
 	public static Point convertNode2Point(int node,int cols){
-		int x = node%cols;
-		int y = node/cols;
-		Point p = new Point();
-		p.x=x;
-		p.y=y;
+		return new Point(node%cols,node/cols);
+	}
+	/**
+	 * 
+	 * @param x 游戏地图矩阵坐标
+	 * @param y
+	 */
+	public static Point getDestination(int gameMap01[][],int x,int y){
+		if(gameMap01[x][y]==1)return new Point(x,y);
+		int x1 = x;		
+		int y1= y;		
+		while(gameMap01[x1--][y1]==0&&x1>0);
+		Point p1 = new Point(x1+1,y1);
+		int d1 = Math.abs(x1-x);
+		int d = d1;
+		Point p = p1;
+		x1 = x;
+		while(gameMap01[x1++][y1]==0&&x1<gameMap01[0].length);
+		Point p2 = new Point(x1+1,y1);
+		int d2 = Math.abs(x1-x);
+	    if(d2<d){
+	    	d = d2;
+	    	p = p2;
+	    }
+		while(gameMap01[x1][y1--]==0&&y1>0);
+		Point p3 = new Point(x1+1,y1);
+		int d3 = Math.abs(y1-y);
+		if(d3<d){
+			d = d3;
+			p = p3;
+		}
+		y1 = y;
+		while(gameMap01[x1][y1++]==0&&y1<gameMap01.length);
+		Point p4 = new Point(x1+1,y1);
+		int d4 = Math.abs(y1-y);
+		if(d4<d){
+			d = d4;
+            p = p4;			
+		}
+		
 		return p;
 	}
 	
