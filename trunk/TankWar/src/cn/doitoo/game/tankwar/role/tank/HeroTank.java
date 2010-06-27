@@ -95,7 +95,7 @@ public abstract class HeroTank extends MovableRole {
     public void move() {
         if (pathList != null && !pathList.isEmpty()&&pathListIndex<=pathList.size()) {
             int node = (Integer) pathList.get(pathListIndex);
-            Point point = Util.convertNode2Point(node, mapCols);
+            Point point = Util.node2WorldPoint(map, node);
             int x = (int) this.getX();
             int y = (int) this.getY();
             int speed = this.getSpeed();
