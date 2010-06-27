@@ -2,19 +2,28 @@ package cn.doitoo.game.framework.task;
 
 
 
-import android.os.Handler;
-import android.os.Message;
-import android.util.Log;
+import java.util.ArrayList;
+import java.util.List;
+
+import android.graphics.Canvas;
+import android.view.SurfaceHolder;
+import cn.doitoo.game.framework.context.G;
 
 public abstract class DrawGraphicTask extends Task{
+	private static List<DrawGraphicTask> dgTaskList = new ArrayList<DrawGraphicTask>();
 	public DrawGraphicTask(){
 		needThreadPool = false;
 		setIntervalTime(1);
+		dgTaskList.add(this);
 	}
 	@Override
 	protected void doTask() {
-		
-		draw();
+		SurfaceHolder holder = (SurfaceHolder) G.get("holder");
+		Canvas c = holder.lockCanvas();
+		for(DrawGraphicTask task :dgTaskList){
+			task.draw(c);
+		}
+		holder.unlockCanvasAndPost(c);
 		//TODO: the drawing will be paused because of gc
 //		Message msg = new Message();
 //		msg.what=1;
@@ -22,14 +31,14 @@ public abstract class DrawGraphicTask extends Task{
 
 		
 	}
-	
-	class DrawHandler extends Handler {
-		@Override
-		public void handleMessage(Message msg) {
-			Log.d("draw", "drawing");
-			draw();
-		}
-	}
+//	
+//	class DrawHandler extends Handler {
+//		@Override
+//		public void handleMessage(Message msg) {
+//			Log.d("draw", "drawing");
+//			draw();
+//		}
+//	}
 
-	public abstract void draw();
+	public abstract void draw(Canvas c);
 }
