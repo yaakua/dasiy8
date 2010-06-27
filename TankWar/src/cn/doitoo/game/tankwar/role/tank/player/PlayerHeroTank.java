@@ -35,8 +35,8 @@ public class PlayerHeroTank extends HeroTank {
         Bitmap up_source = BitmapFactory.decodeResource(res, R.drawable.tank1_1);
         Bitmap[] source = new Bitmap[4];
         source[0] = left_source;
-        source[1] = up_source;
-        source[2] = right_source;
+        source[1] = right_source;
+        source[2] = up_source;
         source[3] = down_source;
         return source;
     }
