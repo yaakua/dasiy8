@@ -42,7 +42,7 @@ public abstract class PathSolver {
 	 * 游戏地图01矩阵，0表示障碍物，1表示通道
 	 * @param gameMap
 	 */
-	public  List<Pathxy> computeShortestPath(int[][] gameMap,int cols,int rows,int startV,int endV){
+	public  List computeShortestPath(int[][] gameMap,int cols,int rows,int startV,int endV){
 		if(!not01map(gameMap,cols,rows))throw new RuntimeException("invalid game map,only 01 map is allowed");
 		int adjVect[][] = gameMap2adjVect(gameMap, cols, rows);
 		return solvePath(adjVect,startV,endV);
@@ -54,7 +54,7 @@ public abstract class PathSolver {
 	 * @param startV 在游戏地图中的位置，从0开始到游戏地图元素总个数-1
 	 * @return
 	 */
-	public abstract List solvePath(int[][] adjVect,int startV,int endV) ;
+	protected abstract List solvePath(int[][] adjVect,int startV,int endV) ;
 
 	private  boolean not01map(int[][] gameMap, int cols, int rows) {
 	   for (int i = 0; i < cols; i++) {
