@@ -43,12 +43,12 @@ public class GestureMoveEvent extends ITouchEventHandler {
 
             Point startNodePoint = new Point((int) player.getX(), (int) player.getY());
             Util.screen2world(map, startNodePoint);
-            int startNode = Util.convertPoint2Node(gameMap01Vector[0].length, startNodePoint.x, startNodePoint.y);
+            int startNode = Util.worldPoint2Node(map, startNodePoint);
 
             Point endNodePoint = new Point((int) preX, (int) preY);
             Util.screen2world(map, endNodePoint);
 
-            int endNode = Util.convertPoint2Node(gameMap01Vector[0].length, endNodePoint.x, endNodePoint.y);
+            int endNode = Util.worldPoint2Node(map, endNodePoint);
 
             List pathList = pathSolver.computeShortestPath(gameMap01Vector, startNode, endNode);
             player.setPathList(pathList);
