@@ -47,7 +47,7 @@ public abstract class MovableRole {
     /**
      * ÒÆ¶¯ËÙ¶È
      */
-    private boolean speed;
+    private int speed;
 
     public static List<MovableRole> movableRoleList = new LinkedList<MovableRole>();
 
@@ -144,11 +144,11 @@ public abstract class MovableRole {
         this.step = step;
     }
 
-    public boolean isSpeed() {
+    public int getSpeed() {
         return speed;
     }
 
-    public void setSpeed(boolean speed) {
+    public void setSpeed(int speed) {
         this.speed = speed;
     }
 

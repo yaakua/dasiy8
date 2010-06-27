@@ -5,9 +5,12 @@ import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Rect;
 import android.view.SurfaceHolder;
+import cn.doitoo.game.framework.arithmetic.Dijkstra;
+import cn.doitoo.game.framework.arithmetic.PathSolver;
 import cn.doitoo.game.framework.context.G;
 import cn.doitoo.game.framework.map.DoitooMap;
 import cn.doitoo.game.framework.task.DrawGraphicTask;
+import cn.doitoo.game.framework.util.Util;
 import cn.doitoo.game.tankwar.R;
 
 import java.util.List;
@@ -60,6 +63,12 @@ public class DrawMapTask extends DrawGraphicTask {
         map = new DoitooMap(tank_map1, resIds, passValue, context, 0, 0);
         //保存当前map对象至全局变量当中，以便其它类获取当前地图对象
         G.set(map.getClass().getName(), map);
+        //将地图排列数组转成01矩阵
+        PathSolver pathSolver = new Dijkstra();
+        int[][] gameMap01Vector = Util.gameMap01Vector(tank_map1, passValue);
+        G.set("gameMap01Vector", gameMap01Vector);
+        G.set("pathSolver",pathSolver);
+
     }
 
     @Override

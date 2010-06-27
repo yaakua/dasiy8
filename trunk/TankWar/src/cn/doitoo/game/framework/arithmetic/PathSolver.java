@@ -37,15 +37,20 @@ public abstract class PathSolver {
 		}
 		
 	}
-	
-	/**
-	 * 游戏地图01矩阵，0表示障碍物，1表示通道
-	 * @param gameMap
-	 */
-	public  List computeShortestPath(int[][] gameMap,int cols,int rows,int startV,int endV){
+
+    /**
+     * 获取两个节点之间的最短路径
+     * @param gameMap 世界地图01矩阵数组
+     * @param startNode  开始点所在世界地图当中的下标值（节点）
+     * @param endNode   结束点所在世界地图当中的下标值（节点）
+     * @return 两点间的线路在世界地图当中的下标集合
+     */
+	public  List computeShortestPath(int[][] gameMap,int startNode,int endNode){
+        int cols = gameMap[0].length;
+        int rows = gameMap.length;
 		if(!not01map(gameMap,cols,rows))throw new RuntimeException("invalid game map,only 01 map is allowed");
 		int adjVect[][] = gameMap2adjVect(gameMap, cols, rows);
-		return solvePath(adjVect,startV,endV);
+		return solvePath(adjVect,startNode,endNode);
 	}
 	
 	/**

@@ -3,11 +3,14 @@ package cn.doitoo.game.tankwar.role.tank;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
+import android.graphics.Point;
 import android.graphics.Rect;
 import android.util.Log;
 import cn.doitoo.game.framework.context.G;
 import cn.doitoo.game.framework.exception.ViewException;
+import cn.doitoo.game.framework.map.DoitooMap;
 import cn.doitoo.game.framework.role.MovableRole;
+import cn.doitoo.game.framework.util.Util;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -27,9 +30,12 @@ public abstract class HeroTank extends MovableRole {
     protected float width;
 
     protected Context context;
-
+    private DoitooMap map;
     // bitmaps 按左、上、右、下的顺序初始化坦克的四个方向。
     private Bitmap[] bitmaps = null;
+    //英雄坦克移动路径下标集合
+    private List pathList;
+    private int mapCols;
 
     /**
      * 初始化英雄坦克
@@ -39,6 +45,8 @@ public abstract class HeroTank extends MovableRole {
      */
     public HeroTank(float x, float y) {
         super(x, y);
+        map = (DoitooMap) G.get(DoitooMap.class.getName());
+        mapCols = map.getMapRect()[0].length;
         context = (Context) G.get("context");
         bitmaps = getBitmaps();
         if (bitmaps.length < 4) {
@@ -79,9 +87,43 @@ public abstract class HeroTank extends MovableRole {
         }
     }
 
+    private int distanceX = 0;
+    private int distanceY = 0;
+    private int pathListIndex = 0;
+
     @Override
     public void move() {
-
+        if (pathList != null && !pathList.isEmpty()&&pathListIndex<=pathList.size()) {
+            int node = (Integer) pathList.get(pathListIndex);
+            Point point = Util.convertNode2Point(node, mapCols);
+            int x = (int) this.getX();
+            int y = (int) this.getY();
+            int speed = this.getSpeed();
+            distanceX = point.x - x;
+            distanceY = point.y - y;
+            int max = Math.max(distanceX, distanceY);
+            move_direct direct ;
+            if (max == distanceX && distanceX > 0) {
+                direct = MovableRole.move_direct.RIGHT;
+                x += speed;
+            } else if (max == distanceX && distanceX < 0) {
+                direct = MovableRole.move_direct.LEFT;
+                x-=speed;
+            } else if (max == distanceY && distanceY > 0) {
+                direct = MovableRole.move_direct.DOWN;
+                y+=speed;
+            } else {
+                direct = MovableRole.move_direct.UP;
+                y-=speed;
+            }
+            if(x>point.x||y>point.y){
+                x = point.x;
+                y = point.y;
+                pathListIndex++;
+            }
+            this.setDirection(direct);
+            this.setPosition(x,y);
+        }
     }
 
     @Override
@@ -91,7 +133,6 @@ public abstract class HeroTank extends MovableRole {
         }
         int step = this.getStep();
         int index = this.getStep_array()[step];
-        Log.d("SYS", "index:" + step);
 
         Bitmap src = null;
         MovableRole.move_direct direction = this.getDirection();
@@ -108,6 +149,11 @@ public abstract class HeroTank extends MovableRole {
         int h = (int) this.getHeight();
         int x = (int) getX();
         int y = (int) getY();
+        //由世界坐标转成屏幕坐标
+        Point worldPoint = new Point(x, y);
+        Util.world2screen(map, worldPoint);
+        x = worldPoint.x;
+        y = worldPoint.y;
         //要显示的图片矩形
         Rect srcRect = new Rect(0, 0, w, h);
         //目标显现的地方所在的矩形
@@ -130,5 +176,13 @@ public abstract class HeroTank extends MovableRole {
     @Override
     public float getHeight() {
         return height;
+    }
+
+    public List getPathList() {
+        return pathList;
+    }
+
+    public void setPathList(List pathList) {
+        this.pathList = pathList;
     }
 }
