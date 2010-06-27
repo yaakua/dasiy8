@@ -70,7 +70,7 @@ public class Util {
         int h = (int) map.getElementHeight();
         int i = (worldPoint.x % w == 0) ? worldPoint.x / w : worldPoint.x / w + 1;
         int j = (worldPoint.y % h == 0) ? worldPoint.y / h : worldPoint.y / h + 1;
-        return convertPoint2Node(map.getMapRect()[0].length, i, j);
+        return convertPoint2Node(map.getMapRect()[0].length, Math.max(0, i-1), Math.max(0, j-1));
     }
 
     /**
