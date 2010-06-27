@@ -74,7 +74,23 @@ public class Util {
     }
 
     /**
-     * 获取世界地图排列数组当中的下标对应的世界地图坐标点
+     *  根据世界地图的下标获取当前下标在世界地图中对应X,Y坐标
+     * @param map  世界地图
+     * @param node 下标值
+     * @return  当前下标在世界地图中对应X,Y坐标
+     */
+    public static Point node2WorldPoint(DoitooMap map, int node) {
+        if (map == null) {
+            throw new ViewException("map is null");
+        }
+        Point point = convertNode2Point(node, map.getMapRect()[0].length);
+        point.x = point.x * (int) map.getElementWidth();
+        point.y = point.y * (int) map.getElementHeight();
+        return point;
+    }
+
+    /**
+     * 获取世界地图排列数组当中的下标对应的世界地图排列数组的i行j列
      *
      * @param node 世界地图排列数组的下标
      * @param cols 世界地图排列数组总列数
