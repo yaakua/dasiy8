@@ -1,12 +1,16 @@
 package cn.doitoo.game.tankwar.task;
 
 import android.content.Context;
+import android.graphics.Bitmap;
 import android.graphics.Canvas;
+import android.graphics.Rect;
 import android.view.SurfaceHolder;
 import cn.doitoo.game.framework.context.G;
 import cn.doitoo.game.framework.map.DoitooMap;
 import cn.doitoo.game.framework.task.DrawGraphicTask;
 import cn.doitoo.game.tankwar.R;
+
+import java.util.List;
 
 public class DrawMapTask extends DrawGraphicTask {
 
@@ -53,7 +57,7 @@ public class DrawMapTask extends DrawGraphicTask {
         Context context = (Context) G.get("context");
         int[] resIds = {R.drawable.tile_regular2, R.drawable.tile_breakable, R.drawable.tile_breakable1
                 , R.drawable.tile_trench1};
-        map = new DoitooMap(tank_map1, resIds, context, 0, 0);
+        map = new DoitooMap(tank_map1, resIds, passValue, context, 0, 0);
         //保存当前map对象至全局变量当中，以便其它类获取当前地图对象
         G.set(map.getClass().getName(), map);
     }
@@ -65,5 +69,6 @@ public class DrawMapTask extends DrawGraphicTask {
         holder.unlockCanvasAndPost(c);
 
     }
+
 
 }

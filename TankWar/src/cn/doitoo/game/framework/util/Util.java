@@ -3,7 +3,9 @@ package cn.doitoo.game.framework.util;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import cn.doitoo.game.framework.math.Point;
+import android.graphics.Point;
+
+import java.util.Random;
 
 
 /**
@@ -12,7 +14,7 @@ import cn.doitoo.game.framework.math.Point;
  *
  */
 public class Util {
-
+    private static Random random = new Random();
 	public static Bitmap getBitMapById(Context context,int id){
 		return  BitmapFactory.decodeStream(context.getResources().openRawResource(id));
 	}
@@ -89,6 +91,14 @@ public class Util {
 		}
 		
 		return p;
+	}
+
+    /**
+	 *
+	 * @return 随机获取一个指定范围内的值
+	 */
+	public static int getRandomDirect(int range){
+		return random.nextInt(range);
 	}
 	
 }

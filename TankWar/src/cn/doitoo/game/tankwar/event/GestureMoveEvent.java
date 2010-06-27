@@ -37,7 +37,7 @@ public class GestureMoveEvent extends ITouchEventHandler {
         float deltaX = x - preX;
         float deltaY = y - preY;
 
-        if(Math.abs(deltaX)<2&&Math.abs(deltaY)<2)return;
+        if(Math.abs(deltaX)<5&&Math.abs(deltaY)<5)return;
 
         float px = Math.min(Math.max(map.getX() + deltaX, maxWidth), 0);
         float py = Math.min(Math.max(map.getY() + deltaY, maxHeight), 0);
