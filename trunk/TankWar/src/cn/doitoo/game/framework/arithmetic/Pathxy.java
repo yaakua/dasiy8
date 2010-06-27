@@ -1,6 +1,6 @@
 package cn.doitoo.game.framework.arithmetic;
 
-import cn.doitoo.game.framework.math.Point;
+import android.graphics.Point;
 
 public class Pathxy {
 	/**

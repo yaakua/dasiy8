@@ -41,6 +41,7 @@ public class GameView extends DoitooView {
         G.set("context", getContext());
         G.set("screenHeight", screenHeight);  //当前屏幕高度
         G.set("screenWidth", screenWidth);    //当前屏幕宽度
+        G.set("tankElementWidth","48");//坦克元素基本宽度
         ITouchEventHandler.touchList.add(new TankTouchEvent());
     }
 }
