@@ -45,20 +45,39 @@ public class Util {
 
     /**
      * 获取世界坐标某个点在世界地图排列数组当中的下标
-     * @param cols  世界地图排列数组总列数
-     * @param x    世界地图X坐标
-     * @param y    世界地图Y坐标
-     * @return     世界地图排列数组的下标
+     *
+     * @param cols 世界地图排列数组总列数
+     * @param i    当前点在世界地图的第i行
+     * @param j    当前点在世界地图的第j行
+     * @return 世界地图排列数组的下标
      */
-    public static int convertPoint2Node(int cols, int x, int y) {
-        return x + cols * y;
+    public static int convertPoint2Node(int cols, int i, int j) {
+        return i + cols * j;
+    }
+
+    /**
+     *  获取世界坐标某个点在世界地图排列数组当中的下标
+     * @param map  世界地图
+     * @param worldPoint  世界地图坐标
+     * @return   世界地图排列数组的下标
+     */
+    public static int worldPoint2Node(DoitooMap map, Point worldPoint) {
+        if (map == null) {
+            throw new ViewException("map is null");
+        }
+        int w = (int) map.getWidth();
+        int h = (int) map.getHeight();
+        int i = (w % worldPoint.x == 0) ? w / worldPoint.x : w / worldPoint.x + 1;
+        int j = (w % worldPoint.y == 0) ? w / worldPoint.y : w / worldPoint.y + 1;
+        return convertPoint2Node(map.getMapRect()[0].length, i, j);
     }
 
     /**
      * 获取世界地图排列数组当中的下标对应的世界地图坐标点
+     *
      * @param node 世界地图排列数组的下标
-     * @param cols  世界地图排列数组总列数
-     * @return  世界地图坐标
+     * @param cols 世界地图排列数组总列数
+     * @return 世界地图坐标
      */
     public static Point convertNode2Point(int node, int cols) {
         return new Point(node % cols, node / cols);
@@ -114,7 +133,7 @@ public class Util {
     /**
      * 将世界地图坐标转换为屏幕坐标
      *
-     * @param map    世界地图对象
+     * @param map        世界地图对象
      * @param worldPoint 世界地图坐标
      */
     public static void world2screen(DoitooMap map, Point worldPoint) {
@@ -123,13 +142,14 @@ public class Util {
         }
         int wx = (int) map.getX();
         int wy = (int) map.getY();
-        worldPoint.set(worldPoint.x+wx,worldPoint.y+wy);
+        worldPoint.set(worldPoint.x + wx, worldPoint.y + wy);
     }
 
     /**
      * 屏幕坐标转世界坐标
-     * @param map 世界地图对象
-     * @param screenPoint  屏幕地图坐标
+     *
+     * @param map         世界地图对象
+     * @param screenPoint 屏幕地图坐标
      */
     public static void screen2world(DoitooMap map, Point screenPoint) {
         if (map == null) {
@@ -137,7 +157,7 @@ public class Util {
         }
         int wx = (int) map.getX();
         int wy = (int) map.getY();
-          screenPoint.set(screenPoint.x-wx,screenPoint.y-wy);
+        screenPoint.set(screenPoint.x - wx, screenPoint.y - wy);
     }
 
 }
