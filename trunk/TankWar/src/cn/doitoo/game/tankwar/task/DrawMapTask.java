@@ -63,11 +63,8 @@ public class DrawMapTask extends DrawGraphicTask {
     }
 
     @Override
-    public void draw() {
-        Canvas c = holder.lockCanvas();
+    public void draw(Canvas c) {
         map.paint(c);
-        holder.unlockCanvasAndPost(c);
-
     }
 
 

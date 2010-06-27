@@ -95,13 +95,13 @@ public abstract class HeroTank extends MovableRole {
 
         Bitmap src = null;
         MovableRole.move_direct direction = this.getDirection();
-        if (direction == MovableRole.move_direct.DOWN) {
+        if (direction.equals(MovableRole.move_direct.DOWN)) {
             src = DownBitMapList.get(index);
-        } else if (direction == MovableRole.move_direct.LEFT) {
+        } else if (direction.equals(MovableRole.move_direct.LEFT)) {
             src = LeftBitMapList.get(index);
-        } else if (direction == MovableRole.move_direct.RIGHT) {
+        } else if (direction.equals(MovableRole.move_direct.RIGHT)) {
             src = RightBitMapList.get(index);
-        } else if (direction == MovableRole.move_direct.UP) {
+        } else if (direction.equals(MovableRole.move_direct.UP)) {
             src = UpBitMapList.get(index);
         }
         int w = (int) this.getWidth();

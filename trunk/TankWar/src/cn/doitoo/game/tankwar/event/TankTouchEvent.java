@@ -5,7 +5,7 @@ import android.util.Log;
 import android.view.MotionEvent;
 import cn.doitoo.game.framework.event.ITouchEventHandler;
 import cn.doitoo.game.framework.task.Task;
-import cn.doitoo.game.tankwar.event.tank.PlayerHeroTankTask;
+import cn.doitoo.game.tankwar.task.tank.PlayerHeroTankTask;
 import cn.doitoo.game.tankwar.task.DrawMapTask;
 import cn.doitoo.game.tankwar.task.TankSpriteTask;
 
