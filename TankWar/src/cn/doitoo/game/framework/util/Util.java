@@ -1,15 +1,9 @@
 package cn.doitoo.game.framework.util;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import cn.doitoo.game.framework.arithmetic.Pathxy;
-import cn.doitoo.game.framework.context.G;
-import cn.doitoo.game.framework.math.Point;
-
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import cn.doitoo.game.framework.math.Point;
 
 
 /**
