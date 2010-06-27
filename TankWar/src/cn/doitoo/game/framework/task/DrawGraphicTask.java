@@ -46,6 +46,13 @@ public abstract class DrawGraphicTask extends Task{
 //			draw();
 //		}
 //	}
+	
+
+	@Override
+	public void endTask() {		
+		super.endTask();
+		dgTaskList.remove(this);
+	}
 
 	public abstract void draw(Canvas c);
 }
