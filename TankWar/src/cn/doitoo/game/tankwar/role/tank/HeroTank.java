@@ -102,7 +102,7 @@ public abstract class HeroTank extends MovableRole {
             distanceX = point.x - x;
             distanceY = point.y - y;
             int max = Math.max(distanceX, distanceY);
-            move_direct direct ;
+            move_direct direct  = this.getDirection();
             if (max == distanceX && distanceX > 0) {
                 direct = MovableRole.move_direct.RIGHT;
                 x += speed;
@@ -112,7 +112,7 @@ public abstract class HeroTank extends MovableRole {
             } else if (max == distanceY && distanceY > 0) {
                 direct = MovableRole.move_direct.DOWN;
                 y+=speed;
-            } else {
+            } else if(max==distanceY&&distanceY<0){
                 direct = MovableRole.move_direct.UP;
                 y-=speed;
             }
