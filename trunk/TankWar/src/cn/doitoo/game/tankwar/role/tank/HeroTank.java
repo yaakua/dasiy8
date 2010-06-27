@@ -123,6 +123,8 @@ public abstract class HeroTank extends MovableRole {
             }
             this.setDirection(direct);
             this.setPosition(x,y);
+        }else{
+            pathList =null;
         }
     }
 
