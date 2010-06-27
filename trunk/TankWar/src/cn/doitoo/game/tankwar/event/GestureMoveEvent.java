@@ -51,6 +51,7 @@ public class GestureMoveEvent extends ITouchEventHandler {
             int endNode = Util.convertPoint2Node(gameMap01Vector[0].length, endNodePoint.x, endNodePoint.y);
 
             List pathList = pathSolver.computeShortestPath(gameMap01Vector, startNode, endNode);
+            player.setPathList(pathList);
         }
 
     }

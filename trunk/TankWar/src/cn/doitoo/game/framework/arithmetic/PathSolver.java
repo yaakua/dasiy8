@@ -62,8 +62,8 @@ public abstract class PathSolver {
 	protected abstract List solvePath(int[][] adjVect,int startV,int endV) ;
 
 	private  boolean not01map(int[][] gameMap, int cols, int rows) {
-	   for (int i = 0; i < cols; i++) {
-		 for(int j=0;j<rows;j++){
+	   for (int i = 0; i < rows; i++) {
+		 for(int j=0;j<cols;j++){
 			 if(gameMap[i][j]!=0&&gameMap[i][j]!=1)return false;
 		 }
 	}

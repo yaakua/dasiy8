@@ -42,6 +42,7 @@ public class PlayerHeroTankTask extends DrawGraphicTask {
 
     @Override
     public void draw(Canvas c) {
+        player.move();
         player.paint(c);
     }
 }

@@ -47,7 +47,7 @@ public abstract class MovableRole {
     /**
      * ÒÆ¶¯ËÙ¶È
      */
-    private int speed;
+    private int speed = 5;
 
     public static List<MovableRole> movableRoleList = new LinkedList<MovableRole>();
 
