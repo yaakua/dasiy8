@@ -1,5 +1,12 @@
 package cn.doitoo.game.framework.util;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import cn.doitoo.game.framework.arithmetic.Pathxy;
+import cn.doitoo.game.framework.context.G;
+import cn.doitoo.game.framework.math.Point;
+
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -36,4 +43,23 @@ public class Util {
         return vector;
     }
 
+	/**
+	 * 
+	 * @param x begin at 0
+	 * @param y begin at 0
+	 * @return begin at 0
+	 */
+	public static int convertPoint2Node(int cols,int x,int y){
+		return x+cols*y;
+	}
+	
+	public static Point convertNode2Point(int node,int cols){
+		int x = node%cols;
+		int y = node/cols;
+		Point p = new Point();
+		p.x=x;
+		p.y=y;
+		return p;
+	}
+	
 }
