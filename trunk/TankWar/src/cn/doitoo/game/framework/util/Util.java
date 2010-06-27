@@ -56,19 +56,20 @@ public class Util {
     }
 
     /**
-     *  获取世界坐标某个点在世界地图排列数组当中的下标
-     * @param map  世界地图
-     * @param worldPoint  世界地图坐标
-     * @return   世界地图排列数组的下标
+     * 获取世界坐标某个点在世界地图排列数组当中的下标
+     *
+     * @param map        世界地图
+     * @param worldPoint 世界地图坐标
+     * @return 世界地图排列数组的下标
      */
     public static int worldPoint2Node(DoitooMap map, Point worldPoint) {
         if (map == null) {
             throw new ViewException("map is null");
         }
-        int w = (int) map.getWidth();
-        int h = (int) map.getHeight();
-        int i = (w % worldPoint.x == 0) ? w / worldPoint.x : w / worldPoint.x + 1;
-        int j = (w % worldPoint.y == 0) ? w / worldPoint.y : w / worldPoint.y + 1;
+        int w = (int) map.getElementWidth();
+        int h = (int) map.getElementHeight();
+        int i = (worldPoint.x % w == 0) ? worldPoint.x / w : worldPoint.x / w + 1;
+        int j = (worldPoint.y % h == 0) ? worldPoint.y / h : worldPoint.y / h + 1;
         return convertPoint2Node(map.getMapRect()[0].length, i, j);
     }
 
