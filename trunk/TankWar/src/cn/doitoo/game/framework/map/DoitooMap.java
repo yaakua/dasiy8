@@ -137,7 +137,7 @@ public class DoitooMap extends MovableRole {
                 if (index <= this.passValue) {
                     passRectList.add(dst);
                 } else {
-                    barrierRectList.add(dst);
+//                    barrierRectList.add(dst);
                 }
             }
         }
