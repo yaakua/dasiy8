@@ -186,4 +186,20 @@ public class DoitooMap extends MovableRole {
     public byte[][] getMapRect() {
         return mapRect;
     }
+
+    public float getElementHeight() {
+        return elementHeight;
+    }
+
+    public void setElementHeight(float elementHeight) {
+        this.elementHeight = elementHeight;
+    }
+
+    public float getElementWidth() {
+        return elementWidth;
+    }
+
+    public void setElementWidth(float elementWidth) {
+        this.elementWidth = elementWidth;
+    }
 }
