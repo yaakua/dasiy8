@@ -1,8 +1,5 @@
 package cn.doitoo.game.framework.arithmetic;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import cn.doitoo.game.framework.math.Point;
 
 public class Pathxy {
@@ -11,7 +8,11 @@ public class Pathxy {
 	 */
  public Point startPosition;
  /**
-  * 路径
+  * 中间点
   */
- public List<Point> pathPoints = new ArrayList<Point>();
+ public Point midPosition;
+ /**
+  * 结束点
+  **/ 
+ public Point endPosition;
 }
