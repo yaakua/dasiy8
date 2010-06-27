@@ -39,7 +39,7 @@ public class DoitooMap extends MovableRole {
     /**
      * 当前地图排列数据
      */
-    private int[][] mapRect;
+    private byte[][] mapRect;
     /**
      * 当前地图的行数
      */
@@ -83,7 +83,7 @@ public class DoitooMap extends MovableRole {
      * @param x         地图初始化X坐标
      * @param y         地图初始化Y坐标
      */
-    public DoitooMap(int[][] mapRect, int[] resIds, int passValue, Context context, float x, float y) {
+    public DoitooMap(byte[][] mapRect, int[] resIds, int passValue, Context context, float x, float y) {
         super(x, y);
         // 初始化世界地图的行与列数
         this.rows = mapRect.length;
@@ -183,7 +183,7 @@ public class DoitooMap extends MovableRole {
         return barrierRectList;
     }
 
-    public int[][] getMapRect() {
+    public byte[][] getMapRect() {
         return mapRect;
     }
 }

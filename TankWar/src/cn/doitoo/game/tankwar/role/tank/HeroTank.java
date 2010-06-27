@@ -184,5 +184,6 @@ public abstract class HeroTank extends MovableRole {
 
     public void setPathList(List pathList) {
         this.pathList = pathList;
+        pathListIndex=0;
     }
 }
