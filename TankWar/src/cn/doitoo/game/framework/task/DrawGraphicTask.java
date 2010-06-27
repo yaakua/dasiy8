@@ -19,11 +19,18 @@ public abstract class DrawGraphicTask extends Task{
 	@Override
 	protected void doTask() {
 		SurfaceHolder holder = (SurfaceHolder) G.get("holder");
-		Canvas c = holder.lockCanvas();
-		for(DrawGraphicTask task :dgTaskList){
-			task.draw(c);
+		Canvas c =null;
+		try{
+		synchronized (holder) {
+		 c = holder.lockCanvas();
+			for(DrawGraphicTask task :dgTaskList){
+				task.draw(c);
+			}
+			
 		}
-		holder.unlockCanvasAndPost(c);
+		}finally{
+		  holder.unlockCanvasAndPost(c);
+		}
 		//TODO: the drawing will be paused because of gc
 //		Message msg = new Message();
 //		msg.what=1;
