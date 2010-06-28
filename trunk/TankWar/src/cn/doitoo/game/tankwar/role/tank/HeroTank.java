@@ -95,36 +95,49 @@ public abstract class HeroTank extends MovableRole {
     public void move() {
         if (pathList != null && !pathList.isEmpty()&&pathListIndex<pathList.size()) {
             int node = (Integer) pathList.get(pathListIndex);
-            Point point = Util.node2WorldPoint(map, node);
+            Point nextNode = Util.node2WorldPoint(map, node);
             int x = (int) this.getX();
             int y = (int) this.getY();
             int speed = this.getSpeed();
-            distanceX = point.x - x;
-            distanceY = point.y - y;
-            int max = Math.max(distanceX, distanceY);
+            distanceX = nextNode.x - x;
+            distanceY = nextNode.y - y;
+            int absDistanceX = Math.abs(distanceX);
+            int absDistanceY = Math.abs(distanceY);
+            int max = Math.max(absDistanceX, absDistanceY);
             move_direct direct  = this.getDirection();
-            if (max == distanceX && distanceX > 0) {
+            if (max == absDistanceX && distanceX > 0) {
                 direct = MovableRole.move_direct.RIGHT;
                 x += speed;
-            } else if (max == distanceX && distanceX < 0) {
+            } else if (max == absDistanceX && distanceX < 0) {
                 direct = MovableRole.move_direct.LEFT;
                 x-=speed;
-            } else if (max == distanceY && distanceY > 0) {
+            } else if (max == absDistanceY && distanceY > 0) {
                 direct = MovableRole.move_direct.DOWN;
                 y+=speed;
-            } else if(max==distanceY&&distanceY<0){
+            } else if(max==absDistanceY&&distanceY<0){
                 direct = MovableRole.move_direct.UP;
                 y-=speed;
             }
-            if(x>point.x||y>point.y){
-                x = point.x;
-                y = point.y;
-                pathListIndex++;
+            
+            //判断是否需要切换到下一个节点
+            if((x>nextNode.x&&direct.equals(MovableRole.move_direct.RIGHT))
+            		||(y>nextNode.y&&direct.equals(MovableRole.move_direct.DOWN))){
+            	x = nextNode.x;
+            	y = nextNode.y;
+            	pathListIndex++;
             }
+            if(x<nextNode.x&&direct.equals(MovableRole.move_direct.LEFT)
+            	||(y<nextNode.y&&direct.equals(MovableRole.move_direct.UP))){
+            	 x = nextNode.x;
+                 y = nextNode.y;
+                 pathListIndex++;
+            }
+           
             this.setDirection(direct);
             this.setPosition(x,y);
         }else{
             pathList =null;
+            pathListIndex=0;
         }
     }
 

@@ -39,6 +39,11 @@ public abstract class MovableRole {
      * 角色移动方向
      */
     private move_direct direction;
+    
+    /**
+     * 是否被选中
+     */
+    private boolean isSelected;
 
     public enum move_direct {
         LEFT, UP, DOWN, RIGHT
@@ -159,4 +164,13 @@ public abstract class MovableRole {
     public void setDirection(move_direct direction) {
         this.direction = direction;
     }
+
+	public boolean isSelected() {
+		return isSelected;
+	}
+
+	public void setSelected(boolean isSelected) {
+		this.isSelected = isSelected;
+	}
+    
 }

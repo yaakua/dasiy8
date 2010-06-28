@@ -97,6 +97,8 @@ public class DrawMapTask extends DrawGraphicTask {
 
     @Override
     public void draw(Canvas c) {
+    	// ±³¾°É«
+//		c.drawRGB(0, 0, 0);
         map.paint(c);
     }
 

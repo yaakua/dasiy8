@@ -26,8 +26,6 @@ public class TankTouchEvent extends ITouchEventHandler {
 				Task.add(drawMapTask);
                 //ªÊ÷∆ÕÊº“”¢–€ÃπøÀ
                 new PlayerHeroTankTask();
-//                PlayerHeroTankTask playerHeroTankTask = new PlayerHeroTankTask();
-//                Task.add(playerHeroTankTask);
 				ITouchEventHandler.touchList.add(new GestureMoveEvent());
 				if (ITouchEventHandler.touchList.contains(this))
 					ITouchEventHandler.touchList.remove(this);

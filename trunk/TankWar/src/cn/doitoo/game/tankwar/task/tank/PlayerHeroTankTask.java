@@ -1,17 +1,13 @@
 package cn.doitoo.game.tankwar.task.tank;
 
+import java.util.List;
+
 import android.graphics.Canvas;
-import android.graphics.Point;
 import android.graphics.Rect;
-import android.view.SurfaceHolder;
 import cn.doitoo.game.framework.context.G;
-import cn.doitoo.game.framework.exception.ViewException;
 import cn.doitoo.game.framework.map.DoitooMap;
 import cn.doitoo.game.framework.task.DrawGraphicTask;
-import cn.doitoo.game.framework.util.Util;
 import cn.doitoo.game.tankwar.role.tank.player.PlayerHeroTank;
-
-import java.util.List;
 
 /**
  * 玩家英雄坦克操作相关
@@ -36,7 +32,6 @@ public class PlayerHeroTankTask extends DrawGraphicTask {
 //        int randrom = Util.getRandomDirect(passRectList.size());
 //        Rect rect = passRectList.get(10);
         player = new PlayerHeroTank(0,0);
-
         G.set("playerHeroTankTask", player);
     }
 
