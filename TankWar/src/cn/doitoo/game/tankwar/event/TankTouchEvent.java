@@ -27,7 +27,7 @@ public class TankTouchEvent extends ITouchEventHandler {
 				t.endTask();
 				SurfaceHolder holder = (SurfaceHolder)G.get("holder");
 				//创建游戏主线程
-				GameDrawThread gameDrawThread0 = new GameDrawThread(holder);
+				GameDrawThread gameDrawThread0 = GameDrawThread.getInstance(holder);
 				
 				//开始绘制地图task
 				DrawMapTask drawMapTask = new DrawMapTask();
@@ -36,9 +36,8 @@ public class TankTouchEvent extends ITouchEventHandler {
 				
 				//添加相关任务
 				gameDrawThread0.add(drawMapTask).add(playerHeroTankTask);
-				gameDrawThread0.setGameStauts(GameStatus.RUNING);
-				
-				G.set("gameRunThread0", gameDrawThread0);
+				gameDrawThread0.setGameStauts(GameStatus.RUNING);				
+			
 				ITouchEventHandler.touchList.add(new GestureMoveEvent());
 				if (ITouchEventHandler.touchList.contains(this))
 					ITouchEventHandler.touchList.remove(this);

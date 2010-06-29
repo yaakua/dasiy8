@@ -6,11 +6,11 @@ import cn.doitoo.game.framework.arithmetic.Dijkstra;
 import cn.doitoo.game.framework.arithmetic.PathSolver;
 import cn.doitoo.game.framework.context.G;
 import cn.doitoo.game.framework.map.DoitooMap;
-import cn.doitoo.game.framework.thread.GameDrawTask;
+import cn.doitoo.game.framework.task.GameDrawTask;
 import cn.doitoo.game.framework.util.Util;
 import cn.doitoo.game.tankwar.R;
 
-public class DrawMapTask extends GameDrawTask {
+public class DrawMapTask implements GameDrawTask {
 
 	private DoitooMap map = null;
 
@@ -44,7 +44,7 @@ public class DrawMapTask extends GameDrawTask {
 
 	}
 
-	@Override
+
 	public void draw(Canvas canvas) {
 		map.paint(canvas);
 	}

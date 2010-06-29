@@ -45,14 +45,23 @@ public abstract class PathSolver {
      * @param endNode   结束点所在世界地图当中的下标值（节点）
      * @return 两点间的线路在世界地图当中的下标集合
      */
+	@SuppressWarnings("unchecked")
 	public  List computeShortestPath(int[][] gameMap,int startNode,int endNode){
         int cols = gameMap[0].length;
         int rows = gameMap.length;
+        List resultInSampleCase = sampleCase( gameMap, startNode, endNode);
+        if(resultInSampleCase!=null)return resultInSampleCase;
 		if(!not01map(gameMap,cols,rows))throw new RuntimeException("invalid game map,only 01 map is allowed");
 		int adjVect[][] = gameMap2adjVect(gameMap, cols, rows);
 		return solvePath(adjVect,startNode,endNode);
 	}
 	
+	
+	private List sampleCase(int[][] gameMap, int startNode, int endNode) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 	/**
 	 * 
 	 * @param adjVect

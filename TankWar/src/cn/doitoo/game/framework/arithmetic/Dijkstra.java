@@ -1,7 +1,6 @@
 package cn.doitoo.game.framework.arithmetic;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import java.util.Stack;
 
@@ -58,21 +57,26 @@ public class Dijkstra extends PathSolver{
 				}
 			}
 		}
+		
 	}
 
 	
-
+  /**
+   * @param startV 起点，从0开始
+   * @param endV 结束点，从0开始
+   * @return 
+   */
 	@Override
 	public List<Integer> solvePath(int[][] adjVect, int startV, int endV) {
 		int[] dist = new int[adjVect.length];
 		int[] prev = new int[adjVect.length];
+		List<Integer> pathList = new ArrayList<Integer>();
 		dijkstra(startV, adjVect, dist, prev);
 		Stack<Integer> st = new Stack<Integer>();		
 		while(endV!=0){			
 			   st.add(endV);
 			   endV =prev[endV];
 		}
-		List<Integer> pathList = new ArrayList<Integer>();
 		while(!st.isEmpty()){
 			pathList.add(st.pop());
 		}

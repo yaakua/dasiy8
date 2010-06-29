@@ -115,6 +115,7 @@ public abstract class MovableRole {
         this.y = y;
 
     }
+   
 
     public float getX() {
         return x;
