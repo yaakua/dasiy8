@@ -1,4 +1,4 @@
-package cn.doitoo.game.tankwar.role.animation;
+package cn.doitoo.game.tankwar.effect;
 
 import android.graphics.Canvas;
 import android.graphics.Color;

@@ -6,20 +6,33 @@ import java.util.List;
 import android.graphics.Canvas;
 import android.view.SurfaceHolder;
 import cn.doitoo.game.framework.enums.GameStatus;
+import cn.doitoo.game.framework.task.GameDrawTask;
 
 public class GameDrawThread extends Thread {
-	private List<GameDrawTask> GameRunThreads = new LinkedList<GameDrawTask>();
+	private List<GameDrawTask> drawTaskList = new LinkedList<GameDrawTask>();
 	/**
 	 * ÓÎÏ·×´Ì¬ @see {@link GameStatus}
 	 */
 	private GameStatus gameStauts;
 
-	SurfaceHolder holder;
+	private  SurfaceHolder holder;
+	
+	private static GameDrawThread drawThread;
 	Canvas canvas;
-
-	public GameDrawThread(SurfaceHolder holder) {
-		super();
+	
+	private GameDrawThread(){
+		
+	}
+	private GameDrawThread(SurfaceHolder holder){
+		setName("GameDrawThread");
 		this.holder = holder;
+	}
+  
+	public static GameDrawThread getInstance(SurfaceHolder holder){
+	    if(drawThread==null){
+	    	drawThread = new GameDrawThread(holder);
+	    }
+	    return drawThread;
 	}
 
 	@Override
@@ -30,8 +43,8 @@ public class GameDrawThread extends Thread {
 				Thread.sleep(50);
 				synchronized (holder) {
 					canvas = holder.lockCanvas();
-					for (GameDrawTask thread : GameRunThreads) {
-						thread.draw(canvas);
+					for (GameDrawTask task : drawTaskList) {
+						task.draw(canvas);
 					}
 				}
 			} catch (InterruptedException e) {
@@ -62,7 +75,7 @@ public class GameDrawThread extends Thread {
 	 * @param gameThreadÈÎÎñ
 	 */
 	public GameDrawThread add(GameDrawTask gameThread) {
-		GameRunThreads.add(gameThread);
+		drawTaskList.add(gameThread);
 		return this;
 	}
 
