@@ -3,8 +3,12 @@ package cn.doitoo.game.tankwar.event;
 import android.graphics.Rect;
 import android.util.Log;
 import android.view.MotionEvent;
+import android.view.SurfaceHolder;
+import cn.doitoo.game.framework.context.G;
+import cn.doitoo.game.framework.enums.GameStatus;
 import cn.doitoo.game.framework.event.ITouchEventHandler;
 import cn.doitoo.game.framework.task.Task;
+import cn.doitoo.game.framework.thread.GameDrawThread;
 import cn.doitoo.game.tankwar.task.tank.PlayerHeroTankTask;
 import cn.doitoo.game.tankwar.task.DrawMapTask;
 import cn.doitoo.game.tankwar.task.TankSpriteTask;
@@ -21,14 +25,25 @@ public class TankTouchEvent extends ITouchEventHandler {
 			Log.d("TankTouchEvent", t==null?"null":"not null");
 			if (t != null){
 				t.endTask();
+				SurfaceHolder holder = (SurfaceHolder)G.get("holder");
+				//创建游戏主线程
+				GameDrawThread gameDrawThread0 = new GameDrawThread(holder);
+				
 				//开始绘制地图task
 				DrawMapTask drawMapTask = new DrawMapTask();
-				Task.add(drawMapTask);
                 //绘制玩家英雄坦克
-                new PlayerHeroTankTask();
+				PlayerHeroTankTask playerHeroTankTask = new PlayerHeroTankTask();
+				
+				//添加相关任务
+				gameDrawThread0.add(drawMapTask).add(playerHeroTankTask);
+				gameDrawThread0.setGameStauts(GameStatus.RUNING);
+				
+				G.set("gameRunThread0", gameDrawThread0);
 				ITouchEventHandler.touchList.add(new GestureMoveEvent());
 				if (ITouchEventHandler.touchList.contains(this))
 					ITouchEventHandler.touchList.remove(this);
+				
+				gameDrawThread0.start();
 			}
 		}
 	}

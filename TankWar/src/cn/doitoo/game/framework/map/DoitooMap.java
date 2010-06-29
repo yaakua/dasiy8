@@ -14,6 +14,7 @@ import cn.doitoo.game.framework.context.G;
 import cn.doitoo.game.framework.exception.ViewException;
 import cn.doitoo.game.framework.role.MovableRole;
 import cn.doitoo.game.framework.util.Util;
+import cn.doitoo.game.tankwar.R;
 
 public class DoitooMap extends MovableRole {
 
@@ -80,6 +81,8 @@ public class DoitooMap extends MovableRole {
 	 * 屏幕能显示的列数
 	 */
 	private int screenCols;
+	
+	private Bitmap bigmap;
 
 	/**
 	 * 构造世界地图，并初始化地图的高宽，加载地图元素对应的图片资源
@@ -99,6 +102,9 @@ public class DoitooMap extends MovableRole {
 	 */
 	public DoitooMap(byte[][] mapRect, int[] resIds, int passValue, Context context, float x, float y) {
 		super(x, y);
+		
+		bigmap = Util.getBitMapById(context, R.drawable.bitmap);
+		
 		// 初始化世界地图的行与列数
 		this.rows = mapRect.length;
 		if (this.rows == 0) {
@@ -118,6 +124,7 @@ public class DoitooMap extends MovableRole {
 				this.elementWidth = bitmap.getWidth();
 			ElementBitmaps.put("" + (i + 1), bitmap);
 		}
+		
 		if (ElementBitmaps.isEmpty()) {
 			throw new ViewException("ElementBitmaps is empty 地图当中的图片资源为空");
 		}
@@ -154,6 +161,17 @@ public class DoitooMap extends MovableRole {
 	 */
 	@Override
 	public void paint(Canvas c) {
+		draw1(c);
+//		draw2(c);
+	}
+	
+	private void draw1(Canvas c){
+		float x = getX();
+		float y = getY();
+		c.drawBitmap(bigmap,x,y,null);
+	}
+	
+	private void draw2(Canvas c){
 		float deltaX = getX();
 		float deltaY = getY();
 
@@ -185,6 +203,7 @@ public class DoitooMap extends MovableRole {
 					} else {
 						barrierRectList.add(rect2);
 					}
+					src = null;dst = null;rect2=null;
 				}
 			}
 		}
