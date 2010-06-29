@@ -3,6 +3,9 @@ package cn.doitoo.game.framework.role;
 import java.util.LinkedList;
 import java.util.List;
 
+import cn.doitoo.game.framework.context.G;
+import cn.doitoo.game.framework.map.DoitooMap;
+
 import android.graphics.Canvas;
 
 /**
@@ -20,6 +23,8 @@ public abstract class MovableRole {
     private float y;
 
     private boolean isMoving;
+    
+	protected DoitooMap map;
 
     /**
      * 角色动画步骤
@@ -63,6 +68,7 @@ public abstract class MovableRole {
         this.oldX = x;
         this.oldY = y;
         movableRoleList.add(this);
+        map = (DoitooMap) G.get(DoitooMap.class.getName());
     }
 
     public abstract float getWidth();
@@ -88,11 +94,12 @@ public abstract class MovableRole {
      *
      * 如果角色需要动画显示，则每次画坦克之前都需要调用此方法
      */
-    public void nextFrame() {
+    private void nextFrame() {
         if (step >= step_array.length) {
             step = 0;
+        }else{
+        	step++;
         }
-        step++;
     }
 
     /**
@@ -142,6 +149,8 @@ public abstract class MovableRole {
     }
 
     public int getStep() {
+    	this.nextFrame();
+    	if(step>=this.getStep_array().length)step=0;
         return step;
     }
 

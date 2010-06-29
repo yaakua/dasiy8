@@ -43,7 +43,6 @@ public abstract class DoitooView extends SurfaceView implements
 	
 	public void surfaceChanged(SurfaceHolder holder, int format, int width,
 			int height) {
-		// TODO Auto-generated method stub
 		
 	}
 

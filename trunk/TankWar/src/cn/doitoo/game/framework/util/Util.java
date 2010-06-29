@@ -17,7 +17,7 @@ import java.util.Random;
  */
 public class Util {
     private static Random random = new Random();
-
+    
     public static Bitmap getBitMapById(Context context, int id) {
         return BitmapFactory.decodeStream(context.getResources().openRawResource(id));
     }
