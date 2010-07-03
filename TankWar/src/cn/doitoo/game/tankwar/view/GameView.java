@@ -10,7 +10,6 @@ import cn.doitoo.game.framework.event.ITouchEventHandler;
 import cn.doitoo.game.framework.graphic.DoitooView;
 import cn.doitoo.game.framework.thread.GameDrawThread;
 import cn.doitoo.game.tankwar.event.GestureMoveEvent;
-import cn.doitoo.game.tankwar.event.TankTouchEvent;
 import cn.doitoo.game.tankwar.task.DrawControlLayerTask;
 import cn.doitoo.game.tankwar.task.DrawMapTask;
 import cn.doitoo.game.tankwar.task.tank.PlayerHeroTankTask;
@@ -58,8 +57,8 @@ public class GameView extends DoitooView {
     public void gameInit(SurfaceHolder holder) {
         DisplayMetrics dm = getContext().getApplicationContext().getResources()
                 .getDisplayMetrics();
-        float screenHeight = dm.heightPixels;
-        float screenWidth = dm.widthPixels;
+        int screenHeight = dm.heightPixels;
+        int screenWidth = dm.widthPixels;
         G.set("holder", holder);
         G.set("context", getContext());
         G.set("screenHeight", screenHeight);  //当前屏幕高度

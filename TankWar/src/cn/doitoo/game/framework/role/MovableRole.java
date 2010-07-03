@@ -14,17 +14,17 @@ import android.graphics.Canvas;
  * @author Oliver O
  */
 public abstract class MovableRole {
-    private float oldX;
+    private int oldX;
 
-    private float oldY;
+    private int oldY;
 
-    private float x;
+    private int x;
 
-    private float y;
+    private int y;
 
     private boolean isMoving;
-    
-	protected DoitooMap map;
+
+    protected DoitooMap map;
 
     /**
      * 角色动画步骤
@@ -44,7 +44,7 @@ public abstract class MovableRole {
      * 角色移动方向
      */
     private move_direct direction;
-    
+
     /**
      * 是否被选中
      */
@@ -61,7 +61,7 @@ public abstract class MovableRole {
 
     public static List<MovableRole> movableRoleList = new LinkedList<MovableRole>();
 
-    public MovableRole(float x, float y) {
+    public MovableRole(int x, int y) {
         super();
         this.x = x;
         this.y = y;
@@ -71,9 +71,9 @@ public abstract class MovableRole {
         map = (DoitooMap) G.get(DoitooMap.class.getName());
     }
 
-    public abstract float getWidth();
+    public abstract int getWidth();
 
-    public abstract float getHeight();
+    public abstract int getHeight();
 
     public abstract void move();
 
@@ -91,14 +91,14 @@ public abstract class MovableRole {
 
     /**
      * 在角色动画当中切换至下一帧
-     *
+     * <p/>
      * 如果角色需要动画显示，则每次画坦克之前都需要调用此方法
      */
     private void nextFrame() {
         if (step >= step_array.length) {
             step = 0;
-        }else{
-        	step++;
+        } else {
+            step++;
         }
     }
 
@@ -108,20 +108,20 @@ public abstract class MovableRole {
      * @param x 角色新的X坐标
      * @param y 角色新的Y坐标
      */
-    public void setPosition(float x, float y) {
+    public void setPosition(int x, int y) {
         this.oldX = getX();
         this.oldY = getY();
         this.x = x;
         this.y = y;
 
     }
-   
 
-    public float getX() {
+
+    public int getX() {
         return x;
     }
 
-    public float getY() {
+    public int getY() {
         return y;
     }
 
@@ -150,8 +150,8 @@ public abstract class MovableRole {
     }
 
     public int getStep() {
-    	this.nextFrame();
-    	if(step>=this.getStep_array().length)step=0;
+        this.nextFrame();
+        if (step >= this.getStep_array().length) step = 0;
         return step;
     }
 
@@ -175,12 +175,12 @@ public abstract class MovableRole {
         this.direction = direction;
     }
 
-	public boolean isSelected() {
-		return isSelected;
-	}
+    public boolean isSelected() {
+        return isSelected;
+    }
 
-	public void setSelected(boolean isSelected) {
-		this.isSelected = isSelected;
-	}
-    
+    public void setSelected(boolean isSelected) {
+        this.isSelected = isSelected;
+    }
+
 }
