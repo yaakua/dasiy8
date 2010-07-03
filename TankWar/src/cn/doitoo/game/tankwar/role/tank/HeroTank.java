@@ -1,13 +1,5 @@
 package cn.doitoo.game.tankwar.role.tank;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
-
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
@@ -15,10 +7,11 @@ import android.graphics.Point;
 import android.graphics.Rect;
 import cn.doitoo.game.framework.context.G;
 import cn.doitoo.game.framework.exception.ViewException;
-import cn.doitoo.game.framework.map.DoitooMap;
 import cn.doitoo.game.framework.role.MovableRole;
 import cn.doitoo.game.framework.util.CoordinateUtil;
 import cn.doitoo.game.framework.util.Util;
+
+import java.util.*;
 
 /**
  * 英雄坦克主类，所有不同类型的英雄坦克都需要继承此类 User: 阳葵 Date: 2010-6-27 Time: 10:12:58
@@ -49,7 +42,7 @@ public abstract class HeroTank extends MovableRole {
      */
     public HeroTank(int x, int y) {
         super(x, y);
-        context = (Context) G.getContext();
+        context = G.getContext();
         bitmaps = getBitmaps();
         if (bitmaps.length < 4) {
             throw new ViewException("HeroTank 必须在子类初始化四个方向的图片");
@@ -96,7 +89,7 @@ public abstract class HeroTank extends MovableRole {
     public void move() {
         if (pathList != null && !pathList.isEmpty() && pathListIndex < pathList.size()) {
             int node = (Integer) pathList.get(pathListIndex);
-            Point nextNode = CoordinateUtil.node2WorldPoint( node);
+            Point nextNode = CoordinateUtil.node2WorldPoint(node);
             int x = this.getX();
             int y = this.getY();
             int speed = this.getSpeed();
@@ -177,7 +170,7 @@ public abstract class HeroTank extends MovableRole {
 
         // 由世界坐标转成屏幕坐标
         Point worldPoint = new Point(x, y);
-        CoordinateUtil.world2screen( worldPoint);
+        CoordinateUtil.world2screen(worldPoint);
         x = worldPoint.x;
         y = worldPoint.y;
         // 要显示的图片矩形
@@ -213,8 +206,6 @@ public abstract class HeroTank extends MovableRole {
 
     /**
      * 删除特效动画
-     *
-     * @param movableRole
      */
     public void deleteAnimation(String keyCode) {
         Set<String> keys = animations.keySet();
