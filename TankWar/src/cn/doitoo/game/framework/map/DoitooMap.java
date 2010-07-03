@@ -5,6 +5,7 @@ import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Point;
 import android.graphics.Rect;
+import android.view.MotionEvent;
 import cn.doitoo.game.framework.context.G;
 import cn.doitoo.game.framework.exception.ViewException;
 import cn.doitoo.game.framework.role.MovableRole;
@@ -254,4 +255,9 @@ public class DoitooMap extends MovableRole {
     public void setElementWidth(int elementWidth) {
 		this.elementWidth = elementWidth;
 	}
+    @Override
+    public void onClick(MotionEvent event) {
+    	// TODO Auto-generated method stub
+    	
+    }
 }
