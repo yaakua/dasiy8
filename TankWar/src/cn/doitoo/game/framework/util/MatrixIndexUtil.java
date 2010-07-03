@@ -68,7 +68,7 @@ public class MatrixIndexUtil {
      * @return 世界地图坐标
      */
     public static IndexPosition convertNode2Point(int node, int cols) {
-        return new IndexPosition(node % cols, node / cols);
+        return new IndexPosition(node / cols,node % cols);
     }
 
     
