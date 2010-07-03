@@ -14,6 +14,9 @@ import cn.doitoo.game.tankwar.task.DrawControlLayerTask;
 import cn.doitoo.game.tankwar.task.DrawMapTask;
 import cn.doitoo.game.tankwar.task.TankSpriteTask;
 
+/**
+ * @deprecated
+ */
 public class TankTouchEvent extends ITouchEventHandler {
     private Rect startGameRect = new Rect(100, 150, 300, 200);// 开始键在屏幕当中的坐标范围
 
