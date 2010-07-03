@@ -22,6 +22,22 @@ public class G {
 			map.put(key, value);
 	}
 
+	public static int getInt(String key) {
+		return (Integer) get(key);
+	}
+
+	public static String getString(String key) {
+		return (String) get(key);
+	}
+
+	public static float getFloat(String key) {
+		return (Float) get(key);
+	}
+	
+	public static double getDouble(String key){
+		return (Double)get(key);
+	}
+
 	public static void set(String key, Object value, boolean modifiable) {
 		if (modifiable && !map.containsKey(key))
 			map.put(key, value);
