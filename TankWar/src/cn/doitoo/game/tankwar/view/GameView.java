@@ -6,7 +6,7 @@ import android.util.Log;
 import android.view.SurfaceHolder;
 import cn.doitoo.game.framework.context.G;
 import cn.doitoo.game.framework.enums.GameStatus;
-import cn.doitoo.game.framework.event.ITouchEventHandler;
+import cn.doitoo.game.framework.event.TouchEventHandler;
 import cn.doitoo.game.framework.graphic.DoitooView;
 import cn.doitoo.game.framework.thread.GameDrawThread;
 import cn.doitoo.game.tankwar.event.GestureMoveEvent;
@@ -45,7 +45,7 @@ public class GameView extends DoitooView {
         gameDrawThread0.setGameStauts(GameStatus.RUNING);
         gameDrawThread0.start();
 
-        ITouchEventHandler.touchList.add(new GestureMoveEvent());
+        TouchEventHandler.touchList.add(new GestureMoveEvent());
     }
 
     /**

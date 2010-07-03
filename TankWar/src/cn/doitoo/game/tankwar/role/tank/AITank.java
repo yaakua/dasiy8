@@ -1,7 +1,6 @@
 package cn.doitoo.game.tankwar.role.tank;
 
 import android.graphics.Canvas;
-import android.view.MotionEvent;
 import cn.doitoo.game.framework.role.MovableRole;
 
 /**
@@ -33,10 +32,5 @@ public class AITank extends MovableRole {
     @Override
     public void paint(Canvas c) {
 
-    }
-    @Override
-    public void onClick(MotionEvent event) {
-    	// TODO Auto-generated method stub
-    	
     }
 }

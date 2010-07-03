@@ -5,11 +5,11 @@ import android.view.MotionEvent;
 import java.util.ArrayList;
 import java.util.List;
 
-public abstract class ITouchEventHandler {
+public abstract class TouchEventHandler {
 
-    public static List<ITouchEventHandler> touchList = new ArrayList<ITouchEventHandler>();
+    public static List<TouchEventHandler> touchList = new ArrayList<TouchEventHandler>();
 
-    public ITouchEventHandler() {
+    public TouchEventHandler() {
         touchList.add(this);
     }
 

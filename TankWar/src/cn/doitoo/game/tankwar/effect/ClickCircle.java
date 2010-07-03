@@ -3,13 +3,11 @@ package cn.doitoo.game.tankwar.effect;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
-import android.graphics.Point;
 import android.graphics.Paint.Style;
-import android.view.MotionEvent;
+import android.graphics.Point;
 import cn.doitoo.game.framework.context.G;
 import cn.doitoo.game.framework.role.MovableRole;
 import cn.doitoo.game.framework.util.CoordinateUtil;
-import cn.doitoo.game.framework.util.Util;
 
 public class ClickCircle extends MovableRole {
     private Paint paint = null;
@@ -48,17 +46,11 @@ public class ClickCircle extends MovableRole {
         int y = this.getY();
         // 由世界坐标转成屏幕坐标
         Point worldPoint = new Point(x, y);
-        CoordinateUtil.world2screen( worldPoint);
+        CoordinateUtil.world2screen(worldPoint);
         x = worldPoint.x;
         y = worldPoint.y;
         int step = this.getStep();
         paint.setColor(colors[step]);
         c.drawCircle(x, y, radius + 4, paint);
     }
-    @Override
-    public void onClick(MotionEvent event) {
-    	// TODO Auto-generated method stub
-    	
-    }
-
 }

@@ -4,7 +4,8 @@ import android.graphics.Canvas;
 import android.graphics.Rect;
 import android.view.MotionEvent;
 import cn.doitoo.game.framework.context.G;
-import cn.doitoo.game.framework.event.IOnClickEventHandler;
+import cn.doitoo.game.framework.event.IOnClickListener;
+import cn.doitoo.game.framework.event.OnClickEventHandler;
 import cn.doitoo.game.framework.map.DoitooMap;
 
 import java.util.LinkedList;
@@ -15,7 +16,7 @@ import java.util.List;
  *
  * @author Oliver O
  */
-public abstract class MovableRole extends IOnClickEventHandler {
+public abstract class MovableRole extends OnClickEventHandler {
     private int oldX;
 
     private int oldY;
@@ -27,6 +28,8 @@ public abstract class MovableRole extends IOnClickEventHandler {
     private boolean isMoving;
 
     protected DoitooMap map;
+
+    public IOnClickListener onClickListener;
 
     /**
      * 角色动画步骤
@@ -196,10 +199,9 @@ public abstract class MovableRole extends IOnClickEventHandler {
         int y = (int) event.getY();
         Rect rect = this.getRect();
         if (rect.contains(x, y))
-            this.onClick(event);
+            if (this.onClickListener != null)
+                this.onClickListener.onClick(event);
     }
-
-    public abstract void onClick(MotionEvent event);
 
     /**
      * 以当前角色的X,Y坐标及高宽为标准，得到一个矩形。
@@ -214,4 +216,7 @@ public abstract class MovableRole extends IOnClickEventHandler {
         return new Rect(left, top, right, bottom);
     }
 
+    public void setOnClickListener(IOnClickListener onClickListener) {
+        this.onClickListener = onClickListener;
+    }
 }
