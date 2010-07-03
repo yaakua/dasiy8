@@ -68,7 +68,7 @@ public abstract class MovableRole {
         this.oldX = x;
         this.oldY = y;
         movableRoleList.add(this);
-        map = (DoitooMap) G.get(DoitooMap.class.getName());
+        map = G.getDoitooMap();
     }
 
     public abstract int getWidth();
