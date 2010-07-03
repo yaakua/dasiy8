@@ -26,7 +26,7 @@ public class GestureMoveEvent extends ITouchEventHandler {
     private PathSolver pathSolver;
 
     public GestureMoveEvent() {
-        map = (DoitooMap) G.get(DoitooMap.class.getName());
+        map = G.getDoitooMap();
         player = (PlayerHeroTank) G.get("playerHeroTankTask");
         int screenHeight = G.getInt("screenHeight");
         int screenWidth = G.getInt("screenWidth");
