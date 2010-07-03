@@ -1,7 +1,10 @@
 package cn.doitoo.game.tankwar.role.control;
 
 import android.graphics.Canvas;
+import android.graphics.Color;
 import android.graphics.Paint;
+import android.graphics.Rect;
+import android.view.MotionEvent;
 import cn.doitoo.game.framework.role.MovableRole;
 
 import java.util.ArrayList;
@@ -19,11 +22,20 @@ public class Menu extends MovableRole {
     private int width;
     private int height;
     private Paint paint = new Paint();
+    // °ëÍ¸Ã÷¾ØÐÎ±ß¿ò
+    private Rect rect = null;
 
     public Menu(int x, int y, int width, int height) {
         super(x, y);
         this.width = width;
         this.height = height;
+        paint.setColor(Color.GRAY);
+        paint.setAlpha(150);
+        rect = new Rect(0, 0, width, height);
+    }
+
+    public void setPaint(Paint paint) {
+        this.paint = paint;
     }
 
     public void addButton(ImageButton button) {
@@ -47,6 +59,16 @@ public class Menu extends MovableRole {
 
     @Override
     public void paint(Canvas c) {
+        c.drawRect(rect, paint);
+        for (ImageButton button : buttons) {
+            button.paint(c);
+        }
+    }
+
+    @Override
+    public void onClick(MotionEvent event) {
 
     }
+
+
 }

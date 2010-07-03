@@ -1,18 +1,22 @@
 package cn.doitoo.game.framework.event;
 
+import android.view.MotionEvent;
+
 import java.util.ArrayList;
 import java.util.List;
 
-import android.view.MotionEvent;
-
 public abstract class ITouchEventHandler {
-	
-  public static List<ITouchEventHandler>   touchList = new ArrayList<ITouchEventHandler>();
 
-  public abstract void onTouchDown(MotionEvent event);
+    public static List<ITouchEventHandler> touchList = new ArrayList<ITouchEventHandler>();
 
-  public abstract void onTouchMove(MotionEvent event);
+    public ITouchEventHandler() {
+        touchList.add(this);
+    }
 
-  public abstract void onTouchUp(MotionEvent event);
-  
+    public abstract void onTouchDown(MotionEvent event);
+
+    public abstract void onTouchMove(MotionEvent event);
+
+    public abstract void onTouchUp(MotionEvent event);
+
 }

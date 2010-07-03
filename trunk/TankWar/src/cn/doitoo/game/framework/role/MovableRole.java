@@ -1,19 +1,21 @@
 package cn.doitoo.game.framework.role;
 
-import java.util.LinkedList;
-import java.util.List;
-
+import android.graphics.Canvas;
+import android.graphics.Rect;
+import android.view.MotionEvent;
 import cn.doitoo.game.framework.context.G;
+import cn.doitoo.game.framework.event.IOnClickEventHandler;
 import cn.doitoo.game.framework.map.DoitooMap;
 
-import android.graphics.Canvas;
+import java.util.LinkedList;
+import java.util.List;
 
 /**
  * TODO add other functions
  *
  * @author Oliver O
  */
-public abstract class MovableRole {
+public abstract class MovableRole extends IOnClickEventHandler {
     private int oldX;
 
     private int oldY;
@@ -181,6 +183,35 @@ public abstract class MovableRole {
 
     public void setSelected(boolean isSelected) {
         this.isSelected = isSelected;
+    }
+
+    /**
+     * 当前点击事件点中当前角色时响应onClick事件
+     *
+     * @param event 用户点击事件
+     */
+    @Override
+    public void onTouchDown(MotionEvent event) {
+        int x = (int) event.getX();
+        int y = (int) event.getY();
+        Rect rect = this.getRect();
+        if (rect.contains(x, y))
+            this.onClick(event);
+    }
+
+    public abstract void onClick(MotionEvent event);
+
+    /**
+     * 以当前角色的X,Y坐标及高宽为标准，得到一个矩形。
+     *
+     * @return 与当前角色同高宽的矩形。
+     */
+    public Rect getRect() {
+        int left = this.getX();
+        int top = this.getY();
+        int right = left + this.getWidth();
+        int bottom = top + this.getHeight();
+        return new Rect(left, top, right, bottom);
     }
 
 }
