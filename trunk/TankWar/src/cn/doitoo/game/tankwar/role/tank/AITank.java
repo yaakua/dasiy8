@@ -9,18 +9,18 @@ import cn.doitoo.game.framework.role.MovableRole;
  * Date: 2010-6-27
  * Time: 10:13:14
  */
-public class AITank extends MovableRole{
-    public AITank(float x, float y) {
+public class AITank extends MovableRole {
+    public AITank(int x, int y) {
         super(x, y);
     }
 
     @Override
-    public float getWidth() {
+    public int getWidth() {
         return 0;
     }
 
     @Override
-    public float getHeight() {
+    public int getHeight() {
         return 0;
     }
 

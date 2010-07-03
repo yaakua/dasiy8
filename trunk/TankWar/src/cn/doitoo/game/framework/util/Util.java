@@ -59,15 +59,13 @@ public class Util {
     /**
      * 获取世界坐标某个点在世界地图排列数组当中的下标
      *
-     * @param map             世界地图
-     * @param worldPoint      世界坐标
-     * @param gameMap01Vector 世界地图对应的01矩阵
+     * @param map        世界地图
+     * @param worldPoint 世界坐标
      * @return 世界地图排列数组的下标
      */
-    public static int worldPoint2Node(DoitooMap map, Point worldPoint, int[][] gameMap01Vector) {
-        int[] a = worldPointIn01Vector(map, worldPoint); //获取当前坐标在01矩阵中的第i行，第j列
-        worldPoint = getDestination(gameMap01Vector, a[0], a[1]); //获取坐标点最近的通道
-        return convertPoint2Node(map.getMapRect()[0].length, Math.max(0, worldPoint.x), Math.max(0, worldPoint.y));
+    public static int worldPoint2Node(DoitooMap map, Point worldPoint) {
+        int[] a1 = Util.worldPointIn01Vector(map, worldPoint); //获取世界坐标在01矩阵当中的第几行第几列
+        return convertPoint2Node(map.getMapRect()[0].length, Math.max(0, a1[0]), Math.max(0, a1[1]));
     }
 
     /**
@@ -81,13 +79,13 @@ public class Util {
         if (map == null) {
             throw new ViewException("map is null");
         }
-        int w = (int) map.getElementWidth();
-        int h = (int) map.getElementHeight();
+        int w = map.getElementWidth();
+        int h = map.getElementHeight();
         int i = worldPoint.x / w;
         int j = worldPoint.y / h;
         int[] a = new int[2];
-        a[0] = i;
-        a[1] = j;
+        a[0] = j;
+        a[1] = i;
         return a;
     }
 
@@ -103,8 +101,8 @@ public class Util {
             throw new ViewException("map is null");
         }
         Point point = convertNode2Point(node, map.getMapRect()[0].length);
-        point.x = point.x * (int) map.getElementWidth();
-        point.y = point.y * (int) map.getElementHeight();
+        point.x = point.y * map.getElementWidth();
+        point.y = point.x * map.getElementHeight();
         return point;
     }
 
@@ -122,8 +120,10 @@ public class Util {
     /**
      * 获取指定点周围为通道的点
      *
-     * @param i 当前点在世界地图的第i行
-     * @param j 当前点在世界地图的第j行
+     * @param gameMap01 世界地图01矩阵
+     * @param i         当前点在世界地图的第i行
+     * @param j         当前点在世界地图的第j行
+     * @return 通道在01矩阵当中的第I行，第J列
      */
     public static Point getDestination(int gameMap01[][], int i, int j) {
         if (gameMap01[i][j] == 1) return new Point(i, j);
@@ -178,8 +178,8 @@ public class Util {
         if (map == null) {
             throw new ViewException("map is null");
         }
-        int wx = (int) map.getX();
-        int wy = (int) map.getY();
+        int wx = map.getX();
+        int wy = map.getY();
         worldPoint.set(worldPoint.x + wx, worldPoint.y + wy);
     }
 
@@ -193,8 +193,8 @@ public class Util {
         if (map == null) {
             throw new ViewException("map is null");
         }
-        int wx = (int) map.getX();
-        int wy = (int) map.getY();
+        int wx = map.getX();
+        int wy = map.getY();
         screenPoint.set(screenPoint.x - wx, screenPoint.y - wy);
     }
 

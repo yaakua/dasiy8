@@ -10,51 +10,51 @@ import cn.doitoo.game.framework.role.MovableRole;
 import cn.doitoo.game.framework.util.Util;
 
 public class SelectCircle extends MovableRole {
-	private Paint paint =null;
-	private int radius;
-	
-	private int[] colors = {Color.RED,Color.BLUE,Color.GRAY,Color.GREEN};
-	
-	
-	public SelectCircle(float x, float y) {
-		super(x, y);
-		 paint = new Paint();
-		 paint.setStyle(Style.STROKE);//画空心圆时设置此参数，则只画边框
-		 paint.setStrokeWidth(6);//设置边框粗细
-		 int tankElementWidth = (Integer)G.get("tankElementWidth");
-		 radius = tankElementWidth/2;
-		 int[] steps = {0,1,2,3};
-		 this.setStep_array(steps);
-	}
+    private Paint paint = null;
+    private int radius;
 
-	@Override
-	public float getHeight() {
-		return 0;
-	}
+    private int[] colors = {Color.RED, Color.BLUE, Color.GRAY, Color.GREEN};
 
-	@Override
-	public float getWidth() {
-		return 0;
-	}
 
-	@Override
-	public void move() {
+    public SelectCircle(int x, int y) {
+        super(x, y);
+        paint = new Paint();
+        paint.setStyle(Style.STROKE);//画空心圆时设置此参数，则只画边框
+        paint.setStrokeWidth(6);//设置边框粗细
+        int tankElementWidth = (Integer) G.get("tankElementWidth");
+        radius = tankElementWidth / 2;
+        int[] steps = {0, 1, 2, 3};
+        this.setStep_array(steps);
+    }
 
-	}
+    @Override
+    public int getHeight() {
+        return 0;
+    }
 
-	@Override
-	public void paint(Canvas c) {
-		int x = (int)this.getX();
-		int y = (int)this.getY();
-		// 由世界坐标转成屏幕坐标
-		Point worldPoint = new Point(x, y);
-		Util.world2screen(map, worldPoint);
-		x = worldPoint.x;
-		y = worldPoint.y;
-		int step = this.getStep();
-		paint.setColor(colors[step]);
-		c.drawCircle(x+radius,y+radius,radius+4,paint);
-		
-	}
+    @Override
+    public int getWidth() {
+        return 0;
+    }
+
+    @Override
+    public void move() {
+
+    }
+
+    @Override
+    public void paint(Canvas c) {
+        int x = this.getX();
+        int y = this.getY();
+        // 由世界坐标转成屏幕坐标
+        Point worldPoint = new Point(x, y);
+        Util.world2screen(map, worldPoint);
+        x = worldPoint.x;
+        y = worldPoint.y;
+        int step = this.getStep();
+        paint.setColor(colors[step]);
+        c.drawCircle(x + radius, y + radius, radius + 4, paint);
+
+    }
 
 }

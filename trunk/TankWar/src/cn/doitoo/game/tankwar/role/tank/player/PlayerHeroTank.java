@@ -19,8 +19,7 @@ import cn.doitoo.game.tankwar.role.tank.HeroTank;
 public class PlayerHeroTank extends HeroTank {
 
 
-
-    public PlayerHeroTank(float x, float y) {
+    public PlayerHeroTank(int x, int y) {
         super(x, y);
         this.setDirection(MovableRole.move_direct.UP);
     }
