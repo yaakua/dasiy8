@@ -17,6 +17,7 @@ import cn.doitoo.game.framework.context.G;
 import cn.doitoo.game.framework.exception.ViewException;
 import cn.doitoo.game.framework.map.DoitooMap;
 import cn.doitoo.game.framework.role.MovableRole;
+import cn.doitoo.game.framework.util.CoordinateUtil;
 import cn.doitoo.game.framework.util.Util;
 
 /**
@@ -95,7 +96,7 @@ public abstract class HeroTank extends MovableRole {
     public void move() {
         if (pathList != null && !pathList.isEmpty() && pathListIndex < pathList.size()) {
             int node = (Integer) pathList.get(pathListIndex);
-            Point nextNode = Util.node2WorldPoint(map, node);
+            Point nextNode = CoordinateUtil.node2WorldPoint( node);
             int x = this.getX();
             int y = this.getY();
             int speed = this.getSpeed();
@@ -176,7 +177,7 @@ public abstract class HeroTank extends MovableRole {
 
         // 由世界坐标转成屏幕坐标
         Point worldPoint = new Point(x, y);
-        Util.world2screen(map, worldPoint);
+        CoordinateUtil.world2screen( worldPoint);
         x = worldPoint.x;
         y = worldPoint.y;
         // 要显示的图片矩形

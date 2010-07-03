@@ -8,6 +8,7 @@ import android.graphics.Rect;
 import cn.doitoo.game.framework.context.G;
 import cn.doitoo.game.framework.exception.ViewException;
 import cn.doitoo.game.framework.role.MovableRole;
+import cn.doitoo.game.framework.util.CoordinateUtil;
 import cn.doitoo.game.framework.util.Util;
 import cn.doitoo.game.tankwar.R;
 
@@ -187,7 +188,7 @@ public class DoitooMap extends MovableRole {
                     c.drawBitmap(source, src, dst, null);
                     // 转成世界地图坐标后加入相应的集合当中
                     Point screenPoint = new Point(elementX, elementY);
-                    Util.screen2world(this, screenPoint);
+                    CoordinateUtil.screen2world( screenPoint);
                     elementX = screenPoint.x;
                     elementY = screenPoint.y;
                     Rect rect2 = new Rect(elementX, elementY, (int) (elementX + this.elementWidth), (int) (elementY + this.elementHeight));

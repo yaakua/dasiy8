@@ -7,6 +7,7 @@ import android.graphics.Point;
 import android.graphics.Paint.Style;
 import cn.doitoo.game.framework.context.G;
 import cn.doitoo.game.framework.role.MovableRole;
+import cn.doitoo.game.framework.util.CoordinateUtil;
 import cn.doitoo.game.framework.util.Util;
 
 public class ClickCircle extends MovableRole {
@@ -46,7 +47,7 @@ public class ClickCircle extends MovableRole {
         int y = this.getY();
         // 由世界坐标转成屏幕坐标
         Point worldPoint = new Point(x, y);
-        Util.world2screen(map, worldPoint);
+        CoordinateUtil.world2screen( worldPoint);
         x = worldPoint.x;
         y = worldPoint.y;
         int step = this.getStep();

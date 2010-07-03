@@ -41,8 +41,8 @@ public class GameDrawThread extends Thread {
 		while (this.gameStauts.equals(GameStatus.RUNING)) {
 			try {
 				Thread.sleep(50);
-				synchronized (holder) {
 					canvas = holder.lockCanvas();
+				synchronized (holder) {
 					for (GameDrawTask task : drawTaskList) {
 						task.draw(canvas);
 					}
