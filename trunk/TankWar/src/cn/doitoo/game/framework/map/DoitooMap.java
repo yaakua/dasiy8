@@ -5,7 +5,6 @@ import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Point;
 import android.graphics.Rect;
-import android.view.MotionEvent;
 import cn.doitoo.game.framework.context.G;
 import cn.doitoo.game.framework.exception.ViewException;
 import cn.doitoo.game.framework.role.MovableRole;
@@ -189,7 +188,7 @@ public class DoitooMap extends MovableRole {
                     c.drawBitmap(source, src, dst, null);
                     // 转成世界地图坐标后加入相应的集合当中
                     Point screenPoint = new Point(elementX, elementY);
-                    CoordinateUtil.screen2world( screenPoint);
+                    CoordinateUtil.screen2world(screenPoint);
                     elementX = screenPoint.x;
                     elementY = screenPoint.y;
                     Rect rect2 = new Rect(elementX, elementY, (int) (elementX + this.elementWidth), (int) (elementY + this.elementHeight));
@@ -253,11 +252,6 @@ public class DoitooMap extends MovableRole {
     }
 
     public void setElementWidth(int elementWidth) {
-		this.elementWidth = elementWidth;
-	}
-    @Override
-    public void onClick(MotionEvent event) {
-    	// TODO Auto-generated method stub
-    	
+        this.elementWidth = elementWidth;
     }
 }

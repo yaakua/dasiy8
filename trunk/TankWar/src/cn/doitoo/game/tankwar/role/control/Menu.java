@@ -4,7 +4,6 @@ import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Rect;
-import android.view.MotionEvent;
 import cn.doitoo.game.framework.role.MovableRole;
 
 import java.util.ArrayList;
@@ -64,11 +63,5 @@ public class Menu extends MovableRole {
             button.paint(c);
         }
     }
-
-    @Override
-    public void onClick(MotionEvent event) {
-
-    }
-
 
 }

@@ -8,7 +8,7 @@ import android.view.MotionEvent;
  * Date: 2010-7-3
  * Time: 14:48:08
  */
-public abstract class IOnClickEventHandler extends ITouchEventHandler {
+public abstract class OnClickEventHandler extends TouchEventHandler {
 
 
     @Override

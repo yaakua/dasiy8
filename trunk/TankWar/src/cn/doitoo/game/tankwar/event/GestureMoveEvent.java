@@ -5,7 +5,7 @@ import android.graphics.Rect;
 import android.view.MotionEvent;
 import cn.doitoo.game.framework.arithmetic.PathSolver;
 import cn.doitoo.game.framework.context.G;
-import cn.doitoo.game.framework.event.ITouchEventHandler;
+import cn.doitoo.game.framework.event.TouchEventHandler;
 import cn.doitoo.game.framework.map.DoitooMap;
 import cn.doitoo.game.framework.util.CoordinateUtil;
 import cn.doitoo.game.framework.util.Util;
@@ -13,7 +13,7 @@ import cn.doitoo.game.tankwar.effect.ClickCircle;
 import cn.doitoo.game.tankwar.effect.SelectCircle;
 import cn.doitoo.game.tankwar.role.tank.player.PlayerHeroTank;
 
-public class GestureMoveEvent extends ITouchEventHandler {
+public class GestureMoveEvent extends TouchEventHandler {
 
     private int preX = -1;
     private int preY = -1;
