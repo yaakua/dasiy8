@@ -2,6 +2,7 @@ package cn.doitoo.game.tankwar.task;
 
 import android.content.Context;
 import android.graphics.*;
+import android.widget.Button;
 import cn.doitoo.game.framework.context.G;
 import cn.doitoo.game.framework.task.GameDrawTask;
 import cn.doitoo.game.framework.util.Util;
@@ -30,6 +31,8 @@ public class DrawControlLayerTask implements GameDrawTask {
         Context context = G.getContext();
         Bitmap playerControlImage = Util.getBitMapById(context, R.drawable.tank1_1);
         playerControl = new ImageButton(0, 0, playerControlImage);
+        Button btn = new Button(context);
+        
     }
 
     public void draw(Canvas c) {

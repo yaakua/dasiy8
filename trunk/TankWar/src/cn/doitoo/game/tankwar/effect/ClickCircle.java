@@ -5,6 +5,7 @@ import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Point;
 import android.graphics.Paint.Style;
+import android.view.MotionEvent;
 import cn.doitoo.game.framework.context.G;
 import cn.doitoo.game.framework.role.MovableRole;
 import cn.doitoo.game.framework.util.CoordinateUtil;
@@ -53,6 +54,11 @@ public class ClickCircle extends MovableRole {
         int step = this.getStep();
         paint.setColor(colors[step]);
         c.drawCircle(x, y, radius + 4, paint);
+    }
+    @Override
+    public void onClick(MotionEvent event) {
+    	// TODO Auto-generated method stub
+    	
     }
 
 }
