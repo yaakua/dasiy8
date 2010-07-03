@@ -19,7 +19,6 @@ public class GameView extends DoitooView {
 
     public GameView(Context context) {
         super(context);
-
         Log.d(TAG, "GameView");
     }
 
