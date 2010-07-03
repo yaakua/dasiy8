@@ -3,6 +3,7 @@ package cn.doitoo.game.tankwar.role.control;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Paint;
+import android.view.MotionEvent;
 import cn.doitoo.game.framework.role.MovableRole;
 
 /**
@@ -39,5 +40,10 @@ public class ImageButton extends MovableRole {
     @Override
     public void paint(Canvas c) {
         c.drawBitmap(this.bitmap, this.getX(), this.getY(), null);
+    }
+
+    @Override
+    public void onClick(MotionEvent event) {
+
     }
 }

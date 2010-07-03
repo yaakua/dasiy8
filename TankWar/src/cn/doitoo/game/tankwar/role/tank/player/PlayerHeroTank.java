@@ -4,7 +4,7 @@ import android.content.Context;
 import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.graphics.Canvas;
+import android.view.MotionEvent;
 import cn.doitoo.game.framework.context.G;
 import cn.doitoo.game.framework.role.MovableRole;
 import cn.doitoo.game.tankwar.R;
@@ -22,6 +22,11 @@ public class PlayerHeroTank extends HeroTank {
     public PlayerHeroTank(int x, int y) {
         super(x, y);
         this.setDirection(MovableRole.move_direct.UP);
+    }
+
+    @Override
+    public void onClick(MotionEvent event) {
+
     }
 
     @Override

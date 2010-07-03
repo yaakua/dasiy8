@@ -35,13 +35,11 @@ public class GestureMoveEvent extends ITouchEventHandler {
         pathSolver = (PathSolver) G.get("pathSolver");
     }
 
-    @Override
     public void onTouchDown(MotionEvent event) {
         preX = (int) event.getX();
         preY = (int) event.getY();
     }
 
-    @Override
     public void onTouchMove(MotionEvent event) {
         int x = (int) event.getX();
         int y = (int) event.getY();
@@ -60,7 +58,6 @@ public class GestureMoveEvent extends ITouchEventHandler {
 
     }
 
-    @Override
     public void onTouchUp(MotionEvent event) {
         int x = (int) event.getX();
         int y = (int) event.getY();
@@ -113,15 +110,12 @@ public class GestureMoveEvent extends ITouchEventHandler {
                 player.addAnimation("clickCircle", clickCircle);
 
                 //坦克坐标需要转换成世界坐标
-                CoordinateUtil.screen2world( startNodePoint);
+                CoordinateUtil.screen2world(startNodePoint);
                 player.setPathList(Util.computeShortestPath(startNodePoint, endNodePoint));
 
             }
         }
     }
-
-
- 
 
 
 }
