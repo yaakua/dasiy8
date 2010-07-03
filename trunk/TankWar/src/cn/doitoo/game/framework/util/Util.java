@@ -17,7 +17,7 @@ import java.util.Random;
  */
 public class Util {
     private static Random random = new Random();
-    
+
     public static Bitmap getBitMapById(Context context, int id) {
         return BitmapFactory.decodeStream(context.getResources().openRawResource(id));
     }
@@ -55,14 +55,29 @@ public class Util {
         return i + cols * j;
     }
 
+
     /**
      * 获取世界坐标某个点在世界地图排列数组当中的下标
      *
-     * @param map        世界地图
-     * @param worldPoint 世界地图坐标
+     * @param map             世界地图
+     * @param worldPoint      世界坐标
+     * @param gameMap01Vector 世界地图对应的01矩阵
      * @return 世界地图排列数组的下标
      */
-    public static int worldPoint2Node(DoitooMap map, Point worldPoint) {
+    public static int worldPoint2Node(DoitooMap map, Point worldPoint, int[][] gameMap01Vector) {
+        int[] a = worldPointIn01Vector(map, worldPoint); //获取当前坐标在01矩阵中的第i行，第j列
+        worldPoint = getDestination(gameMap01Vector, a[0], a[1]); //获取坐标点最近的通道
+        return convertPoint2Node(map.getMapRect()[0].length, Math.max(0, worldPoint.x), Math.max(0, worldPoint.y));
+    }
+
+    /**
+     * 世界坐标在01矩阵当中的第几行第几列
+     *
+     * @param map
+     * @param worldPoint
+     * @return
+     */
+    public static int[] worldPointIn01Vector(DoitooMap map, Point worldPoint) {
         if (map == null) {
             throw new ViewException("map is null");
         }
@@ -70,14 +85,18 @@ public class Util {
         int h = (int) map.getElementHeight();
         int i = worldPoint.x / w;
         int j = worldPoint.y / h;
-        return convertPoint2Node(map.getMapRect()[0].length, Math.max(0, i), Math.max(0, j));
+        int[] a = new int[2];
+        a[0] = i;
+        a[1] = j;
+        return a;
     }
 
     /**
-     *  根据世界地图的下标获取当前下标在世界地图中对应X,Y坐标
+     * 根据世界地图的下标获取当前下标在世界地图中对应X,Y坐标
+     *
      * @param map  世界地图
      * @param node 下标值
-     * @return  当前下标在世界地图中对应X,Y坐标
+     * @return 当前下标在世界地图中对应X,Y坐标
      */
     public static Point node2WorldPoint(DoitooMap map, int node) {
         if (map == null) {
@@ -101,37 +120,39 @@ public class Util {
     }
 
     /**
-     * @param x 游戏地图矩阵坐标
-     * @param y
+     * 获取指定点周围为通道的点
+     *
+     * @param i 当前点在世界地图的第i行
+     * @param j 当前点在世界地图的第j行
      */
-    public static Point getDestination(int gameMap01[][], int x, int y) {
-        if (gameMap01[x][y] == 1) return new Point(x, y);
-        int x1 = x;
-        int y1 = y;
+    public static Point getDestination(int gameMap01[][], int i, int j) {
+        if (gameMap01[i][j] == 1) return new Point(i, j);
+        int x1 = i;
+        int y1 = j;
         while (gameMap01[x1--][y1] == 0 && x1 > 0) ;
         Point p1 = new Point(x1 + 1, y1);
-        int d1 = Math.abs(x1 - x);
+        int d1 = Math.abs(x1 - i);
         int d = d1;
         Point p = p1;
-        x1 = x;
+        x1 = i;
         while (gameMap01[x1++][y1] == 0 && x1 < gameMap01[0].length) ;
         Point p2 = new Point(x1 + 1, y1);
-        int d2 = Math.abs(x1 - x);
+        int d2 = Math.abs(x1 - i);
         if (d2 < d) {
             d = d2;
             p = p2;
         }
         while (gameMap01[x1][y1--] == 0 && y1 > 0) ;
         Point p3 = new Point(x1 + 1, y1);
-        int d3 = Math.abs(y1 - y);
+        int d3 = Math.abs(y1 - j);
         if (d3 < d) {
             d = d3;
             p = p3;
         }
-        y1 = y;
+        y1 = j;
         while (gameMap01[x1][y1++] == 0 && y1 < gameMap01.length) ;
         Point p4 = new Point(x1 + 1, y1);
-        int d4 = Math.abs(y1 - y);
+        int d4 = Math.abs(y1 - j);
         if (d4 < d) {
             d = d4;
             p = p4;
