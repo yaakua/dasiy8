@@ -5,7 +5,7 @@ import java.util.Map;
 import java.util.Set;
 
 /**
- * 
+ * data pool for common using
  * @author Oliver O
  * 
  */
