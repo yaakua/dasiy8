@@ -133,7 +133,7 @@ public class GestureMoveEvent extends ITouchEventHandler {
 
         int[] a = Util.worldPointIn01Vector(map, endNodePoint); //获取当前坐标在01矩阵中的第i行，第j列
         endNodePoint = Util.getDestination(gameMap01Vector, a[0], a[1]); //获取坐标点最近的通道第I行，第J列
-        int index = Util.convertPoint2Node(map.getMapRect()[0].length, endNodePoint.x, endNodePoint.y);  //获取世界坐标某个点在世界地图排列数组当中的下标
+        int index = Util.convertPoint2Node(map.getMapRect()[0].length, endNodePoint.y, endNodePoint.x);  //获取世界坐标某个点在世界地图排列数组当中的下标
         endNodePoint = Util.node2WorldPoint(map, index);
         int endNode = Util.worldPoint2Node(map, endNodePoint);
 

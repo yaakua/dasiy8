@@ -60,7 +60,7 @@ public class GameView extends DoitooView {
         int screenHeight = dm.heightPixels;
         int screenWidth = dm.widthPixels;
         G.set("holder", holder);
-        G.set("context", getContext());
+        G.setContext(getContext());
         G.set("screenHeight", screenHeight);  //当前屏幕高度
         G.set("screenWidth", screenWidth);    //当前屏幕宽度
         G.set("tankElementWidth", 48);//坦克元素基本宽度
