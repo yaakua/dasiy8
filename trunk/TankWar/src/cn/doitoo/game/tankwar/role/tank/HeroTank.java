@@ -48,7 +48,7 @@ public abstract class HeroTank extends MovableRole {
      */
     public HeroTank(int x, int y) {
         super(x, y);
-        context = (Context) G.get("context");
+        context = (Context) G.getContext();
         bitmaps = getBitmaps();
         if (bitmaps.length < 4) {
             throw new ViewException("HeroTank 必须在子类初始化四个方向的图片");
@@ -250,6 +250,6 @@ public abstract class HeroTank extends MovableRole {
      * @param movableRole
      */
     public void addAnimation(String key, MovableRole movableRole) {
-		animations.put(key, movableRole);
-	}
+        animations.put(key, movableRole);
+    }
 }

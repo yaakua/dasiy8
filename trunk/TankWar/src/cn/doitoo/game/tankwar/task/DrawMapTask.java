@@ -31,11 +31,11 @@ public class DrawMapTask implements GameDrawTask {
     public static final int passValue = 1;
 
     public DrawMapTask() {
-        Context context = (Context) G.get("context");
+        Context context = G.getContext();
         int[] resIds = {R.drawable.tile_regular2, R.drawable.tile_trench1, R.drawable.tile_breakable, R.drawable.tile_breakable1};
         map = new DoitooMap(tank_map1, resIds, passValue, context, 0, 0);
         // 保存当前map对象至全局变量当中，以便其它类获取当前地图对象
-        G.set(map.getClass().getName(), map);
+        G.setDoitooMap(map);
         // 将地图排列数组转成01矩阵
         PathSolver pathSolver = new Dijkstra();
         int[][] gameMap01Vector = Util.gameMap01Vector(tank_map1, passValue);

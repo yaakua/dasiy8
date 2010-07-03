@@ -26,7 +26,7 @@ public class PlayerHeroTank extends HeroTank {
 
     @Override
     public Bitmap[] getBitmaps() {
-        Context context = (Context) G.get("context");
+        Context context = G.getContext();
         Resources res = context.getResources();
         Bitmap left_source = BitmapFactory.decodeResource(res, R.drawable.tank1_2);
         Bitmap right_source = BitmapFactory.decodeResource(res, R.drawable.tank1_4);
