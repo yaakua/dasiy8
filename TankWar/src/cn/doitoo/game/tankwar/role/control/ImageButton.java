@@ -38,6 +38,7 @@ public class ImageButton extends MovableRole {
 
     @Override
     public void paint(Canvas c) {
+        this.paintAnimation(c);
         c.drawBitmap(this.bitmap, this.getX(), this.getY(), null);
     }
 

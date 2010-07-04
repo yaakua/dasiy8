@@ -6,10 +6,8 @@ import android.util.Log;
 import android.view.SurfaceHolder;
 import cn.doitoo.game.framework.context.G;
 import cn.doitoo.game.framework.enums.GameStatus;
-import cn.doitoo.game.framework.event.TouchEventHandler;
 import cn.doitoo.game.framework.graphic.DoitooView;
 import cn.doitoo.game.framework.thread.GameDrawThread;
-import cn.doitoo.game.tankwar.event.GestureMoveEvent;
 import cn.doitoo.game.tankwar.task.DrawControlLayerTask;
 import cn.doitoo.game.tankwar.task.DrawMapTask;
 import cn.doitoo.game.tankwar.task.tank.PlayerHeroTankTask;
@@ -45,7 +43,6 @@ public class GameView extends DoitooView {
         gameDrawThread0.setGameStauts(GameStatus.RUNING);
         gameDrawThread0.start();
 
-        TouchEventHandler.touchList.add(new GestureMoveEvent());
     }
 
     /**

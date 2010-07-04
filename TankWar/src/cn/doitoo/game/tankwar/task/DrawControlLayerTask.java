@@ -4,11 +4,14 @@ import android.content.Context;
 import android.graphics.*;
 import android.view.MotionEvent;
 import cn.doitoo.game.framework.context.G;
-import cn.doitoo.game.framework.event.OnClickListenerImpl;
+import cn.doitoo.game.framework.event.OnClickEventHandler;
 import cn.doitoo.game.framework.task.GameDrawTask;
+import cn.doitoo.game.framework.util.ImageUtil;
 import cn.doitoo.game.framework.util.Util;
 import cn.doitoo.game.tankwar.R;
+import cn.doitoo.game.tankwar.effect.SelectAnimation;
 import cn.doitoo.game.tankwar.role.control.ImageButton;
+import cn.doitoo.game.tankwar.role.tank.player.PlayerHeroTank;
 
 /**
  * 绘画控制层界面
@@ -22,6 +25,8 @@ public class DrawControlLayerTask implements GameDrawTask {
 
     private ImageButton playerControl = null;
 
+    private PlayerHeroTank player;
+
     public DrawControlLayerTask() {
         super();
         rectPaint = new Paint();
@@ -30,20 +35,57 @@ public class DrawControlLayerTask implements GameDrawTask {
         int screenWidth = G.getInt("screenWidth");
         rect = new Rect(0, 0, screenWidth, 48);
         Context context = G.getContext();
+        //坦克控制按钮
         Bitmap playerControlImage = Util.getBitMapById(context, R.drawable.tank1_1);
+        playerControlImage = ImageUtil.setAlpha(playerControlImage, 50);//设置图片透明度
         playerControl = new ImageButton(0, 0, playerControlImage);
-        playerControl.setOnClickListener(new OnClickListenerImpl() {
+        player = (PlayerHeroTank) G.get("playerHeroTankTask");
+        playerControl.setOnClickEventHandler(new OnClickEventHandler() {
             @Override
             public void onClick(MotionEvent event) {
-
+                player.setSelected(!player.isSelected());
+                playerControl.setSelected(player.isSelected());
+                player.addSelectedAnimation();
+                addSelectedAnimation();
             }
         });
+
+        //地图控制按钮
+
+
     }
 
     public void draw(Canvas c) {
         // 顶部菜单与按钮
         c.drawRect(rect, rectPaint);
         playerControl.paint(c);
+    }
+
+
+    /**
+     * 添加选中的效果
+     */
+    public void addSelectedAnimation() {
+        SelectAnimation animation = (SelectAnimation) playerControl.getAnimation("circle1");
+        if (playerControl.isSelected()) {
+            if (animation != null) {
+                playerControl.deleteAnimation("circle1");
+            }
+        } else {
+            if (animation == null) {
+                animation = new SelectAnimation(playerControl.getX(), playerControl.getY(), playerControl.getWidth(), playerControl.getHeight());
+                int[] step = {2};
+                animation.setStep_array(step);
+                Paint paint = new Paint();
+                paint.setStyle(Paint.Style.STROKE);//画空心圆时设置此参数，则只画边框
+                paint.setStrokeWidth(2);//设置边框粗细
+                paint.setAlpha(50);
+                animation.setPaint(paint);
+                animation.setMoving(false);
+                animation.setWorldCoordinate(false); //设置动画坐标不以世界坐标移动。
+            }
+            playerControl.addAnimation("circle1", animation);
+        }
     }
 
 }

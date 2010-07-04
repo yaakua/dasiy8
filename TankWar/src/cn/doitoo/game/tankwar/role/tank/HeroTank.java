@@ -9,7 +9,6 @@ import cn.doitoo.game.framework.context.G;
 import cn.doitoo.game.framework.exception.ViewException;
 import cn.doitoo.game.framework.role.MovableRole;
 import cn.doitoo.game.framework.util.CoordinateUtil;
-import cn.doitoo.game.framework.util.Util;
 
 import java.util.*;
 
@@ -31,8 +30,6 @@ public abstract class HeroTank extends MovableRole {
     // 英雄坦克移动路径下标集合
     private List pathList;
 
-    // 坦克所拥有的特效动画
-    private Map<String, MovableRole> animations = new HashMap<String, MovableRole>();
 
     /**
      * 初始化英雄坦克
@@ -158,15 +155,7 @@ public abstract class HeroTank extends MovableRole {
         int y = getY();
 
         // 更改特效动画对应的坐标
-        Set<String> keys = animations.keySet();
-        Iterator<String> iterator = keys.iterator();
-        while (iterator.hasNext()) {
-            String key = (String) iterator.next();
-            MovableRole moveRole = animations.get(key);
-            if (moveRole.isMoving())
-                moveRole.setPosition(x, y);
-            moveRole.paint(c);
-        }
+        this.paintAnimation(c);
 
         // 由世界坐标转成屏幕坐标
         Point worldPoint = new Point(x, y);
@@ -204,44 +193,5 @@ public abstract class HeroTank extends MovableRole {
         pathListIndex = 0;
     }
 
-    /**
-     * 删除特效动画
-     */
-    public void deleteAnimation(String keyCode) {
-        Set<String> keys = animations.keySet();
-        Iterator<String> iterator = keys.iterator();
-        while (iterator.hasNext()) {
-            String key = (String) iterator.next();
-            if (key.equals(keyCode)) {
-                iterator.remove();
-            }
-        }
-    }
 
-    /**
-     * 查找已存在的特效动画
-     *
-     * @param keyCode
-     * @return
-     */
-    public MovableRole getAnimation(String keyCode) {
-        Set<String> keys = animations.keySet();
-        Iterator<String> iterator = keys.iterator();
-        while (iterator.hasNext()) {
-            String key = (String) iterator.next();
-            if (key.equals(keyCode)) {
-                return (MovableRole) animations.get(key);
-            }
-        }
-        return null;
-    }
-
-    /**
-     * 添加特效动画
-     *
-     * @param movableRole
-     */
-    public void addAnimation(String key, MovableRole movableRole) {
-        animations.put(key, movableRole);
-    }
 }
