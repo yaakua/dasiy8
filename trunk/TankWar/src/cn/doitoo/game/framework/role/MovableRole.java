@@ -1,22 +1,20 @@
 package cn.doitoo.game.framework.role;
 
 import android.graphics.Canvas;
+import android.graphics.Paint;
 import android.graphics.Rect;
-import android.view.MotionEvent;
 import cn.doitoo.game.framework.context.G;
-import cn.doitoo.game.framework.event.IOnClickListener;
 import cn.doitoo.game.framework.event.OnClickEventHandler;
 import cn.doitoo.game.framework.map.DoitooMap;
 
-import java.util.LinkedList;
-import java.util.List;
+import java.util.*;
 
 /**
  * TODO add other functions
  *
  * @author Oliver O
  */
-public abstract class MovableRole extends OnClickEventHandler {
+public abstract class MovableRole {
     private int oldX;
 
     private int oldY;
@@ -29,8 +27,8 @@ public abstract class MovableRole extends OnClickEventHandler {
 
     protected DoitooMap map;
 
-    public IOnClickListener onClickListener;
-
+    public OnClickEventHandler onClickEventHandler;
+    private Paint paint = null;
     /**
      * 角色动画步骤
      */
@@ -54,6 +52,11 @@ public abstract class MovableRole extends OnClickEventHandler {
      * 是否被选中
      */
     private boolean isSelected;
+
+    /**
+     * 角色所拥有的特效动画
+     */
+    private Map<String, MovableRole> animations = new HashMap<String, MovableRole>();
 
     public enum move_direct {
         LEFT, UP, DOWN, RIGHT
@@ -95,19 +98,6 @@ public abstract class MovableRole extends OnClickEventHandler {
     }
 
     /**
-     * 在角色动画当中切换至下一帧
-     * <p/>
-     * 如果角色需要动画显示，则每次画坦克之前都需要调用此方法
-     */
-    private void nextFrame() {
-        if (step >= step_array.length) {
-            step = 0;
-        } else {
-            step++;
-        }
-    }
-
-    /**
      * 先保存角色改变前的坐标再改变角色坐标，
      *
      * @param x 角色新的X坐标
@@ -118,9 +108,7 @@ public abstract class MovableRole extends OnClickEventHandler {
         this.oldY = getY();
         this.x = x;
         this.y = y;
-
     }
-
 
     public int getX() {
         return x;
@@ -155,7 +143,11 @@ public abstract class MovableRole extends OnClickEventHandler {
     }
 
     public int getStep() {
-        this.nextFrame();
+        if (step >= step_array.length) {
+            step = 0;
+        } else {
+            step++;
+        }
         if (step >= this.getStep_array().length) step = 0;
         return step;
     }
@@ -188,19 +180,12 @@ public abstract class MovableRole extends OnClickEventHandler {
         this.isSelected = isSelected;
     }
 
-    /**
-     * 当前点击事件点中当前角色时响应onClick事件
-     *
-     * @param event 用户点击事件
-     */
-    @Override
-    public void onTouchDown(MotionEvent event) {
-        int x = (int) event.getX();
-        int y = (int) event.getY();
-        Rect rect = this.getRect();
-        if (rect.contains(x, y))
-            if (this.onClickListener != null)
-                this.onClickListener.onClick(event);
+    public Paint getPaint() {
+        return paint;
+    }
+
+    public void setPaint(Paint paint) {
+        this.paint = paint;
     }
 
     /**
@@ -216,7 +201,76 @@ public abstract class MovableRole extends OnClickEventHandler {
         return new Rect(left, top, right, bottom);
     }
 
-    public void setOnClickListener(IOnClickListener onClickListener) {
-        this.onClickListener = onClickListener;
+    /**
+     * 为角色添加点击事件，原理为：为当前角色添加一个事件分派器 ，在分派器里添加当前角色对象
+     * 当触发点击事件时，判断当前是否点击到当前角色上，如果是当前角色，则调用当前角色的点击事件方法
+     *
+     * @param onClickEventHandler 点击事件，只处理点击。
+     */
+    public void setOnClickEventHandler(OnClickEventHandler onClickEventHandler) {
+        this.onClickEventHandler = onClickEventHandler;
+        onClickEventHandler.setRole(this);
+    }
+
+    /**
+     * 删除特效动画
+     */
+    public void deleteAnimation(String keyCode) {
+        Set<String> keys = animations.keySet();
+        Iterator<String> iterator = keys.iterator();
+        while (iterator.hasNext()) {
+            String key = (String) iterator.next();
+            if (key.equals(keyCode)) {
+                iterator.remove();
+            }
+        }
+    }
+
+    /**
+     * 查找已存在的特效动画
+     *
+     * @param keyCode
+     * @return
+     */
+    public MovableRole getAnimation(String keyCode) {
+        Set<String> keys = animations.keySet();
+        Iterator<String> iterator = keys.iterator();
+        while (iterator.hasNext()) {
+            String key = (String) iterator.next();
+            if (key.equals(keyCode)) {
+                return (MovableRole) animations.get(key);
+            }
+        }
+        return null;
+    }
+
+    /**
+     * 添加特效动画
+     *
+     * @param movableRole
+     */
+    public void addAnimation(String key, MovableRole movableRole) {
+        animations.put(key, movableRole);
+    }
+
+    public Map<String, MovableRole> getAnimations() {
+        return animations;
+    }
+
+    /**
+     * 画出角色所有动画效果
+     *
+     * @param c
+     */
+    public void paintAnimation(Canvas c) {
+        Set<String> keys = this.getAnimations().keySet();
+        Iterator<String> iterator = keys.iterator();
+        while (iterator.hasNext()) {
+            String key = iterator.next();
+            MovableRole moveRole = this.getAnimations().get(key);
+            if (moveRole.isMoving())
+                moveRole.setPosition(x, y);
+            moveRole.paint(c);
+        }
     }
 }

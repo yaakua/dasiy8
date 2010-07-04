@@ -6,6 +6,7 @@ import android.graphics.Canvas;
 import android.graphics.Point;
 import android.graphics.Rect;
 import cn.doitoo.game.framework.context.G;
+import cn.doitoo.game.framework.event.TouchEventHandler;
 import cn.doitoo.game.framework.exception.ViewException;
 import cn.doitoo.game.framework.role.MovableRole;
 import cn.doitoo.game.framework.util.CoordinateUtil;
@@ -18,6 +19,8 @@ import java.util.List;
 import java.util.Map;
 
 public class DoitooMap extends MovableRole {
+
+    private TouchEventHandler touchEventHandler;
 
     /**
      * 世界地图元素组成集合，与地图排列数组当中的值的类型一致。 <code>
@@ -253,5 +256,9 @@ public class DoitooMap extends MovableRole {
 
     public void setElementWidth(int elementWidth) {
         this.elementWidth = elementWidth;
+    }
+
+    public void setTouchEventHandler(TouchEventHandler touchEventHandler) {
+        this.touchEventHandler = touchEventHandler;
     }
 }

@@ -10,7 +10,7 @@ import cn.doitoo.game.framework.map.DoitooMap;
 import cn.doitoo.game.framework.util.CoordinateUtil;
 import cn.doitoo.game.framework.util.Util;
 import cn.doitoo.game.tankwar.effect.ClickCircle;
-import cn.doitoo.game.tankwar.effect.SelectCircle;
+import cn.doitoo.game.tankwar.effect.SelectAnimation;
 import cn.doitoo.game.tankwar.role.tank.player.PlayerHeroTank;
 
 public class GestureMoveEvent extends TouchEventHandler {
@@ -76,18 +76,18 @@ public class GestureMoveEvent extends TouchEventHandler {
                 // 如果点击的是坦克判断当前坦克是否被选中，如果选中才进行移动
                 if (playerCurrentRect.contains(preX, preY)) {
                     //添加选中特效动画
-                    SelectCircle circle = (SelectCircle) player.getAnimation("circle0");
+                    SelectAnimation animation = (SelectAnimation) player.getAnimation("circle0");
                     if (player.isSelected()) {
-                        if (circle != null) {
+                        if (animation != null) {
                             player.deleteAnimation("circle0");
                         }
                         player.setSelected(false);
                     } else {
-                        if (circle == null)
-                            circle = new SelectCircle(playerX, playerY);
-                        circle.setMoving(true);//设置为可移动（根据坦克坐标进行移动）
-                        player.addAnimation("circle0", circle);
-                        player.setSelected(true);
+//                        if (animation == null)
+//                            animation = new SelectAnimation(playerX, playerY);
+//                        animation.setMoving(true);//设置为可移动（根据坦克坐标进行移动）
+//                        player.addAnimation("circle0", animation);
+//                        player.setSelected(true);
                     }
                 } else {
                     if (!player.isSelected())
