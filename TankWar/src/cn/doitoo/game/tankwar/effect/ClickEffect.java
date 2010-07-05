@@ -6,15 +6,14 @@ import android.graphics.Paint;
 import android.graphics.Paint.Style;
 import android.graphics.Point;
 import cn.doitoo.game.framework.context.G;
-import cn.doitoo.game.framework.role.MovableRole;
 import cn.doitoo.game.framework.util.CoordinateUtil;
 
-public class ClickCircle extends MovableRole {
+public class ClickEffect extends Effect {
     private Paint paint = null;
     private int radius;
     private int[] colors = {Color.CYAN, Color.BLACK, Color.LTGRAY, Color.TRANSPARENT};
 
-    public ClickCircle(int x, int y) {
+    public ClickEffect(int x, int y) {
         super(x, y);
         paint = new Paint();
         paint.setStyle(Style.STROKE);//画空心圆时设置此参数，则只画边框

@@ -9,8 +9,8 @@ import cn.doitoo.game.framework.event.TouchEventHandler;
 import cn.doitoo.game.framework.map.DoitooMap;
 import cn.doitoo.game.framework.util.CoordinateUtil;
 import cn.doitoo.game.framework.util.Util;
-import cn.doitoo.game.tankwar.effect.ClickCircle;
-import cn.doitoo.game.tankwar.effect.SelectAnimation;
+import cn.doitoo.game.tankwar.effect.ClickEffect;
+import cn.doitoo.game.tankwar.effect.SelectEffect;
 import cn.doitoo.game.tankwar.role.tank.player.PlayerHeroTank;
 
 public class GestureMoveEvent extends TouchEventHandler {
@@ -76,17 +76,17 @@ public class GestureMoveEvent extends TouchEventHandler {
                 // 如果点击的是坦克判断当前坦克是否被选中，如果选中才进行移动
                 if (playerCurrentRect.contains(preX, preY)) {
                     //添加选中特效动画
-                    SelectAnimation animation = (SelectAnimation) player.getAnimation("circle0");
+                    SelectEffect effect = (SelectEffect) player.getEffectByKey("circle0");
                     if (player.isSelected()) {
-                        if (animation != null) {
-                            player.deleteAnimation("circle0");
+                        if (effect != null) {
+                            player.deleteEffect("circle0");
                         }
                         player.setSelected(false);
                     } else {
-//                        if (animation == null)
-//                            animation = new SelectAnimation(playerX, playerY);
-//                        animation.setMoving(true);//设置为可移动（根据坦克坐标进行移动）
-//                        player.addAnimation("circle0", animation);
+//                        if (effect == null)
+//                            effect = new SelectEffect(playerX, playerY);
+//                        effect.setMoving(true);//设置为可移动（根据坦克坐标进行移动）
+//                        player.addSelectedEffect("circle0", effect);
 //                        player.setSelected(true);
                     }
                 } else {
@@ -102,12 +102,12 @@ public class GestureMoveEvent extends TouchEventHandler {
                 CoordinateUtil.screen2world(endNodePoint);
 
                 //点击特效动画
-                ClickCircle clickCircle = (ClickCircle) player.getAnimation("clickCircle");
-                if (clickCircle == null)
-                    clickCircle = new ClickCircle(endNodePoint.x, endNodePoint.y);
+                ClickEffect clickEffect = (ClickEffect) player.getEffectByKey("clickEffect");
+                if (clickEffect == null)
+                    clickEffect = new ClickEffect(endNodePoint.x, endNodePoint.y);
                 else
-                    clickCircle.setPosition(endNodePoint.x, endNodePoint.y);
-                player.addAnimation("clickCircle", clickCircle);
+                    clickEffect.setPosition(endNodePoint.x, endNodePoint.y);
+                player.addEffect("clickEffect", clickEffect);
 
                 //坦克坐标需要转换成世界坐标
                 CoordinateUtil.screen2world(startNodePoint);

@@ -155,7 +155,7 @@ public abstract class HeroTank extends MovableRole {
         int y = getY();
 
         // 更改特效动画对应的坐标
-        this.paintAnimation(c);
+        this.paintEffects(c);
 
         // 由世界坐标转成屏幕坐标
         Point worldPoint = new Point(x, y);

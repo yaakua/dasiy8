@@ -23,7 +23,7 @@ public class PlayerHeroTankTask implements GameDrawTask {
             @Override
             public void onClick(MotionEvent event) {
                 player.setSelected(!player.isSelected());
-                player.addSelectedAnimation();
+                player.addSelectEffect();
             }
         });
     }
