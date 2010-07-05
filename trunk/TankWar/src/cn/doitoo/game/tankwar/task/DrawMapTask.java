@@ -13,7 +13,7 @@ import cn.doitoo.game.framework.task.GameDrawTask;
 import cn.doitoo.game.framework.util.CoordinateUtil;
 import cn.doitoo.game.framework.util.Util;
 import cn.doitoo.game.tankwar.R;
-import cn.doitoo.game.tankwar.effect.ClickCircle;
+import cn.doitoo.game.tankwar.effect.ClickEffect;
 import cn.doitoo.game.tankwar.role.tank.player.PlayerHeroTank;
 
 public class DrawMapTask implements GameDrawTask {
@@ -70,7 +70,6 @@ public class DrawMapTask implements GameDrawTask {
             int screenWidth = G.getInt("screenWidth");
             maxWidth = screenWidth - map.getWidth() - 48;
             maxHeight = screenHeight - map.getHeight() - 48;
-            player = (PlayerHeroTank) G.get("playerHeroTankTask");
         }
 
         @Override
@@ -102,32 +101,34 @@ public class DrawMapTask implements GameDrawTask {
             int x = (int) event.getX();
             int y = (int) event.getY();
             int rect = 2;
+            player = (PlayerHeroTank) G.get("playerHeroTankTask");
+            if (player == null || player.isSelected()) {
+                return;
+            }
             if (Math.abs(x - preX) < rect && Math.abs(y - preY) < rect) {
-                if (player != null) {
-                    int playerX = player.getX();
-                    int playerY = player.getY();
-                    Point startNodePoint = new Point(playerX, playerY);
-                    CoordinateUtil.world2screen(startNodePoint);
+                int playerX = player.getX();
+                int playerY = player.getY();
+                Point startNodePoint = new Point(playerX, playerY);
+                CoordinateUtil.world2screen(startNodePoint);
 
-                    if (!player.isSelected())
-                        return;
+                Point endNodePoint = new Point(preX, preY);
+                CoordinateUtil.screen2world(endNodePoint);
 
-                    Point endNodePoint = new Point(preX, preY);
-                    CoordinateUtil.screen2world(endNodePoint);
-
-                    //点击特效动画
-                    ClickCircle clickCircle = (ClickCircle) player.getAnimation("clickCircle");
-                    if (clickCircle == null)
-                        clickCircle = new ClickCircle(endNodePoint.x, endNodePoint.y);
-                    else
-                        clickCircle.setPosition(endNodePoint.x, endNodePoint.y);
-                    player.addAnimation("clickCircle", clickCircle);
-
-                    //坦克坐标需要转换成世界坐标
-                    CoordinateUtil.screen2world(startNodePoint);
-                    player.setPathList(Util.computeShortestPath(startNodePoint, endNodePoint));
-
+                //点击特效动画
+                ClickEffect clickEffect = (ClickEffect) player.getEffectByKey("clickEffect");
+                if (clickEffect == null)
+                    clickEffect = new ClickEffect(endNodePoint.x, endNodePoint.y);
+                else {
+                    clickEffect.setPosition(endNodePoint.x, endNodePoint.y);
+                    clickEffect.setTime(6000);
                 }
+
+                player.addEffect("clickEffect", clickEffect);
+
+                //坦克坐标需要转换成世界坐标
+                CoordinateUtil.screen2world(startNodePoint);
+                player.setPathList(Util.computeShortestPath(startNodePoint, endNodePoint));
+
             }
         }
     }

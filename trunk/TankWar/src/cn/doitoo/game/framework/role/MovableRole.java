@@ -6,6 +6,7 @@ import android.graphics.Rect;
 import cn.doitoo.game.framework.context.G;
 import cn.doitoo.game.framework.event.OnClickEventHandler;
 import cn.doitoo.game.framework.map.DoitooMap;
+import cn.doitoo.game.tankwar.effect.Effect;
 
 import java.util.*;
 
@@ -56,7 +57,7 @@ public abstract class MovableRole {
     /**
      * 角色所拥有的特效动画
      */
-    private Map<String, MovableRole> animations = new HashMap<String, MovableRole>();
+    private Map<String, Effect> effects = new HashMap<String, Effect>();
 
     public enum move_direct {
         LEFT, UP, DOWN, RIGHT
@@ -215,11 +216,11 @@ public abstract class MovableRole {
     /**
      * 删除特效动画
      */
-    public void deleteAnimation(String keyCode) {
-        Set<String> keys = animations.keySet();
+    public void deleteEffect(String keyCode) {
+        Set<String> keys = effects.keySet();
         Iterator<String> iterator = keys.iterator();
         while (iterator.hasNext()) {
-            String key = (String) iterator.next();
+            String key = iterator.next();
             if (key.equals(keyCode)) {
                 iterator.remove();
             }
@@ -232,13 +233,13 @@ public abstract class MovableRole {
      * @param keyCode
      * @return
      */
-    public MovableRole getAnimation(String keyCode) {
-        Set<String> keys = animations.keySet();
+    public MovableRole getEffectByKey(String keyCode) {
+        Set<String> keys = effects.keySet();
         Iterator<String> iterator = keys.iterator();
         while (iterator.hasNext()) {
-            String key = (String) iterator.next();
+            String key = iterator.next();
             if (key.equals(keyCode)) {
-                return (MovableRole) animations.get(key);
+                return effects.get(key);
             }
         }
         return null;
@@ -247,14 +248,14 @@ public abstract class MovableRole {
     /**
      * 添加特效动画
      *
-     * @param movableRole
+     * @param effect
      */
-    public void addAnimation(String key, MovableRole movableRole) {
-        animations.put(key, movableRole);
+    public void addEffect(String key, Effect effect) {
+        effects.put(key, effect);
     }
 
-    public Map<String, MovableRole> getAnimations() {
-        return animations;
+    public Map<String, Effect> getEffects() {
+        return effects;
     }
 
     /**
@@ -262,15 +263,23 @@ public abstract class MovableRole {
      *
      * @param c
      */
-    public void paintAnimation(Canvas c) {
-        Set<String> keys = this.getAnimations().keySet();
+    public void paintEffects(Canvas c) {
+        Set<String> keys = this.getEffects().keySet();
         Iterator<String> iterator = keys.iterator();
         while (iterator.hasNext()) {
             String key = iterator.next();
-            MovableRole moveRole = this.getAnimations().get(key);
-            if (moveRole.isMoving())
-                moveRole.setPosition(x, y);
-            moveRole.paint(c);
+            Effect effect = this.getEffects().get(key);
+            if (effect.isMoving())
+                effect.setPosition(x, y);
+            int time = effect.getTime();
+            if (time > 0) {
+                effect.paint(c);
+                effect.setTime(--time);
+            } else if (time <= -1) {  //如果持续时间为-1，则代表一直使用
+                effect.paint(c);
+            } else {
+                iterator.remove();
+            }
         }
     }
 }

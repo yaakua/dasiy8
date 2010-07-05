@@ -1,11 +1,13 @@
 package cn.doitoo.game.tankwar.effect;
 
-import android.graphics.*;
+import android.graphics.Canvas;
+import android.graphics.Color;
+import android.graphics.Paint;
 import android.graphics.Paint.Style;
-import cn.doitoo.game.framework.role.MovableRole;
+import android.graphics.Point;
 import cn.doitoo.game.framework.util.CoordinateUtil;
 
-public class SelectAnimation extends MovableRole {
+public class SelectEffect extends Effect {
 
     private int radius;
     /**
@@ -29,7 +31,7 @@ public class SelectAnimation extends MovableRole {
     private int width;
     private int height;
 
-    public SelectAnimation(int x, int y, int width, int height) {
+    public SelectEffect(int x, int y, int width, int height) {
         super(x, y);
         Paint paint = new Paint();
         paint.setStyle(Style.STROKE);//画空心圆时设置此参数，则只画边框
