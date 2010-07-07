@@ -42,4 +42,7 @@ public class ImageButton extends MovableRole {
         c.drawBitmap(this.bitmap, this.getX(), this.getY(), null);
     }
 
+    public void setBitmap(Bitmap bitmap) {
+        this.bitmap = bitmap;
+    }
 }

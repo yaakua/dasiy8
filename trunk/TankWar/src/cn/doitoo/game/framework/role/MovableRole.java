@@ -2,10 +2,12 @@ package cn.doitoo.game.framework.role;
 
 import android.graphics.Canvas;
 import android.graphics.Paint;
+import android.graphics.Point;
 import android.graphics.Rect;
 import cn.doitoo.game.framework.context.G;
 import cn.doitoo.game.framework.event.OnClickEventHandler;
 import cn.doitoo.game.framework.map.DoitooMap;
+import cn.doitoo.game.framework.util.CoordinateUtil;
 import cn.doitoo.game.tankwar.effect.Effect;
 
 import java.util.*;
@@ -281,5 +283,19 @@ public abstract class MovableRole {
                 iterator.remove();
             }
         }
+    }
+
+    /**
+     * 获取当前角色位置对应的屏幕坐标
+     *
+     * @return 角色在屏幕的坐标
+     */
+    public Point getScreenPoint() {
+        int x = getX();
+        int y = getY();
+        // 由世界坐标转成屏幕坐标
+        Point worldPoint = new Point(x, y);
+        CoordinateUtil.world2screen(worldPoint);
+        return worldPoint;
     }
 }

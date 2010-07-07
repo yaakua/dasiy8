@@ -10,6 +10,8 @@ import cn.doitoo.game.framework.graphic.DoitooView;
 import cn.doitoo.game.framework.thread.GameDrawThread;
 import cn.doitoo.game.tankwar.task.DrawControlLayerTask;
 import cn.doitoo.game.tankwar.task.DrawMapTask;
+import cn.doitoo.game.tankwar.task.DrawOtherInfoTask;
+import cn.doitoo.game.tankwar.task.tank.PlayerAiTankTask;
 import cn.doitoo.game.tankwar.task.tank.PlayerHeroTankTask;
 
 public class GameView extends DoitooView {
@@ -34,12 +36,16 @@ public class GameView extends DoitooView {
         DrawMapTask drawMapTask = new DrawMapTask();
         //绘制玩家英雄坦克
         PlayerHeroTankTask playerHeroTankTask = new PlayerHeroTankTask();
-
+        //绘制玩家AI坦克
+        PlayerAiTankTask playerAiTankTask = new PlayerAiTankTask();
+        //绘制其它信息
+        DrawOtherInfoTask drawOtherInfoTask = new DrawOtherInfoTask();
         //绘制控制按钮层
         DrawControlLayerTask drawControlLayerTask = new DrawControlLayerTask();
 
         //添加相关任务
-        gameDrawThread0.add(drawMapTask).add(playerHeroTankTask).add(drawControlLayerTask);
+        gameDrawThread0.add(drawMapTask).add(playerHeroTankTask)
+                .add(playerAiTankTask).add(drawOtherInfoTask).add(drawControlLayerTask);
         gameDrawThread0.setGameStauts(GameStatus.RUNING);
         gameDrawThread0.start();
 

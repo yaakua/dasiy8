@@ -134,14 +134,14 @@ public class DoitooMap extends MovableRole {
         int screenHeight = G.getInt("screenHeight");
         int screenWidth = G.getInt("screenWidth");
         if (screenHeight % elementHeight == 0) {
-            screenRows = (int) (screenHeight / elementHeight);
+            screenRows = (screenHeight / elementHeight);
         } else {
-            screenRows = (int) (screenHeight / elementHeight + 1);
+            screenRows = (screenHeight / elementHeight + 1);
         }
         if (screenWidth % elementWidth == 0) {
-            screenCols = (int) (screenWidth / elementWidth);
+            screenCols = (screenWidth / elementWidth);
         } else {
-            screenCols = (int) (screenWidth / elementWidth + 1);
+            screenCols = (screenWidth / elementWidth + 1);
         }
 
     }
@@ -172,8 +172,8 @@ public class DoitooMap extends MovableRole {
         int deltaX = getX();
         int deltaY = getY();
 
-        int nArrayJ = (int) (Math.abs(deltaX - elementWidth) / elementWidth - 1);
-        int nArrayI = (int) (Math.abs(deltaY - elementHeight) / elementHeight - 1);
+        int nArrayJ = (Math.abs(deltaX - elementWidth) / elementWidth - 1);
+        int nArrayI = (Math.abs(deltaY - elementHeight) / elementHeight - 1);
 
         for (int i = nArrayI; i <= nArrayI + screenRows; i++) {
             if (i >= rows)

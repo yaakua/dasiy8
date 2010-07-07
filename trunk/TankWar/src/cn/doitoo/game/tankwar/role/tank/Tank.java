@@ -15,21 +15,27 @@ import java.util.*;
 /**
  * 英雄坦克主类，所有不同类型的英雄坦克都需要继承此类 User: 阳葵 Date: 2010-6-27 Time: 10:12:58
  */
-public abstract class HeroTank extends MovableRole {
-    private static List<Bitmap> LeftBitMapList = new ArrayList<Bitmap>();
-    private static List<Bitmap> RightBitMapList = new ArrayList<Bitmap>();
-    private static List<Bitmap> UpBitMapList = new ArrayList<Bitmap>();
-    private static List<Bitmap> DownBitMapList = new ArrayList<Bitmap>();
+public abstract class Tank extends MovableRole {
+    private List<Bitmap> LeftBitMapList = new ArrayList<Bitmap>();
+    private List<Bitmap> RightBitMapList = new ArrayList<Bitmap>();
+    private List<Bitmap> UpBitMapList = new ArrayList<Bitmap>();
+    private List<Bitmap> DownBitMapList = new ArrayList<Bitmap>();
     protected int height;
     protected int width;
-
+    public static List<Tank> tanks = new ArrayList<Tank>();
+    private TankType tankType;
     protected Context context;
 
     // bitmaps 按左、上、右、下的顺序初始化坦克的四个方向。
     private Bitmap[] bitmaps = null;
     // 英雄坦克移动路径下标集合
-    private List pathList;
+    protected List pathList;
 
+    public enum TankType {
+        PlayerAiTank, PlayerHeroTank, OpponentAiTank
+    }
+
+    public abstract TankType getTankType();
 
     /**
      * 初始化英雄坦克
@@ -37,12 +43,14 @@ public abstract class HeroTank extends MovableRole {
      * @param x 初始化X坐标
      * @param y 初始化Y坐标
      */
-    public HeroTank(int x, int y) {
+    public Tank(int x, int y) {
         super(x, y);
+        this.tankType = getTankType();
+        tanks.add(this);
         context = G.getContext();
         bitmaps = getBitmaps();
         if (bitmaps.length < 4) {
-            throw new ViewException("HeroTank 必须在子类初始化四个方向的图片");
+            throw new ViewException("Tank 必须在子类初始化四个方向的图片");
         }
 
         int tankElementWidth = (Integer) G.get("tankElementWidth");
@@ -78,9 +86,9 @@ public abstract class HeroTank extends MovableRole {
         }
     }
 
-    private int distanceX = 0;
-    private int distanceY = 0;
-    private int pathListIndex = 0;
+    protected int distanceX = 0;
+    protected int distanceY = 0;
+    protected int pathListIndex = 0;
 
     @Override
     public void move() {

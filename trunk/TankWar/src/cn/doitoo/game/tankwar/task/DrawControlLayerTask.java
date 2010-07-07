@@ -36,9 +36,9 @@ public class DrawControlLayerTask implements GameDrawTask {
         rect = new Rect(0, 0, screenWidth, 48);
         Context context = G.getContext();
         //坦克控制按钮
-        Bitmap playerControlImage = Util.getBitMapById(context, R.drawable.tank1_1);
-        playerControlImage = ImageUtil.setAlpha(playerControlImage, 50);//设置图片透明度
-        playerControl = new ImageButton(0, 0, playerControlImage);
+        final Bitmap playerControlImage = Util.getBitMapById(context, R.drawable.image1262);
+        final Bitmap playerControlAlphaImage = ImageUtil.setAlpha(playerControlImage, 50);//设置图片透明度
+        playerControl = new ImageButton(0, 0, playerControlAlphaImage);
         player = (PlayerHeroTank) G.get("playerHeroTankTask");
         playerControl.setOnClickEventHandler(new OnClickEventHandler() {
             @Override
@@ -46,7 +46,12 @@ public class DrawControlLayerTask implements GameDrawTask {
                 player.setSelected(!player.isSelected());
                 playerControl.setSelected(player.isSelected());
                 player.addSelectEffect();
-                addSelectedEffect();
+                if (playerControl.isSelected()) {
+                    playerControl.setBitmap(playerControlAlphaImage);
+                } else {
+                    playerControl.setBitmap(playerControlImage);
+                }
+//                addSelectedEffect();
             }
         });
     }
