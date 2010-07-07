@@ -3,6 +3,7 @@ package cn.doitoo.game.tankwar.task;
 import android.content.Context;
 import android.graphics.Canvas;
 import android.graphics.Point;
+import android.graphics.Rect;
 import android.view.MotionEvent;
 import cn.doitoo.game.framework.arithmetic.Dijkstra;
 import cn.doitoo.game.framework.arithmetic.PathSolver;
@@ -14,11 +15,21 @@ import cn.doitoo.game.framework.util.CoordinateUtil;
 import cn.doitoo.game.framework.util.Util;
 import cn.doitoo.game.tankwar.R;
 import cn.doitoo.game.tankwar.effect.ClickEffect;
+import cn.doitoo.game.tankwar.role.building.Pagoda;
+import cn.doitoo.game.tankwar.role.building.player.PlayerPagoda1;
+import cn.doitoo.game.tankwar.role.tank.aitank.AITank;
 import cn.doitoo.game.tankwar.role.tank.player.PlayerHeroTank;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class DrawMapTask implements GameDrawTask {
 
     private DoitooMap map = null;
+
+    private Rect mapRect = null;
+
+    private List<Pagoda> pagodas = new ArrayList<Pagoda>();
 
     /**
      * 地图分布图（第一关）
@@ -48,6 +59,17 @@ public class DrawMapTask implements GameDrawTask {
         G.set("gameMap01Vector", gameMap01Vector);
         G.set("pathSolver", pathSolver);
         map.setTouchEventHandler(new MyMapOnTouchEvent());
+        mapRect = new Rect(0, 48, (Integer) G.get("screenWidth"), (Integer) G.get("screenHeight") - 48);
+        initPagodas();
+    }
+
+    private void initPagodas() {
+        PlayerPagoda1 pagoda1 = new PlayerPagoda1(48, 432);
+        PlayerPagoda1 pagoda2 = new PlayerPagoda1(432, 240);
+        PlayerPagoda1 pagoda3 = new PlayerPagoda1(912, 288);
+        pagodas.add(pagoda1);
+        pagodas.add(pagoda2);
+        pagodas.add(pagoda3);
 
     }
 
@@ -56,6 +78,10 @@ public class DrawMapTask implements GameDrawTask {
         // 背景色
         canvas.drawRGB(0, 0, 0);
         map.paint(canvas);
+        for (Pagoda pagoda : pagodas) {
+            pagoda.setTanks(AITank.tanks);
+            pagoda.paint(canvas);
+        }
     }
 
     class MyMapOnTouchEvent extends TouchEventHandler {
@@ -102,14 +128,13 @@ public class DrawMapTask implements GameDrawTask {
             int y = (int) event.getY();
             int rect = 2;
             player = (PlayerHeroTank) G.get("playerHeroTankTask");
-            if (player == null || player.isSelected()) {
+            if (player == null || player.isSelected() || !mapRect.contains(x, y)) {
                 return;
             }
             if (Math.abs(x - preX) < rect && Math.abs(y - preY) < rect) {
                 int playerX = player.getX();
                 int playerY = player.getY();
                 Point startNodePoint = new Point(playerX, playerY);
-                CoordinateUtil.world2screen(startNodePoint);
 
                 Point endNodePoint = new Point(preX, preY);
                 CoordinateUtil.screen2world(endNodePoint);
@@ -122,13 +147,8 @@ public class DrawMapTask implements GameDrawTask {
                     clickEffect.setPosition(endNodePoint.x, endNodePoint.y);
                     clickEffect.setTime(6000);
                 }
-
                 player.addEffect("clickEffect", clickEffect);
-
-                //坦克坐标需要转换成世界坐标
-                CoordinateUtil.screen2world(startNodePoint);
                 player.setPathList(Util.computeShortestPath(startNodePoint, endNodePoint));
-
             }
         }
     }

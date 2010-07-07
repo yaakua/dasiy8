@@ -8,7 +8,7 @@ import cn.doitoo.game.framework.context.G;
 import cn.doitoo.game.framework.role.MovableRole;
 import cn.doitoo.game.tankwar.R;
 import cn.doitoo.game.tankwar.effect.SelectEffect;
-import cn.doitoo.game.tankwar.role.tank.HeroTank;
+import cn.doitoo.game.tankwar.role.tank.Tank;
 
 /**
  * Created by IntelliJ IDEA.
@@ -16,8 +16,13 @@ import cn.doitoo.game.tankwar.role.tank.HeroTank;
  * Date: 2010-6-27
  * Time: 10:18:24
  */
-public class PlayerHeroTank extends HeroTank {
+public class PlayerHeroTank extends Tank {
 
+
+    @Override
+    public TankType getTankType() {
+        return Tank.TankType.PlayerHeroTank;
+    }
 
     public PlayerHeroTank(int x, int y) {
         super(x, y);
