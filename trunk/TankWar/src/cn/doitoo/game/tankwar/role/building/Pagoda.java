@@ -77,14 +77,20 @@ public abstract class Pagoda extends MovableRole {
             for (Tank tank : tanks) {
                 int x = tank.getX();
                 int y = tank.getY();
-                if (this.getPagodaType().equals(Pagoda.PagodaType.Player) && tank.getTankType().equals(Tank.TankType.OpponentAiTank) && attackRect.contains(x, y)) {
-                    //发射子弹，减少坦克生命
+//                if (this.getPagodaType().equals(Pagoda.PagodaType.Player) && tank.getTankType().equals(Tank.TankType.OpponentAiTank) && attackRect.contains(x, y)) {
+                //发射子弹，减少坦克生命
+                if (attackRect.contains(x, y)) {
                     Bullet bullet = new Bullet(this.getX(), this.getY());
                     bullet.setTank(tank);
+                    bullet.setVisabled(true);
                     break;
                 }
             }
         }
+        //子弹超出射程范围时删除子弹
+//        for (Bullet bullet : Bullet.bullets) {
+//            if (!attackRect.contains(bullet.getX(), bullet.getY())) bullet.setVisabled(false);
+//        }
     }
 
     public void setTanks(List<Tank> tanks) {
