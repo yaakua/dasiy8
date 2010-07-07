@@ -1,6 +1,7 @@
 package cn.doitoo.game.tankwar.task;
 
 import android.graphics.Canvas;
+import android.util.Log;
 import cn.doitoo.game.framework.task.GameDrawTask;
 import cn.doitoo.game.tankwar.role.Bullet;
 
@@ -16,8 +17,10 @@ public class DrawOtherInfoTask implements GameDrawTask {
     public void draw(Canvas c) {
         //É¾³ý×Óµ¯
         deleteBullet();
+        Log.d("bulletSize:", Bullet.bullets.size() + "");
         //»æÖÆ×Óµ¯
         for (Bullet bullet : Bullet.bullets) {
+            Log.d("bulletVisabled:", bullet.isVisabled() + "");
             if (bullet.isVisabled()) {
                 bullet.paint(c);
             }

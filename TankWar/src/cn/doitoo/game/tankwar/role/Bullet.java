@@ -29,6 +29,7 @@ public class Bullet extends MovableRole {
         Context context = G.getContext();
         bitmap = Util.getBitMapById(context, R.drawable.bullet);
         bullets.add(this);
+        this.setSpeed(20);
     }
 
     @Override
@@ -64,7 +65,6 @@ public class Bullet extends MovableRole {
 
         if (tank.getRect().contains(x, y)) {
             //TODO 增加爆炸效果
-        } else { //设置子弹为隐藏
             this.setVisabled(false);
         }
         this.setPosition(x, y);
