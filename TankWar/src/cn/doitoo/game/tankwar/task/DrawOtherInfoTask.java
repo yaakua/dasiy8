@@ -16,15 +16,15 @@ import java.util.Iterator;
 public class DrawOtherInfoTask implements GameDrawTask {
     public void draw(Canvas c) {
         //É¾³ý×Óµ¯
-        deleteBullet();
-        Log.d("bulletSize:", Bullet.bullets.size() + "");
+//        deleteBullet();
+        
         //»æÖÆ×Óµ¯
-        for (Bullet bullet : Bullet.bullets) {
-            Log.d("bulletVisabled:", bullet.isVisabled() + "");
-            if (bullet.isVisabled()) {
-                bullet.paint(c);
-            }
-        }
+//        for (Bullet bullet : Bullet.bullets) {
+//            Log.d("bulletVisabled:", bullet.isVisabled() + "");
+//            if (bullet.isVisabled()) {
+//                bullet.paint(c);
+//            }
+//        }
     }
 
     private void deleteBullet() {

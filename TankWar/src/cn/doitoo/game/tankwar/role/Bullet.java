@@ -4,6 +4,7 @@ import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Point;
+import android.util.Log;
 import cn.doitoo.game.framework.context.G;
 import cn.doitoo.game.framework.role.MovableRole;
 import cn.doitoo.game.framework.util.Util;
@@ -28,7 +29,7 @@ public class Bullet extends MovableRole {
         super(x, y);
         Context context = G.getContext();
         bitmap = Util.getBitMapById(context, R.drawable.bullet);
-        bullets.add(this);
+//        bullets.add(this);
         this.setSpeed(20);
     }
 
@@ -72,10 +73,14 @@ public class Bullet extends MovableRole {
 
     @Override
     public void paint(Canvas c) {
+        Log.d("bulletPaint", "paint");
         this.move();
-        // 由世界坐标转成屏幕坐标
-        Point screenPoint = this.getScreenPoint();
-        c.drawBitmap(bitmap, screenPoint.x, screenPoint.y, null);
+        if (this.isVisabled()) {
+            Log.d("isVisabled", "true");
+            // 由世界坐标转成屏幕坐标
+            Point screenPoint = this.getScreenPoint();
+            c.drawBitmap(bitmap, screenPoint.x, screenPoint.y, null);
+        }
     }
 
     public void setTank(Tank tank) {

@@ -14,6 +14,7 @@ import cn.doitoo.game.tankwar.role.building.Pagoda;
  * Time: 18:23:10
  */
 public class PlayerPagoda1 extends Pagoda {
+
     @Override
     public PagodaType getPagodaType() {
         return Pagoda.PagodaType.Player;
@@ -29,5 +30,5 @@ public class PlayerPagoda1 extends Pagoda {
         return Util.getBitMapById(context, R.drawable.tile_breakable2);
     }
 
-
+   
 }
