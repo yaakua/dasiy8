@@ -4,6 +4,7 @@ import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Point;
 import android.graphics.Rect;
+import android.util.Log;
 import cn.doitoo.game.framework.role.MovableRole;
 import cn.doitoo.game.tankwar.role.Bullet;
 import cn.doitoo.game.tankwar.role.tank.Tank;
@@ -18,6 +19,11 @@ import java.util.List;
  * Time: 15:46:13
  */
 public abstract class Pagoda extends MovableRole {
+    //炮塔所属的子弹
+    private Bullet bullet;
+    /**
+     * 炮塔类型
+     */
     private PagodaType pagodaType;
     /**
      * 射程
@@ -25,6 +31,9 @@ public abstract class Pagoda extends MovableRole {
     private int range = 150;
     private Bitmap bitmap;
     private List<Tank> tanks = new ArrayList<Tank>();
+    /**
+     * 炮塔攻击范围
+     */
     private Rect attackRect = null;
 
     public enum PagodaType {
@@ -67,6 +76,13 @@ public abstract class Pagoda extends MovableRole {
         // 由世界坐标转成屏幕坐标
         Point screenPoint = this.getScreenPoint();
         c.drawBitmap(bitmap, screenPoint.x, screenPoint.y, null);
+        //画子弹
+        if (this.bullet != null) {
+            if (this.bullet.isVisabled())
+                this.bullet.paint(c);
+            else
+                this.bullet = null;
+        }
     }
 
     /**
@@ -80,10 +96,14 @@ public abstract class Pagoda extends MovableRole {
 //                if (this.getPagodaType().equals(Pagoda.PagodaType.Player) && tank.getTankType().equals(Tank.TankType.OpponentAiTank) && attackRect.contains(x, y)) {
                 //发射子弹，减少坦克生命
                 if (attackRect.contains(x, y)) {
-                    Bullet bullet = new Bullet(this.getX(), this.getY());
-                    bullet.setTank(tank);
-                    bullet.setVisabled(true);
-                    break;
+                    if (this.bullet == null) {
+                        Bullet bullet = new Bullet(this.getX(), this.getY());
+                        bullet.setTank(tank);
+                        bullet.setVisabled(true);
+                        this.bullet = bullet;
+                        Log.d("addBullet","yes");
+                        break;
+                    }
                 }
             }
         }
@@ -99,5 +119,13 @@ public abstract class Pagoda extends MovableRole {
 
     public void setRange(int range) {
         this.range = range;
+    }
+
+    public Bullet getBullet() {
+        return bullet;
+    }
+
+    public void setBullet(Bullet bullet) {
+        this.bullet = bullet;
     }
 }

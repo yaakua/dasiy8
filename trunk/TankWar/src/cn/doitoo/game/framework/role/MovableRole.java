@@ -78,7 +78,7 @@ public abstract class MovableRole {
         this.y = y;
         this.oldX = x;
         this.oldY = y;
-        movableRoleList.add(this);
+//        movableRoleList.add(this);
         map = G.getDoitooMap();
     }
 
