@@ -6,7 +6,6 @@ import android.graphics.Paint;
 import android.graphics.Paint.Style;
 import android.graphics.Point;
 import cn.doitoo.game.framework.context.G;
-import cn.doitoo.game.framework.util.CoordinateUtil;
 
 public class ClickEffect extends Effect {
     private Paint paint = null;
@@ -41,15 +40,10 @@ public class ClickEffect extends Effect {
 
     @Override
     public void paint(Canvas c) {
-        int x = this.getX();
-        int y = this.getY();
         // 由世界坐标转成屏幕坐标
-        Point worldPoint = new Point(x, y);
-        CoordinateUtil.world2screen(worldPoint);
-        x = worldPoint.x;
-        y = worldPoint.y;
+        Point screenPoint = this.getScreenPoint();
         int step = this.getStep();
         paint.setColor(colors[step]);
-        c.drawCircle(x, y, radius + 4, paint);
+        c.drawCircle(screenPoint.x, screenPoint.y, radius + 4, paint);
     }
 }

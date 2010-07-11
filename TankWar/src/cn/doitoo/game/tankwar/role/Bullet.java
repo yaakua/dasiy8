@@ -4,7 +4,6 @@ import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Point;
-import android.util.Log;
 import cn.doitoo.game.framework.context.G;
 import cn.doitoo.game.framework.role.MovableRole;
 import cn.doitoo.game.framework.util.Util;
@@ -24,12 +23,13 @@ public class Bullet extends MovableRole {
     private Bitmap bitmap = null;
     private Tank tank = null; //子弹攻击的对象，子弹运动轨迹依此坦克的位置而定
     public static List<Bullet> bullets = new ArrayList<Bullet>();
+    //攻击力,减去对方的生命值
+    private int power = 10;
 
     public Bullet(int x, int y) {
         super(x, y);
         Context context = G.getContext();
         bitmap = Util.getBitMapById(context, R.drawable.bullet);
-//        bullets.add(this);
         this.setSpeed(20);
     }
 
@@ -65,7 +65,8 @@ public class Bullet extends MovableRole {
         }
 
         if (tank.getRect().contains(x, y)) {
-            //TODO 增加爆炸效果
+            //TODO 增加爆炸效果 减少坦克的攻击力
+            tank.subLife(power);
             this.setVisabled(false);
         }
         this.setPosition(x, y);
@@ -73,17 +74,25 @@ public class Bullet extends MovableRole {
 
     @Override
     public void paint(Canvas c) {
-        Log.d("bulletPaint", "paint");
         this.move();
-        if (this.isVisabled()) {
-            Log.d("isVisabled", "true");
-            // 由世界坐标转成屏幕坐标
-            Point screenPoint = this.getScreenPoint();
-            c.drawBitmap(bitmap, screenPoint.x, screenPoint.y, null);
-        }
+        // 由世界坐标转成屏幕坐标
+        Point screenPoint = this.getScreenPoint();
+        c.drawBitmap(bitmap, screenPoint.x, screenPoint.y, null);
     }
 
     public void setTank(Tank tank) {
         this.tank = tank;
+    }
+
+    public int getPower() {
+        return power;
+    }
+
+    public void setPower(int power) {
+        this.power = power;
+    }
+
+    public Tank getTank() {
+        return tank;
     }
 }

@@ -17,7 +17,6 @@ import cn.doitoo.game.tankwar.R;
 import cn.doitoo.game.tankwar.effect.ClickEffect;
 import cn.doitoo.game.tankwar.role.building.Pagoda;
 import cn.doitoo.game.tankwar.role.building.player.PlayerPagoda1;
-import cn.doitoo.game.tankwar.role.tank.aitank.AITank;
 import cn.doitoo.game.tankwar.role.tank.player.PlayerHeroTank;
 
 import java.util.ArrayList;
@@ -79,7 +78,6 @@ public class DrawMapTask implements GameDrawTask {
         canvas.drawRGB(0, 0, 0);
         map.paint(canvas);
         for (Pagoda pagoda : pagodas) {
-            pagoda.setTanks(AITank.tanks);
             pagoda.paint(canvas);
         }
     }
@@ -141,11 +139,11 @@ public class DrawMapTask implements GameDrawTask {
 
                 //点击特效动画
                 ClickEffect clickEffect = (ClickEffect) player.getEffectByKey("clickEffect");
-                if (clickEffect == null)
+                if (clickEffect == null) {
                     clickEffect = new ClickEffect(endNodePoint.x, endNodePoint.y);
-                else {
+                    clickEffect.setTime(6);
+                } else {
                     clickEffect.setPosition(endNodePoint.x, endNodePoint.y);
-                    clickEffect.setTime(6000);
                 }
                 player.addEffect("clickEffect", clickEffect);
                 player.setPathList(Util.computeShortestPath(startNodePoint, endNodePoint));

@@ -4,6 +4,7 @@ import android.graphics.Canvas;
 import android.graphics.Paint;
 import android.graphics.Point;
 import android.graphics.Rect;
+import android.util.Log;
 import cn.doitoo.game.framework.context.G;
 import cn.doitoo.game.framework.event.OnClickEventHandler;
 import cn.doitoo.game.framework.map.DoitooMap;
@@ -44,7 +45,7 @@ public abstract class MovableRole {
     /**
      * 是否显示
      */
-    private boolean isVisabled;
+    private boolean isVisabled = true;
 
     /**
      * 角色移动方向
@@ -277,6 +278,7 @@ public abstract class MovableRole {
             if (time > 0) {
                 effect.paint(c);
                 effect.setTime(--time);
+                Log.d("effectTime:", time + "");
             } else if (time <= -1) {  //如果持续时间为-1，则代表一直使用
                 effect.paint(c);
             } else {
