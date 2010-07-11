@@ -1,6 +1,5 @@
 package cn.doitoo.game.tankwar.role.tank;
 
-import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Point;
@@ -10,7 +9,8 @@ import cn.doitoo.game.framework.exception.ViewException;
 import cn.doitoo.game.framework.role.MovableRole;
 import cn.doitoo.game.framework.util.CoordinateUtil;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * 英雄坦克主类，所有不同类型的英雄坦克都需要继承此类 User: 阳葵 Date: 2010-6-27 Time: 10:12:58
@@ -22,12 +22,14 @@ public abstract class Tank extends MovableRole {
     private List<Bitmap> DownBitMapList = new ArrayList<Bitmap>();
     protected int height;
     protected int width;
-    public static List<Tank> tanks = new ArrayList<Tank>();
     private TankType tankType;
-    protected Context context;
+    //坦克生命
+    private int life = 1000;
+    //防御力
+    private int defense = 5;
+    //坦克的生命条
+    private Blood blood;
 
-    // bitmaps 按左、上、右、下的顺序初始化坦克的四个方向。
-    private Bitmap[] bitmaps = null;
     // 英雄坦克移动路径下标集合
     protected List pathList;
 
@@ -46,9 +48,8 @@ public abstract class Tank extends MovableRole {
     public Tank(int x, int y) {
         super(x, y);
         this.tankType = getTankType();
-        tanks.add(this);
-        context = G.getContext();
-        bitmaps = getBitmaps();
+        // bitmaps 按左、上、右、下的顺序初始化坦克的四个方向
+        Bitmap[] bitmaps = getBitmaps();
         if (bitmaps.length < 4) {
             throw new ViewException("Tank 必须在子类初始化四个方向的图片");
         }
@@ -84,6 +85,9 @@ public abstract class Tank extends MovableRole {
                 DownBitMapList.add(downmap);
             }
         }
+
+        blood = new Blood(x, y, width, 5, life);
+        blood.setRole(this);
     }
 
     protected int distanceX = 0;
@@ -177,6 +181,25 @@ public abstract class Tank extends MovableRole {
         c.drawBitmap(src, srcRect, dst, null);
         srcRect = null;
         dst = null;
+        blood.paint(c);
+    }
+
+    /**
+     * 根据攻击力与当前坦克的防御和生命计算减去的生命
+     *
+     * @param power 攻击的攻击力
+     */
+    public void subLife(int power) {
+        if (power > defense) {
+            power -= defense;
+            life -= power;
+        }
+        if (life <= 0) {
+            this.setVisabled(false);
+        } else {
+            blood.setCurrentLife(life);
+            this.setLife(life);
+        }
     }
 
     /**
@@ -201,5 +224,19 @@ public abstract class Tank extends MovableRole {
         pathListIndex = 0;
     }
 
+    public int getLife() {
+        return life;
+    }
 
+    public void setLife(int life) {
+        this.life = life;
+    }
+
+    public int getDefense() {
+        return defense;
+    }
+
+    public void setDefense(int defense) {
+        this.defense = defense;
+    }
 }

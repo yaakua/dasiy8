@@ -5,7 +5,6 @@ import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Paint.Style;
 import android.graphics.Point;
-import cn.doitoo.game.framework.util.CoordinateUtil;
 
 public class SelectEffect extends Effect {
 
@@ -65,11 +64,10 @@ public class SelectEffect extends Effect {
         int x = this.getX();
         int y = this.getY();
         if (isWorldCoordinate) {
+            Point screenPoint = this.getScreenPoint();
             // 由世界坐标转成屏幕坐标
-            Point worldPoint = new Point(x, y);
-            CoordinateUtil.world2screen(worldPoint);
-            x = worldPoint.x;
-            y = worldPoint.y;
+            x = screenPoint.x;
+            y = screenPoint.y;
         }
         int step = this.getStep();
         paint.setColor(colors[step]);

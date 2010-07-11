@@ -31,7 +31,7 @@ public class PlayerHeroTankTask implements GameDrawTask {
 
     public void draw(Canvas canvas) {
         player.move();
-        player.paint(canvas);
-
+        if (player.isVisabled())
+            player.paint(canvas);
     }
 }

@@ -5,6 +5,9 @@ import cn.doitoo.game.framework.role.MovableRole;
 import cn.doitoo.game.framework.util.CoordinateUtil;
 import cn.doitoo.game.tankwar.role.tank.Tank;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * Created by IntelliJ IDEA.
  * User: Ñô¿û
@@ -12,6 +15,8 @@ import cn.doitoo.game.tankwar.role.tank.Tank;
  * Time: 21:52:38
  */
 public abstract class AITank extends Tank {
+    public static List<AITank> AITanks = new ArrayList<AITank>();
+
     /**
      * ³õÊ¼»¯Ó¢ÐÛÌ¹¿Ë
      *
@@ -20,6 +25,7 @@ public abstract class AITank extends Tank {
      */
     public AITank(int x, int y) {
         super(x, y);
+        AITanks.add(this);
     }
 
     @Override
