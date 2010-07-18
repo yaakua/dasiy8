@@ -1,13 +1,10 @@
 package cn.doitoo.game.tankwar.role.tank.aitank;
 
-import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Vector;
-
 import android.graphics.Canvas;
 import android.graphics.Point;
 import android.graphics.Rect;
+import android.util.Log;
+import cn.doitoo.game.framework.math.LinearSolver;
 import cn.doitoo.game.framework.role.MovableRole;
 import cn.doitoo.game.framework.util.CoordinateUtil;
 import cn.doitoo.game.framework.util.Util;
@@ -17,34 +14,34 @@ import cn.doitoo.game.tankwar.role.bullet.YellowBullet;
 import cn.doitoo.game.tankwar.role.tank.HeroTank;
 import cn.doitoo.game.tankwar.role.tank.Tank;
 
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Vector;
+
 /**
  * Created by IntelliJ IDEA. User: 阳葵 Date: 2010-7-5 Time: 21:52:38
  */
 public abstract class AITank extends Tank {
     public static List<AITank> AITanks = new Vector<AITank>();
-    // 炮塔所属的子弹
+    // 所属的子弹
     private List<Bullet> bullets = new ArrayList<Bullet>();
     // 攻击对象
     private MovableRole attackRole;
     // 攻击范围
-    private int range = 100;
+    private int range = 150;
 
     private Rect attackRect;
 
-    /**
-     * 初始化英雄坦克
-     *
-     * @param x 初始化X坐标
-     * @param y 初始化Y坐标
-     */
     public AITank(int x, int y) {
         super(x, y);
         AITanks.add(this);
         this.setDirection(move_direct.DOWN);
         attackRect = computeAttackRect();
-        // Paint paint = new Paint();
-        // paint.setColor(Color.GREEN);
-        // this.setPaint(paint);
+        this.setSpeed(10);
+//         Paint paint = new Paint();
+//         paint.setColor(Color.GREEN);
+//         this.setPaint(paint);
     }
 
     @Override
@@ -52,11 +49,11 @@ public abstract class AITank extends Tank {
         super.paint(c);
         this.attack();
         drawBullets(c);
-        // c.drawRect(attackRect, this.getPaint());
+//        c.drawRect(attackRect, this.getPaint());
     }
+    // 画子弹
 
     private void drawBullets(Canvas c) {
-        // 画子弹
         if (bullets.isEmpty()) {
             return;
         }
@@ -123,13 +120,12 @@ public abstract class AITank extends Tank {
             return;
         }
         attackRect = computeAttackRect();
+        this.move();
         if (attackRole != null && !attackRole.isVisabled()) {
             attackRole = null;
         }
 
         isAttackeding();
-
-        this.move();
 
         // 攻击对象不为空时
         if (attackRole != null && this.isAttack()) {
@@ -140,9 +136,40 @@ public abstract class AITank extends Tank {
             } else {
                 this.stay();
             }
+        } else { //主动攻击
+            int min = 0;
+            MovableRole attacked = null;
+            for (Pagoda pagoda : Pagoda.pagodas) {
+                float distance = LinearSolver.distance(this.getX(), this.getY(), pagoda.getX(), pagoda.getY());
+                if (min == 0 || distance < min) {
+                    min = (int) distance;
+                    attacked = pagoda;
+                }
+            }
+            for (HeroTank heroTank : HeroTank.HeroTanks) {
+                float distance = LinearSolver.distance(this.getX(), this.getY(), heroTank.getX(), heroTank.getY());
+                if (min == 0 || distance < min) {
+                    min = (int) distance;
+                    attacked = heroTank;
+                }
+            }
+            if (attacked != null) {
+                if (!attackRect.contains(attacked.getX(), attacked.getY())) {
+                    Log.d("min:", min + "");
+                    Log.d("rang:", range + "");
+//                    if (min < 300) {
+//                        this.setPathList(Util.computeShortestPath(new Point(this.getX(), this.getY()), new Point(attacked.getX(), attacked.getY())));
+//                        this.setHasChangePathList(true);
+//                    }
+                } else {
+                    addAttacked(attacked);
+                }
+            }
         }
+
+
         //如果未被攻击，且原有路线被更改，则重新规划移动路径
-        if (!this.isAttack() && this.isHasChangePathList()) {
+        if (Pagoda.pagodas.isEmpty() && HeroTank.HeroTanks.isEmpty() && !this.isAttack() && this.isHasChangePathList()) {
             this.setPathList(Util.computeShortestPath(new Point(this.getX(), this.getY()), this.getEndPoint()));
         }
 
@@ -152,7 +179,6 @@ public abstract class AITank extends Tank {
                 break;
             }
         }
-
         for (HeroTank heroTank : HeroTank.HeroTanks) {
             int x = heroTank.getX();
             int y = heroTank.getY();
@@ -170,11 +196,9 @@ public abstract class AITank extends Tank {
         if (!this.isAttack() || this.getAttacker() == null) {
             return;
         }
-
         MovableRole attacker = this.getAttacker();
         if (attackRect.contains(attacker.getX(), attacker.getY())) {
             addAttacked(attacker);
-            return;
         }
     }
 
@@ -220,6 +244,7 @@ public abstract class AITank extends Tank {
         int right = left + range;
         int bottom = top + range;
         return new Rect(left, top, right, bottom);
-	}
+    }
+
 
 }

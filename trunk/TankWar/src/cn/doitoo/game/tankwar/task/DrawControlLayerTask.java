@@ -66,8 +66,8 @@ public class DrawControlLayerTask implements GameDrawTask {
 
         int count = G.getInt("attackCount");
         int time = G.getInt("attackTime");
-        if (time > 0 && time < 100) {
-            c.drawText("第" + count + "波攻击即将在" + (100 - time) / 10 + "秒后开始", 240, 200, tipPaint);
+        if (time > 0 && time < 30) {
+            c.drawText("第" + count + "波攻击即将在" + (30 - time) / 10 + "秒后开始", 240, 200, tipPaint);
         }
     }
 
