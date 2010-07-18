@@ -62,6 +62,4 @@ public class PlayerHeroTank extends HeroTank {
             this.addEffect("circle0", effect);
         }
     }
-
-
 }

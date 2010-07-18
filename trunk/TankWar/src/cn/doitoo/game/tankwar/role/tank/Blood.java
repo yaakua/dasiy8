@@ -9,6 +9,7 @@ import cn.doitoo.game.framework.role.MovableRole;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Vector;
 
 /**
  * Created by IntelliJ IDEA.
@@ -17,7 +18,7 @@ import java.util.List;
  * Time: 11:39:58
  */
 public class Blood extends MovableRole {
-    private static List<Blood> bloods = new ArrayList<Blood>();
+    private static List<Blood> bloods = new Vector<Blood>();
     private Paint backPaint;
     private Paint frontPaint;
     private float fullLife;
@@ -87,5 +88,10 @@ public class Blood extends MovableRole {
 
     public void setRole(MovableRole role) {
         this.role = role;
+    }
+
+    @Override
+    public void subLife(int power) {
+
     }
 }

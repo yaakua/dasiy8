@@ -11,7 +11,6 @@ import cn.doitoo.game.framework.exception.ViewException;
 import cn.doitoo.game.framework.role.MovableRole;
 import cn.doitoo.game.framework.util.CoordinateUtil;
 import cn.doitoo.game.framework.util.Util;
-import cn.doitoo.game.tankwar.R;
 
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
@@ -101,7 +100,7 @@ public class DoitooMap extends MovableRole {
     public DoitooMap(byte[][] mapRect, int[] resIds, int passValue, Context context, int x, int y) {
         super(x, y);
 
-        bigmap = Util.getBitMapById(context, R.drawable.bitmap);
+//        bigmap = Util.getBitMapById(context, R.drawable.bitmap);
 
         // 初始化世界地图的行与列数
         this.rows = mapRect.length;
@@ -143,7 +142,7 @@ public class DoitooMap extends MovableRole {
         } else {
             screenCols = (screenWidth / elementWidth + 1);
         }
-
+//         bigmap =  createBitmap(mapRect);
     }
 
     @Override
@@ -158,8 +157,8 @@ public class DoitooMap extends MovableRole {
      */
     @Override
     public void paint(Canvas c) {
-        draw1(c);
-//		draw2(c);
+//        draw1(c);
+        draw2(c);
     }
 
     private void draw1(Canvas c) {
@@ -206,6 +205,25 @@ public class DoitooMap extends MovableRole {
                 }
             }
         }
+    }
+
+    private Bitmap createBitmap(byte[][] mapRect) {
+        int rows = mapRect.length;
+        int cols = mapRect[0].length;
+        Bitmap mapBit = Bitmap.createBitmap(cols * this.elementWidth, rows * this.elementHeight, null);
+        for (int i = 0; i < rows; i++) {
+            for (int j = 0; j < cols; j++) {
+                int x = j * this.elementWidth;
+                int y = i * this.elementHeight;
+                int index = mapRect[i][j];
+                Bitmap source = ElementBitmaps.get("" + index);
+//                Rect src = new Rect(0, 0, this.elementWidth, this.elementWidth);
+//                Rect dst = new Rect(x, y, (x + this.elementWidth), (y + this.elementHeight));
+                mapBit = mapBit.copy(source.getConfig(), true);
+
+            }
+        }
+        return mapBit;
     }
 
     public int getWidth() {
@@ -260,5 +278,11 @@ public class DoitooMap extends MovableRole {
 
     public void setTouchEventHandler(TouchEventHandler touchEventHandler) {
         this.touchEventHandler = touchEventHandler;
+    }
+
+    @Override
+    public void subLife(int power) {
+        // TODO Auto-generated method stub
+
     }
 }

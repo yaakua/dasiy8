@@ -17,21 +17,21 @@ public class PlayerHeroTankTask implements GameDrawTask {
     private PlayerHeroTank player;
 
     public PlayerHeroTankTask() {
-        player = new PlayerHeroTank(150, 50);
-        G.set("playerHeroTankTask", player);
-        player.setOnClickEventHandler(new OnClickEventHandler() {
-            @Override
-            public void onClick(MotionEvent event) {
-                player.setSelected(!player.isSelected());
-                player.addSelectEffect();
-            }
-        });
+//        player = new PlayerHeroTank(150, 50);
+//        G.set("playerHeroTankTask", player);
+//        player.setOnClickEventHandler(new OnClickEventHandler() {
+//            @Override
+//            public void onClick(MotionEvent event) {
+//                player.setSelected(!player.isSelected());
+//                player.addSelectEffect();
+//            }
+//        });
     }
 
 
     public void draw(Canvas canvas) {
-        player.move();
-        if (player.isVisabled())
-            player.paint(canvas);
+//        player.move();
+//        if (player.isVisabled())
+//            player.paint(canvas);
     }
 }
