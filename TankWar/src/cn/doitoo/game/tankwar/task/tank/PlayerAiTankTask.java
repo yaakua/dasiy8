@@ -1,8 +1,6 @@
 package cn.doitoo.game.tankwar.task.tank;
 
 import android.graphics.Canvas;
-import android.graphics.Color;
-import android.graphics.Paint;
 import android.graphics.Point;
 import cn.doitoo.game.framework.context.G;
 import cn.doitoo.game.framework.task.GameDrawTask;
@@ -26,7 +24,6 @@ public class PlayerAiTankTask implements GameDrawTask {
 
     public PlayerAiTankTask() {
         aiTankEmpty = true;
-
     }
 
     public void draw(Canvas c) {
@@ -34,10 +31,9 @@ public class PlayerAiTankTask implements GameDrawTask {
         for (AITank tank : AITank.AITanks) {
             tank.paint(c);
         }
-
         if (aiTankEmpty) {
             time++;
-            if (time > 100) {
+            if (time > 30) {
                 addAiTank(6);
             } else {
                 G.set("attackCount", count, true);
@@ -53,19 +49,15 @@ public class PlayerAiTankTask implements GameDrawTask {
             if (!tank.isVisabled())
                 iterator.remove();
         }
-        if (AITank.AITanks.isEmpty()) {
-            aiTankEmpty = true;
-        } else {
-            aiTankEmpty = false;
-        }
+        //判断当前所有AI坦克是否为空
+        aiTankEmpty = AITank.AITanks.isEmpty();
     }
 
     public void addAiTank(int number) {
         if (count > 3) return;
-        AITank aiTank = new AITank1(48, 48);
         int precent = number / 3;
         for (int i = 0; i < number; i++) {
-            int x = 48;
+            int x;
             if (i < precent) {
                 x = 48;
             } else if (i < 2 * precent) {
@@ -73,12 +65,15 @@ public class PlayerAiTankTask implements GameDrawTask {
             } else {
                 x = 864;
             }
+            AITank aiTank;
             if (count == 1) {
                 aiTank = new AITank1(x, 48);
             } else if (count == 2) {
                 aiTank = new AITank2(x, 48);
             } else if (count == 3) {
                 aiTank = new AITank3(x, 48);
+            } else {
+                aiTank = new AITank1(x, 48);
             }
             Point startNodePoint1 = new Point(x, 48);
             Point endNodePoint1 = new Point(288, 1392);

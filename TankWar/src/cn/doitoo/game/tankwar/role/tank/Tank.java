@@ -4,6 +4,7 @@ import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Point;
 import android.graphics.Rect;
+import android.util.Log;
 import cn.doitoo.game.framework.context.G;
 import cn.doitoo.game.framework.exception.ViewException;
 import cn.doitoo.game.framework.role.MovableRole;
@@ -209,6 +210,7 @@ public abstract class Tank extends MovableRole {
             blood.setCurrentLife(life);
             this.setLife(life);
         }
+        Log.d("tank is attack", this.isAttack() + "");
     }
 
     /**

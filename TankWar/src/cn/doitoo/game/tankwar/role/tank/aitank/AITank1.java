@@ -24,7 +24,7 @@ public class AITank1 extends AITank {
 
     public AITank1(int x, int y) {
         super(x, y);
-        this.setDirection(MovableRole.move_direct.UP);
+        this.setDirection(MovableRole.move_direct.DOWN);
     }
 
     @Override

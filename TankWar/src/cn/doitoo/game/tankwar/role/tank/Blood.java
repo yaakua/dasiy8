@@ -4,10 +4,8 @@ import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Point;
-import android.util.Log;
 import cn.doitoo.game.framework.role.MovableRole;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Vector;
 
@@ -52,9 +50,9 @@ public class Blood extends MovableRole {
      */
     public void setCurrentLife(int currentLife) {
         float percent = (float) currentLife / fullLife;
-        Log.d("percent", percent + "");
+//        Log.d("percent", percent + "");
         this.frontRectWidth = width * percent;
-        Log.d("frontRectWidth", frontRectWidth + "");
+//        Log.d("frontRectWidth", frontRectWidth + "");
     }
 
     @Override

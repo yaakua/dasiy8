@@ -20,6 +20,7 @@ import cn.doitoo.game.tankwar.role.building.player.PlayerPagoda1;
 import cn.doitoo.game.tankwar.role.tank.player.PlayerHeroTank;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 public class DrawMapTask implements GameDrawTask {
@@ -106,8 +107,19 @@ public class DrawMapTask implements GameDrawTask {
         // ±³¾°É«
         canvas.drawRGB(0, 0, 0);
         map.paint(canvas);
+        deletePagoda();
         for (Pagoda pagoda : pagodas) {
             pagoda.paint(canvas);
+        }
+    }
+
+    private void deletePagoda() {
+        Iterator iterator = pagodas.iterator();
+        while (iterator.hasNext()) {
+            Pagoda pagoda = (Pagoda) iterator.next();
+            if (!pagoda.isVisabled()) {
+                iterator.remove();
+            }
         }
     }
 
