@@ -3,9 +3,7 @@ package cn.doitoo.game.tankwar.role.tank.aitank;
 import android.graphics.Canvas;
 import android.graphics.Point;
 import android.graphics.Rect;
-import android.util.Log;
 import cn.doitoo.game.framework.context.G;
-import cn.doitoo.game.framework.math.LinearSolver;
 import cn.doitoo.game.framework.role.MovableRole;
 import cn.doitoo.game.framework.util.CoordinateUtil;
 import cn.doitoo.game.framework.util.Util;
@@ -145,7 +143,7 @@ public abstract class AITank extends Tank {
                 this.stay();
             }
         } else { //Ö÷¶¯¹¥»÷
-            int min = 0;
+            /*int min = 0;
             MovableRole attacked = null;
             for (Pagoda pagoda : Pagoda.pagodas) {
                 float distance = LinearSolver.distance(this.getX(), this.getY(), pagoda.getX(), pagoda.getY());
@@ -172,7 +170,7 @@ public abstract class AITank extends Tank {
                 } else {
                     addAttacked(attacked);
                 }
-            }
+            }*/
         }
 
 

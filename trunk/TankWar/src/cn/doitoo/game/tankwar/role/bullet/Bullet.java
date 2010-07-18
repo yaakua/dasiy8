@@ -3,7 +3,6 @@ package cn.doitoo.game.tankwar.role.bullet;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Point;
-import android.util.Log;
 import cn.doitoo.game.framework.role.MovableRole;
 
 /**
@@ -117,9 +116,6 @@ public abstract class Bullet extends MovableRole {
                 attackRole.setAttack(true);
                 attackRole.setAttacker(father.getAttacker());
                 father.setVisabled(false);
-                Log.d("attack", "true");
-            } else {
-//				attackRole.setAttack(false);
             }
             father.setAttackRole(attackRole);
             father.setPosition(x, y);

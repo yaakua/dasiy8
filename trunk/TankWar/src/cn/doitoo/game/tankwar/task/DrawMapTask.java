@@ -82,7 +82,7 @@ public class DrawMapTask implements GameDrawTask {
     public DrawMapTask() {
         Context context = G.getContext();
         int[] resIds = {R.drawable.tile_regular2, R.drawable.tile_trench1, R.drawable.tile_breakable, R.drawable.tile_breakable1};
-        map = new DoitooMap(tank_map1, resIds, passValue, context, 0, -1104);
+        map = new DoitooMap(tank_map1, resIds, passValue, context, -240, -1104);
         // 保存当前map对象至全局变量当中，以便其它类获取当前地图对象
         G.setDoitooMap(map);
         // 将地图排列数组转成01矩阵

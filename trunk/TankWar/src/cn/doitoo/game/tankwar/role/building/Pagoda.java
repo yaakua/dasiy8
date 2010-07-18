@@ -1,9 +1,5 @@
 package cn.doitoo.game.tankwar.role.building;
 
-import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.List;
-
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Point;
@@ -14,6 +10,10 @@ import cn.doitoo.game.tankwar.role.bullet.LightingBullet;
 import cn.doitoo.game.tankwar.role.tank.Blood;
 import cn.doitoo.game.tankwar.role.tank.HeroTank;
 import cn.doitoo.game.tankwar.role.tank.aitank.AITank;
+
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
 
 /**
  * 炮塔基类 User: 阳葵 Date: 2010-7-6 Time: 15:46:13
@@ -30,7 +30,7 @@ public abstract class Pagoda extends MovableRole {
     /**
      * 射程
      */
-    private int range = 350;
+    private int range = 400;
     private Bitmap bitmap;
 
     // 生命条
@@ -168,6 +168,6 @@ public abstract class Pagoda extends MovableRole {
 
     public void setLife(int life) {
         this.life = life;
-	}
+    }
 
 }
