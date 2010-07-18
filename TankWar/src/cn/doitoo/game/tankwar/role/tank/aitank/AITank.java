@@ -4,6 +4,7 @@ import android.graphics.Canvas;
 import android.graphics.Point;
 import android.graphics.Rect;
 import android.util.Log;
+import cn.doitoo.game.framework.context.G;
 import cn.doitoo.game.framework.math.LinearSolver;
 import cn.doitoo.game.framework.role.MovableRole;
 import cn.doitoo.game.framework.util.CoordinateUtil;
@@ -110,6 +111,13 @@ public abstract class AITank extends Tank {
 
             this.setDirection(direct);
             this.setPosition(x, y);
+            Point endPoint = this.getEndPoint();
+            if (x == endPoint.x && y == endPoint.y) {
+                int hiddenTankCount = G.getInt("hiddenTankCount");
+                hiddenTankCount++;
+                G.set("hiddenTankCount", hiddenTankCount, true);
+                this.setVisabled(false);
+            }
         } else {
             pathList = null;
         }

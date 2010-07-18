@@ -28,7 +28,8 @@ public class G {
     }
 
     public static int getInt(String key) {
-        return (Integer) get(key);
+        Object o = get(key);
+        return (o == null) ? 0 : (Integer) get(key);
     }
 
     public static String getString(String key) {
