@@ -45,4 +45,9 @@ public class ImageButton extends MovableRole {
     public void setBitmap(Bitmap bitmap) {
         this.bitmap = bitmap;
     }
+
+    @Override
+    public void subLife(int power) {
+
+    }
 }

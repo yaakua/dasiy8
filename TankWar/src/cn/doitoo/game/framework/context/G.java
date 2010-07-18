@@ -52,12 +52,9 @@ public class G {
     }
 
     public static void set(String key, Object value, boolean modifiable) {
-        if (modifiable && !map.containsKey(key))
+        if (modifiable && map.containsKey(key))
             map.put(key, value);
-        else if (modifiable && map.containsKey(key))
-            throw new RuntimeException("Access deny: " + key
-                    + " is not modifiable!");
-        else
+        else if (!modifiable || !map.containsKey(key))
             set(key, value);
     }
 

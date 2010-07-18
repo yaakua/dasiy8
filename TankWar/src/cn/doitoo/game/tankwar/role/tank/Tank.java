@@ -22,16 +22,26 @@ public abstract class Tank extends MovableRole {
     private List<Bitmap> DownBitMapList = new ArrayList<Bitmap>();
     protected int height;
     protected int width;
+    @SuppressWarnings("unused")
     private TankType tankType;
     //坦克生命
     private int life = 1000;
     //防御力
     private int defense = 5;
+    //攻击力
+    private int power = 15;
     //坦克的生命条
     private Blood blood;
 
+
     // 英雄坦克移动路径下标集合
+    @SuppressWarnings("unchecked")
     protected List pathList;
+    //是否已更改移动路径
+    private boolean hasChangePathList;
+
+    //最终坐标
+    private Point endPoint;
 
     public enum TankType {
         PlayerAiTank, PlayerHeroTank, OpponentAiTank
@@ -138,7 +148,6 @@ public abstract class Tank extends MovableRole {
             this.setPosition(x, y);
         } else {
             pathList = null;
-            pathListIndex = 0;
         }
     }
 
@@ -170,10 +179,10 @@ public abstract class Tank extends MovableRole {
         this.paintEffects(c);
 
         // 由世界坐标转成屏幕坐标
-        Point worldPoint = new Point(x, y);
-        CoordinateUtil.world2screen(worldPoint);
-        x = worldPoint.x;
-        y = worldPoint.y;
+        Point screenPoint = this.getScreenPoint();
+        x = screenPoint.x;
+        y = screenPoint.y;
+
         // 要显示的图片矩形
         Rect srcRect = new Rect(0, 0, w, h);
         // 目标显现的地方所在的矩形
@@ -219,6 +228,7 @@ public abstract class Tank extends MovableRole {
         return height;
     }
 
+    @SuppressWarnings("unchecked")
     public void setPathList(List pathList) {
         this.pathList = pathList;
         pathListIndex = 0;
@@ -238,5 +248,29 @@ public abstract class Tank extends MovableRole {
 
     public void setDefense(int defense) {
         this.defense = defense;
+    }
+
+    public int getPower() {
+        return power;
+    }
+
+    public void setPower(int power) {
+        this.power = power;
+    }
+
+    public Point getEndPoint() {
+        return endPoint;
+    }
+
+    public void setEndPoint(Point endPoint) {
+        this.endPoint = endPoint;
+    }
+
+    public boolean isHasChangePathList() {
+        return hasChangePathList;
+    }
+
+    public void setHasChangePathList(boolean hasChangePathList) {
+        this.hasChangePathList = hasChangePathList;
     }
 }

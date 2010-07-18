@@ -58,6 +58,17 @@ public abstract class MovableRole {
     private boolean isSelected;
 
     /**
+     * 是否受到攻击
+     */
+    private boolean isAttack;
+
+    /**
+     * 攻击者
+     */
+    private MovableRole attacker;
+
+
+    /**
      * 角色所拥有的特效动画
      */
     private Map<String, Effect> effects = new HashMap<String, Effect>();
@@ -79,7 +90,6 @@ public abstract class MovableRole {
         this.y = y;
         this.oldX = x;
         this.oldY = y;
-//        movableRoleList.add(this);
         map = G.getDoitooMap();
     }
 
@@ -152,7 +162,8 @@ public abstract class MovableRole {
         } else {
             step++;
         }
-        if (step >= this.getStep_array().length) step = 0;
+        if (step >= this.getStep_array().length)
+            step = 0;
         return step;
     }
 
@@ -190,6 +201,22 @@ public abstract class MovableRole {
 
     public void setPaint(Paint paint) {
         this.paint = paint;
+    }
+
+    public boolean isAttack() {
+        return isAttack;
+    }
+
+    public void setAttack(boolean isAttack) {
+        this.isAttack = isAttack;
+    }
+
+    public MovableRole getAttacker() {
+        return attacker;
+    }
+
+    public void setAttacker(MovableRole attacker) {
+        this.attacker = attacker;
     }
 
     /**
@@ -279,7 +306,7 @@ public abstract class MovableRole {
                 effect.paint(c);
                 effect.setTime(--time);
                 Log.d("effectTime:", time + "");
-            } else if (time <= -1) {  //如果持续时间为-1，则代表一直使用
+            } else if (time <= -1) { // 如果持续时间为-1，则代表一直使用
                 effect.paint(c);
             } else {
                 iterator.remove();
@@ -300,4 +327,21 @@ public abstract class MovableRole {
         CoordinateUtil.world2screen(worldPoint);
         return worldPoint;
     }
+
+    /**
+     * 获取当前角色位置的中心点坐标
+     *
+     * @return
+     */
+    public Point getCenterPoint() {
+        int x = getX();
+        int y = getY();
+        int w = getWidth();
+        int h = getHeight();
+		x = x + w / 2;
+		y = y + h / 2;
+		return new Point(x, y);
+	}
+	
+	public abstract void subLife(int power);
 }

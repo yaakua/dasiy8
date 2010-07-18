@@ -47,4 +47,10 @@ public class Effect extends MovableRole {
     public void setTime(int time) {
         this.time = time;
     }
+
+    @Override
+    public void subLife(int power) {
+        // TODO Auto-generated method stub
+
+    }
 }

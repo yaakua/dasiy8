@@ -26,12 +26,15 @@ public class DrawControlLayerTask implements GameDrawTask {
     private ImageButton playerControl = null;
 
     private PlayerHeroTank player;
+    private Paint tipPaint = new Paint();
 
     public DrawControlLayerTask() {
         super();
         rectPaint = new Paint();
         rectPaint.setColor(Color.GRAY);
         rectPaint.setAlpha(150);
+        tipPaint.setColor(Color.GREEN);
+        tipPaint.setTextSize(16F);
         int screenWidth = G.getInt("screenWidth");
         rect = new Rect(0, 0, screenWidth, 48);
         Context context = G.getContext();
@@ -60,6 +63,12 @@ public class DrawControlLayerTask implements GameDrawTask {
         // 顶部菜单与按钮
         c.drawRect(rect, rectPaint);
         playerControl.paint(c);
+
+        int count = G.getInt("attackCount");
+        int time = G.getInt("attackTime");
+        if (time > 0 && time < 100) {
+            c.drawText("第" + count + "波攻击即将在" + (100 - time) / 10 + "秒后开始", 240, 200, tipPaint);
+        }
     }
 
 

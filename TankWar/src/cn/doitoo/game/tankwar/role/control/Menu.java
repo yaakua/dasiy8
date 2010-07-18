@@ -64,4 +64,9 @@ public class Menu extends MovableRole {
         }
     }
 
+    @Override
+    public void subLife(int power) {
+
+    }
+
 }

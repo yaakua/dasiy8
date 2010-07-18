@@ -8,10 +8,7 @@ import cn.doitoo.game.tankwar.R;
 import cn.doitoo.game.tankwar.role.building.Pagoda;
 
 /**
- * Created by IntelliJ IDEA.
- * User: Ñô¿û
- * Date: 2010-7-6
- * Time: 18:23:10
+ * Created by IntelliJ IDEA. User: Ñô¿û Date: 2010-7-6 Time: 18:23:10
  */
 public class PlayerPagoda1 extends Pagoda {
 
@@ -30,5 +27,18 @@ public class PlayerPagoda1 extends Pagoda {
         return Util.getBitMapById(context, R.drawable.tile_breakable2);
     }
 
-   
+    @Override
+    public void subLife(int power) {
+        if (power > defense) {
+            power -= defense;
+            life -= power;
+        }
+        if (life <= 0) {
+            this.setVisabled(false);
+        } else {
+            blood.setCurrentLife(life);
+            this.setLife(life);
+        }
+    }
+
 }
