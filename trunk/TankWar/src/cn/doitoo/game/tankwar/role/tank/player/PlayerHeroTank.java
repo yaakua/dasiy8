@@ -31,6 +31,16 @@ public class PlayerHeroTank extends HeroTank {
     }
 
     @Override
+    public int getWidth() {
+        return 0;
+    }
+
+    @Override
+    public int getHeight() {
+        return 0;
+    }
+
+    @Override
     public Bitmap[] getBitmaps() {
         Context context = G.getContext();
         Resources res = context.getResources();

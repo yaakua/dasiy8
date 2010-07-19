@@ -8,7 +8,6 @@ import cn.doitoo.game.framework.role.MovableRole;
 import cn.doitoo.game.tankwar.role.bullet.Bullet;
 import cn.doitoo.game.tankwar.role.bullet.LightingBullet;
 import cn.doitoo.game.tankwar.role.tank.Blood;
-import cn.doitoo.game.tankwar.role.tank.HeroTank;
 import cn.doitoo.game.tankwar.role.tank.aitank.AITank;
 
 import java.util.ArrayList;
@@ -121,10 +120,6 @@ public abstract class Pagoda extends MovableRole {
         for (AITank aiTank : AITank.AITanks) {
             int x = aiTank.getX();
             int y = aiTank.getY();
-            // if (this.getPagodaType().equals(Pagoda.PagodaType.Player) &&
-            // aiTank.getTankType().equals(Tank.TankType.OpponentAiTank) &&
-            // attackRect.contains(x, y)) {
-            // 发射子弹，减少坦克生命
             if (attackRect.contains(x, y)) {
                 Bullet bullet = new LightingBullet(centerPoint.x, centerPoint.y);
                 bullet.setAttackRole(aiTank);
@@ -132,20 +127,17 @@ public abstract class Pagoda extends MovableRole {
                 bullets.add(bullet);
             }
         }
-        for (HeroTank heroTank : HeroTank.HeroTanks) {
-            int x = heroTank.getX();
-            int y = heroTank.getY();
-            // if (this.getPagodaType().equals(Pagoda.PagodaType.Player) &&
-            // heroTank.getTankType().equals(Tank.TankType.OpponentAiTank) &&
-            // attackRect.contains(x, y)) {
-            // 发射子弹，减少坦克生命
-            if (attackRect.contains(x, y)) {
-                Bullet bullet = new LightingBullet(centerPoint.x, centerPoint.y);
-                bullet.setAttackRole(heroTank);
-                bullet.setPower(this.power);
-                bullets.add(bullet);
-            }
-        }
+//        for (HeroTank heroTank : HeroTank.HeroTanks) {
+//            int x = heroTank.getX();
+//            int y = heroTank.getY();
+//
+//            if (attackRect.contains(x, y)) {
+//                Bullet bullet = new LightingBullet(centerPoint.x, centerPoint.y);
+//                bullet.setAttackRole(heroTank);
+//                bullet.setPower(this.power);
+//                bullets.add(bullet);
+//            }
+//        }
 
     }
 

@@ -37,7 +37,7 @@ public abstract class AITank extends Tank {
         AITanks.add(this);
         this.setDirection(move_direct.DOWN);
         attackRect = computeAttackRect();
-        this.setSpeed(10);
+        this.setSpeed(5);
 //         Paint paint = new Paint();
 //         paint.setColor(Color.GREEN);
 //         this.setPaint(paint);
@@ -133,49 +133,16 @@ public abstract class AITank extends Tank {
 
         isAttackeding();
 
-        // 攻击对象不为空时
         if (attackRole != null && this.isAttack()) {
-            //要攻击的对象不在攻击范围内时，移动到攻击范围内。
             if (!attackRect.contains(attackRole.getX(), attackRole.getY())) {
                 this.setPathList(Util.computeShortestPath(new Point(this.getX(), this.getY()), new Point(attackRole.getX(), attackRole.getY())));
                 this.setHasChangePathList(true);
             } else {
                 this.stay();
             }
-        } else { //主动攻击
-            /*int min = 0;
-            MovableRole attacked = null;
-            for (Pagoda pagoda : Pagoda.pagodas) {
-                float distance = LinearSolver.distance(this.getX(), this.getY(), pagoda.getX(), pagoda.getY());
-                if (min == 0 || distance < min) {
-                    min = (int) distance;
-                    attacked = pagoda;
-                }
-            }
-            for (HeroTank heroTank : HeroTank.HeroTanks) {
-                float distance = LinearSolver.distance(this.getX(), this.getY(), heroTank.getX(), heroTank.getY());
-                if (min == 0 || distance < min) {
-                    min = (int) distance;
-                    attacked = heroTank;
-                }
-            }
-            if (attacked != null) {
-                if (!attackRect.contains(attacked.getX(), attacked.getY())) {
-                    Log.d("min:", min + "");
-                    Log.d("rang:", range + "");
-//                    if (min < 300) {
-//                        this.setPathList(Util.computeShortestPath(new Point(this.getX(), this.getY()), new Point(attacked.getX(), attacked.getY())));
-//                        this.setHasChangePathList(true);
-//                    }
-                } else {
-                    addAttacked(attacked);
-                }
-            }*/
         }
-
-
         //如果未被攻击，且原有路线被更改，则重新规划移动路径
-        if (Pagoda.pagodas.isEmpty() && HeroTank.HeroTanks.isEmpty() && !this.isAttack() && this.isHasChangePathList()) {
+        if (!this.isAttack() && this.isHasChangePathList()) {
             this.setPathList(Util.computeShortestPath(new Point(this.getX(), this.getY()), this.getEndPoint()));
         }
 
