@@ -107,6 +107,7 @@ public abstract class MovableRole {
     public abstract void paint(Canvas c);
 
     public void stay() {
+        this.setStep(0);
         this.x = this.oldX;
         this.y = this.oldY;
     }
@@ -338,10 +339,10 @@ public abstract class MovableRole {
         int y = getY();
         int w = getWidth();
         int h = getHeight();
-		x = x + w / 2;
-		y = y + h / 2;
-		return new Point(x, y);
-	}
-	
-	public abstract void subLife(int power);
+        x = x + w / 2;
+        y = y + h / 2;
+        return new Point(x, y);
+    }
+
+    public abstract void subLife(int power);
 }

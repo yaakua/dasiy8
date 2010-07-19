@@ -31,10 +31,22 @@ public class AITank1 extends AITank {
     public Bitmap[] getBitmaps() {
         Context context = G.getContext();
         Resources res = context.getResources();
-        Bitmap left_source = BitmapFactory.decodeResource(res, R.drawable.tank2_2);
-        Bitmap right_source = BitmapFactory.decodeResource(res, R.drawable.tank2_4);
-        Bitmap down_source = BitmapFactory.decodeResource(res, R.drawable.tank2_3);
-        Bitmap up_source = BitmapFactory.decodeResource(res, R.drawable.tank2_1);
-        return new Bitmap[]{left_source, right_source, up_source, down_source};
+        Bitmap source = BitmapFactory.decodeResource(res, R.drawable.pakechara_conew2);
+        width = 31;
+        height = 31;
+//        Bitmap right_source = BitmapFactory.decodeResource(res, R.drawable.tank2_4);
+//        Bitmap down_source = BitmapFactory.decodeResource(res, R.drawable.tank2_3);
+//        Bitmap up_source = BitmapFactory.decodeResource(res, R.drawable.tank2_1);
+        return new Bitmap[]{source};
+    }
+
+    @Override
+    public int getWidth() {
+        return width;
+    }
+
+    @Override
+    public int getHeight() {
+        return height;
     }
 }

@@ -27,10 +27,6 @@ public class PlayerAiTankTask implements GameDrawTask {
     }
 
     public void draw(Canvas c) {
-        int hiddenTankCount = G.getInt("hiddenTankCount");
-        if (hiddenTankCount >= 10) {
-            return;
-        }
         deleteAITank();
         for (AITank tank : AITank.AITanks) {
             tank.paint(c);
@@ -63,24 +59,25 @@ public class PlayerAiTankTask implements GameDrawTask {
         for (int i = 0; i < number; i++) {
             int x;
             if (i < precent) {
-                x = 48;
+                x = 31;
             } else if (i < 2 * precent) {
-                x = 432;
+                x = 336;
             } else {
-                x = 864;
+                x = 672;
             }
+            x += (i * 31);
             AITank aiTank;
             if (count == 1) {
-                aiTank = new AITank1(x, 48);
+                aiTank = new AITank1(x, 31);
             } else if (count == 2) {
-                aiTank = new AITank2(x, 48);
+                aiTank = new AITank2(x, 31);
             } else if (count == 3) {
-                aiTank = new AITank3(x, 48);
+                aiTank = new AITank3(x, 31);
             } else {
-                aiTank = new AITank1(x, 48);
+                aiTank = new AITank1(x, 31);
             }
-            Point startNodePoint1 = new Point(x, 48);
-            Point endNodePoint1 = new Point(288, 1392);
+            Point startNodePoint1 = new Point(x, 31);
+            Point endNodePoint1 = new Point(432, 1344);
             aiTank.setEndPoint(endNodePoint1);
             aiTank.setPathList(Util.computeShortestPath(startNodePoint1, endNodePoint1));
         }

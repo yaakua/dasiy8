@@ -1,11 +1,7 @@
 package cn.doitoo.game.tankwar.role.tank;
 
-import android.graphics.Bitmap;
-import android.graphics.Canvas;
-import android.graphics.Point;
-import android.graphics.Rect;
+import android.graphics.*;
 import android.util.Log;
-import cn.doitoo.game.framework.context.G;
 import cn.doitoo.game.framework.exception.ViewException;
 import cn.doitoo.game.framework.role.MovableRole;
 import cn.doitoo.game.framework.util.CoordinateUtil;
@@ -34,7 +30,6 @@ public abstract class Tank extends MovableRole {
     //坦克的生命条
     private Blood blood;
 
-
     // 英雄坦克移动路径下标集合
     @SuppressWarnings("unchecked")
     protected List pathList;
@@ -60,15 +55,59 @@ public abstract class Tank extends MovableRole {
         super(x, y);
         this.tankType = getTankType();
         // bitmaps 按左、上、右、下的顺序初始化坦克的四个方向
+
+        initSprintImage();
+        blood = new Blood(x, y, width, 5, life);
+        blood.setRole(this);
+    }
+
+    private void initSprintImage() {
+        Bitmap[] bitmaps = getBitmaps();
+        height = this.getHeight();
+        width = this.getWidth();
+        Bitmap sourceImage = bitmaps[0];
+        int sourceWidth = sourceImage.getWidth();
+        int sourceHeight = sourceImage.getHeight();
+
+        int rows = sourceHeight / height;
+        int cols = sourceWidth / width;
+        int w = width;
+        int h = height;
+        for (int i = 0; i < rows; i++) {
+            for (int j = 0; j < cols; j++) {
+                int left = j * width;
+                int top = i * height;
+                Bitmap bitmap = Bitmap.createBitmap(sourceImage, left, top, w, h);
+                switch (i) {
+                    case 0:
+                        DownBitMapList.add(bitmap);
+                        break;
+                    case 1:
+                        LeftBitMapList.add(bitmap);
+                        break;
+                    case 2:
+                        RightBitMapList.add(bitmap);
+                        break;
+                    case 3:
+                        UpBitMapList.add(bitmap);
+                        break;
+                }
+            }
+        }
+        int[] step = {0, 1, 2};
+        this.setStep_array(step);
+        Paint paint = new Paint();
+        this.setPaint(paint);
+    }
+
+    private void initSprintImage2() {
         Bitmap[] bitmaps = getBitmaps();
         if (bitmaps.length < 4) {
             throw new ViewException("Tank 必须在子类初始化四个方向的图片");
         }
 
-        int tankElementWidth = (Integer) G.get("tankElementWidth");
-
-        height = tankElementWidth;
-        width = tankElementWidth;
+        height = this.getHeight();
+        width = this.getWidth();
 
         Bitmap left_source = bitmaps[0];
         Bitmap right_source = bitmaps[1];
@@ -96,9 +135,6 @@ public abstract class Tank extends MovableRole {
                 DownBitMapList.add(downmap);
             }
         }
-
-        blood = new Blood(x, y, width, 5, life);
-        blood.setRole(this);
     }
 
     protected int distanceX = 0;
@@ -173,22 +209,20 @@ public abstract class Tank extends MovableRole {
         }
         int w = this.getWidth();
         int h = this.getHeight();
-        int x = getX();
-        int y = getY();
 
         // 更改特效动画对应的坐标
         this.paintEffects(c);
 
         // 由世界坐标转成屏幕坐标
         Point screenPoint = this.getScreenPoint();
-        x = screenPoint.x;
-        y = screenPoint.y;
+        int x = screenPoint.x;
+        int y = screenPoint.y;
 
         // 要显示的图片矩形
         Rect srcRect = new Rect(0, 0, w, h);
         // 目标显现的地方所在的矩形
         Rect dst = new Rect(x, y, x + w, y + h);
-        c.drawBitmap(src, srcRect, dst, null);
+        c.drawBitmap(src, srcRect, dst, this.getPaint());
         srcRect = null;
         dst = null;
         blood.paint(c);
@@ -220,15 +254,6 @@ public abstract class Tank extends MovableRole {
      */
     public abstract Bitmap[] getBitmaps();
 
-    @Override
-    public int getWidth() {
-        return width;
-    }
-
-    @Override
-    public int getHeight() {
-        return height;
-    }
 
     @SuppressWarnings("unchecked")
     public void setPathList(List pathList) {
