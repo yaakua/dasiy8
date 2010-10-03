@@ -74,7 +74,7 @@ public class GameDrawThread extends Thread {
     /**
      * 将任务添加至线程运行集合当中
      *
-     * @param gameThread任务
+     * @param gameThread
      */
     public GameDrawThread add(GameDrawTask gameThread) {
         drawTaskList.add(gameThread);

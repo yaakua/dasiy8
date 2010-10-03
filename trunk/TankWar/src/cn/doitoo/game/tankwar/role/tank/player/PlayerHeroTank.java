@@ -44,10 +44,14 @@ public class PlayerHeroTank extends HeroTank {
     public Bitmap[] getBitmaps() {
         Context context = G.getContext();
         Resources res = context.getResources();
-        Bitmap left_source = BitmapFactory.decodeResource(res, R.drawable.tank1_2);
-        Bitmap right_source = BitmapFactory.decodeResource(res, R.drawable.tank1_4);
-        Bitmap down_source = BitmapFactory.decodeResource(res, R.drawable.tank1_3);
-        Bitmap up_source = BitmapFactory.decodeResource(res, R.drawable.tank1_1);
+//        Bitmap left_source = BitmapFactory.decodeResource(res, R.drawable.tank1_2);
+//        Bitmap right_source = BitmapFactory.decodeResource(res, R.drawable.tank1_4);
+//        Bitmap down_source = BitmapFactory.decodeResource(res, R.drawable.tank1_3);
+//        Bitmap up_source = BitmapFactory.decodeResource(res, R.drawable.tank1_1);
+            Bitmap left_source = null;
+        Bitmap right_source = null;
+        Bitmap down_source = null;
+        Bitmap up_source = null;
         Bitmap[] source = new Bitmap[4];
         source[0] = left_source;
         source[1] = right_source;

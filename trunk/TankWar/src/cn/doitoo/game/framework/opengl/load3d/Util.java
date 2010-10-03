@@ -1,6 +1,6 @@
 package cn.doitoo.game.framework.opengl.load3d;
 
-import org.newdawn.j3d.loaders.cio.LittleEndianDataInputStream;
+
 import java.io.IOException;
 
 /**

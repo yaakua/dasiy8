@@ -24,7 +24,7 @@ public class PlayerPagoda1 extends Pagoda {
     @Override
     public Bitmap getBitmap() {
         Context context = G.getContext();
-        return Util.getBitMapById(context, R.drawable.tile_breakable2);
+        return Util.getBitMapById(context, R.drawable.pagoda01);
     }
 
     @Override

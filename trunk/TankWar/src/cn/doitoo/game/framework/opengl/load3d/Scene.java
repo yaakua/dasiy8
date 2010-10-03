@@ -113,7 +113,6 @@ public class Scene implements IObject3dContainer, IDirtyParent
 	}
 	
 	/**
-	 * TODO: Use better lookup 
 	 */
 	
 	public Object3d getChildByName(String $name)

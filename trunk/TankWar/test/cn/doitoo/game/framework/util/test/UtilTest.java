@@ -1,8 +1,5 @@
 package cn.doitoo.game.framework.util.test;
 
-import android.graphics.Point;
-import cn.doitoo.game.framework.arithmetic.Floyd;
-import cn.doitoo.game.framework.exception.ViewException;
 import cn.doitoo.game.framework.util.MatrixIndexUtil;
 import cn.doitoo.game.framework.util.Util;
 import cn.doitoo.game.tankwar.task.DrawMapTask;
@@ -17,7 +14,7 @@ import org.junit.Test;
 public class UtilTest {
     @Test
     public void testGameMap01Vector() throws Exception {
-        int[][] vector = Util.gameMap01Vector(DrawMapTask.tank_map1, DrawMapTask.passValue);
+        int[][] vector = Util.gameMap01Vector(DrawMapTask.tank_map1, DrawMapTask.barrierArray);
         System.out.println("i-length:" + vector.length);
         System.out.println("j-length:" + vector[0].length);
     }
@@ -115,8 +112,20 @@ public class UtilTest {
                 }
             }
         }
-
     }
 
+    @Test
+    public void testInArray() {
+        int index =5;
+        int[] array = {5, 6, 7, 8, 13, 23, 24, 30, 31, 32, 81, 82, 83, 84, 85, 89, 90, 97, 98, 99, 100, 101};
+        boolean flag = Util.inArray(array, index);
+        System.out.println("flag:" + flag);
+    }
 
+    public static void main(String[] args) {
+        int index = 111;
+        int[] array = {5, 6, 7, 8, 13, 23, 24, 30, 31, 32, 81, 82, 83, 84, 85, 89, 90, 97, 98, 99, 100, 101};
+        boolean flag = Util.inArray(array, index);
+        System.out.println("flag:" + flag);
+    }
 }

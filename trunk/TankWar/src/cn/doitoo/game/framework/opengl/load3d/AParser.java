@@ -145,7 +145,7 @@ public abstract class AParser implements IParser {
 		
 		/**
 		 * Creates a new BitmapAsset object
-		 * @param bitmap
+		 * @param resourceID
 		 * @param key
 		 */
 		public BitmapAsset(String key, String resourceID)
@@ -183,7 +183,7 @@ public abstract class AParser implements IParser {
 		/**
 		 * Adds a bitmap to the atlas
 		 * 
-		 * @param bitmap
+		 * @param ba
 		 */
 		public void addBitmapAsset(BitmapAsset ba) {
 			BitmapAsset existingBA = getBitmapAssetByResourceID(ba.resourceID);
@@ -284,10 +284,8 @@ public abstract class AParser implements IParser {
 				fos.flush();
 				fos.close();
 			} catch (FileNotFoundException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			} catch (IOException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}*/
 		}

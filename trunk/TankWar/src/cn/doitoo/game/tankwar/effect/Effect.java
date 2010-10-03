@@ -50,7 +50,6 @@ public class Effect extends MovableRole {
 
     @Override
     public void subLife(int power) {
-        // TODO Auto-generated method stub
 
     }
 }

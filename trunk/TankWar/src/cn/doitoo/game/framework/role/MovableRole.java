@@ -14,7 +14,6 @@ import cn.doitoo.game.tankwar.effect.Effect;
 import java.util.*;
 
 /**
- * TODO add other functions
  *
  * @author Oliver O
  */
