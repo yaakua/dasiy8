@@ -46,7 +46,8 @@ public abstract class AITank extends Tank {
     @Override
     public void paint(Canvas c) {
         super.paint(c);
-        this.attack();
+        this.move();
+//        this.attack();
         drawBullets(c);
 //        c.drawRect(attackRect, this.getPaint());
     }

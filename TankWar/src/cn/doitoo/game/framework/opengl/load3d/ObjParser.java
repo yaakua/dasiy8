@@ -18,12 +18,8 @@ import android.util.Log;
 /**
  * Parses Wavefront OBJ files. Basic version, this is still a work in progress!
  * 
- * TODO: proper error handling TODO: handle multiple objects TODO: handle groups
- * TODO: a lot more :-) *
- * 
- * @author dennis.ippel
- * @see http://en.wikipedia.org/wiki/Obj
- * 
+ *
+ * @author dennis.ippel             http://en.wikipedia.org/wiki/Obj
  */
 
 public class ObjParser extends AParser implements IParser {

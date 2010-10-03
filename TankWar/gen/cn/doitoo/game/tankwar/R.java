@@ -10,63 +10,42 @@ package cn.doitoo.game.tankwar;
 public final class R {
     public static final class attr {
     }
-
     public static final class drawable {
-        public static final int bitmap = 0x7f020000;
-        public static final int btstart = 0x7f020001;
-        public static final int bullet = 0x7f020002;
-        public static final int icon = 0x7f020003;
-        public static final int image1262 = 0x7f020004;
-        public static final int image1297 = 0x7f020005;
-        public static final int loadmain = 0x7f020006;
-        public static final int pakechara_conew1 = 0x7f020007;
-        public static final int pakechara_conew2 = 0x7f020008;
-        public static final int pakechara_conew3 = 0x7f020009;
-        public static final int pakechara_conew4 = 0x7f02000a;
-        public static final int pakechara_conew5 = 0x7f02000b;
-        public static final int shandian = 0x7f02000c;
-        public static final int tank1_1 = 0x7f02000d;
-        public static final int tank1_2 = 0x7f02000e;
-        public static final int tank1_3 = 0x7f02000f;
-        public static final int tank1_4 = 0x7f020010;
-        public static final int tank2_1 = 0x7f020011;
-        public static final int tank2_2 = 0x7f020012;
-        public static final int tank2_3 = 0x7f020013;
-        public static final int tank2_4 = 0x7f020014;
-        public static final int tank3_1 = 0x7f020015;
-        public static final int tank3_2 = 0x7f020016;
-        public static final int tank3_3 = 0x7f020017;
-        public static final int tank3_4 = 0x7f020018;
-        public static final int tank4_1 = 0x7f020019;
-        public static final int tank4_2 = 0x7f02001a;
-        public static final int tank4_3 = 0x7f02001b;
-        public static final int tank4_4 = 0x7f02001c;
-        public static final int tank5_1 = 0x7f02001d;
-        public static final int tank5_2 = 0x7f02001e;
-        public static final int tank5_3 = 0x7f02001f;
-        public static final int tank5_4 = 0x7f020020;
-        public static final int tile_breakable = 0x7f020021;
-        public static final int tile_breakable1 = 0x7f020022;
-        public static final int tile_breakable2 = 0x7f020023;
-        public static final int tile_regular2 = 0x7f020024;
-        public static final int tile_trench1 = 0x7f020025;
+        public static final int btstart=0x7f020000;
+        public static final int grassland01=0x7f020001;
+        public static final int huo=0x7f020002;
+        public static final int huo2=0x7f020003;
+        public static final int huoguang03=0x7f020004;
+        public static final int icon=0x7f020005;
+        public static final int image1262=0x7f020006;
+        public static final int image1297=0x7f020007;
+        public static final int lighting_bullet01=0x7f020008;
+        public static final int loadmain=0x7f020009;
+        public static final int npc01=0x7f02000a;
+        public static final int npc02=0x7f02000b;
+        public static final int npc03=0x7f02000c;
+        public static final int npc04=0x7f02000d;
+        public static final int npc05=0x7f02000e;
+        public static final int npc06=0x7f02000f;
+        public static final int pagoda01=0x7f020010;
+        public static final int pakechara_conew2=0x7f020011;
+        public static final int pakechara_conew3=0x7f020012;
+        public static final int pakechara_conew4=0x7f020013;
+        public static final int pakechara_conew5=0x7f020014;
     }
-
     public static final class id {
-        public static final int gameView = 0x7f050000;
-        public static final int setting = 0x7f050002;
-        public static final int start = 0x7f050001;
+        public static final int gameView=0x7f050000;
+        public static final int setting=0x7f050002;
+        public static final int start=0x7f050001;
     }
-
     public static final class layout {
-        public static final int main = 0x7f030000;
-        public static final int startview = 0x7f030001;
+        public static final int main=0x7f030000;
+        public static final int startview=0x7f030001;
     }
-
     public static final class string {
-        public static final int app_name = 0x7f040003;
-        public static final int hello = 0x7f040002;
-        public static final int setting = 0x7f040001;
-        public static final int start = 0x7f040000;
+        public static final int app_name=0x7f040003;
+        public static final int hello=0x7f040002;
+        public static final int setting=0x7f040001;
+        public static final int start=0x7f040000;
     }
 }

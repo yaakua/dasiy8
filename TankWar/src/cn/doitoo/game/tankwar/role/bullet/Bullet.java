@@ -3,6 +3,7 @@ package cn.doitoo.game.tankwar.role.bullet;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Point;
+import android.util.Log;
 import cn.doitoo.game.framework.role.MovableRole;
 
 /**
@@ -46,6 +47,7 @@ public abstract class Bullet extends MovableRole {
         // 由世界坐标转成屏幕坐标
         Point screenPoint = this.getScreenPoint();
         c.drawBitmap(bitmap, screenPoint.x, screenPoint.y, null);
+        Log.d("bulletdrawing",screenPoint.x+":"+screenPoint.y);
     }
 
     public int getPower() {

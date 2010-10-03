@@ -26,8 +26,6 @@ public class GameView extends DoitooView {
     protected void initTasks(SurfaceHolder holder) {
         Log.d(TAG, "initTasks");
         gameInit(holder);
-        /*Task tankSpriteTask = new TankSpriteTask();
-        Task.add(tankSpriteTask);*/
 
         //创建游戏主线程
         GameDrawThread gameDrawThread0 = GameDrawThread.getInstance(holder);
@@ -44,8 +42,8 @@ public class GameView extends DoitooView {
         DrawControlLayerTask drawControlLayerTask = new DrawControlLayerTask();
 
         //添加相关任务
-        gameDrawThread0.add(drawMapTask).add(playerHeroTankTask)
-                .add(playerAiTankTask).add(drawOtherInfoTask).add(drawControlLayerTask);
+        gameDrawThread0.add(drawMapTask).add(playerAiTankTask)
+               .add(drawOtherInfoTask).add(drawControlLayerTask);
         gameDrawThread0.setGameStauts(GameStatus.RUNING);
         gameDrawThread0.start();
 
@@ -65,7 +63,7 @@ public class GameView extends DoitooView {
         G.setContext(getContext());
         G.set("screenHeight", screenHeight);  //当前屏幕高度
         G.set("screenWidth", screenWidth);    //当前屏幕宽度
-        G.set("tankElementWidth", 48);//坦克元素基本宽度
+       // G.set("tankElementWidth", 48);//坦克元素基本宽度
 
     }
 }

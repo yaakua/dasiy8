@@ -34,9 +34,6 @@ public class AITank1 extends AITank {
         Bitmap source = BitmapFactory.decodeResource(res, R.drawable.pakechara_conew2);
         width = 31;
         height = 31;
-//        Bitmap right_source = BitmapFactory.decodeResource(res, R.drawable.tank2_4);
-//        Bitmap down_source = BitmapFactory.decodeResource(res, R.drawable.tank2_3);
-//        Bitmap up_source = BitmapFactory.decodeResource(res, R.drawable.tank2_1);
         return new Bitmap[]{source};
     }
 

@@ -15,7 +15,7 @@ public class YellowBullet extends Bullet {
     @Override
     public Bitmap getBitmap() {
         Context context = G.getContext();
-        return Util.getBitMapById(context, R.drawable.bullet);
+        return Util.getBitMapById(context, 0);   //TODO
     }
 
 }

@@ -14,9 +14,7 @@ import javax.microedition.khronos.opengles.GL10;
  *  just one TextureEnvVo, but can hold an arbitrary number, for more
  *  complex 'layering' operations. 
  *  
- *  TODO: Allow for adding glTexEnvf commands (float instead of int)
- *  
- *  TODO: Ability to assign arbitrary UV lists per-TextureVo? (Non-trivial...)
+ *
  */
 public class TextureVo 
 {

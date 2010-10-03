@@ -10,7 +10,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * 英雄坦克主类，所有不同类型的英雄坦克都需要继承此类 User: 阳葵 Date: 2010-6-27 Time: 10:12:58
+ * 坦克主类，所有不同类型的坦克都需要继承此类 User: 阳葵 Date: 2010-6-27 Time: 10:12:58
  */
 public abstract class Tank extends MovableRole {
     private List<Bitmap> LeftBitMapList = new ArrayList<Bitmap>();
@@ -61,6 +61,9 @@ public abstract class Tank extends MovableRole {
         blood.setRole(this);
     }
 
+    /**
+     * 初始化精灵角色图片
+     */
     private void initSprintImage() {
         Bitmap[] bitmaps = getBitmaps();
         height = this.getHeight();

@@ -77,7 +77,7 @@ public class PlayerAiTankTask implements GameDrawTask {
                 aiTank = new AITank1(x, 31);
             }
             Point startNodePoint1 = new Point(x, 31);
-            Point endNodePoint1 = new Point(432, 1344);
+            Point endNodePoint1 = new Point(465, 868);
             aiTank.setEndPoint(endNodePoint1);
             aiTank.setPathList(Util.computeShortestPath(startNodePoint1, endNodePoint1));
         }

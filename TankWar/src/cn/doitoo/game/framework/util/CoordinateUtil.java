@@ -25,8 +25,8 @@ public class CoordinateUtil {
         if (map == null) {
             throw new ViewException("map is null");
         }
-        IndexPosition point = MatrixIndexUtil.convertNode2Point(node, map.getMapRect()[0].length);
-        return new Point(point.colIndex * map.getElementWidth(),point.rowIndex * map.getElementHeight() );
+        IndexPosition point = MatrixIndexUtil.convertNode2Point(node, map.getMapArray()[0].length);
+        return new Point(point.colIndex * map.getMapElementWidth(),point.rowIndex * map.getMapElementHeight() );
     }
 
     /**

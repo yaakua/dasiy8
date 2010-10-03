@@ -72,7 +72,7 @@ public class Object3dContainer extends Object3d implements IObject3dContainer
 	}
 
 	/**
-	 * TODO: Use better lookup 
+	 *
 	 */
 	
 	public Object3d getChildByName(String $name)

@@ -37,13 +37,12 @@ public class MatrixIndexUtil {
     public static int worldPoint2Node( Point worldPoint) {
     	DoitooMap map = G.getDoitooMap();
     	IndexPosition p = worldPointIn01Vector( worldPoint); //获取世界坐标在01矩阵当中的第几行第几列
-        return convertPoint2Node(map.getMapRect()[0].length, Math.max(0, p.rowIndex), Math.max(0, p.colIndex));
+        return convertPoint2Node(map.getMapArray()[0].length, Math.max(0, p.rowIndex), Math.max(0, p.colIndex));
     }
     
     /**
      * 世界坐标在01矩阵当中的第几行第几列
      *
-     * @param map
      * @param worldPoint
      * @return 
      */
@@ -52,8 +51,8 @@ public class MatrixIndexUtil {
         if (map == null) {
             throw new ViewException("map is null");
         }
-        int w = map.getElementWidth();
-        int h = map.getElementHeight();
+        int w = map.getMapElementWidth();
+        int h = map.getMapElementHeight();
         int i = worldPoint.x / w;
         int j = worldPoint.y / h;
         IndexPosition p = new IndexPosition(j, i);
