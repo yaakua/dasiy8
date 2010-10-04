@@ -16,13 +16,12 @@ public abstract class Bullet extends MovableRole {
     private int power = 10;
     //发出攻击的对象
     private MovableRole attacker;
-
     public Bullet(int x, int y) {
         super(x, y);
         bitmap = getBitmap();
         this.setSpeed(5);
         this.setVisabled(true);
-        new BulletThread(this).start();
+       // new BulletThread(this).start();
     }
 
     public abstract Bitmap getBitmap();
@@ -47,7 +46,7 @@ public abstract class Bullet extends MovableRole {
         // 由世界坐标转成屏幕坐标
         Point screenPoint = this.getScreenPoint();
         c.drawBitmap(bitmap, screenPoint.x, screenPoint.y, null);
-        Log.d("bulletdrawing",screenPoint.x+":"+screenPoint.y);
+       // Log.d("bulletdrawing",screenPoint.x+":"+screenPoint.y);
     }
 
     public int getPower() {

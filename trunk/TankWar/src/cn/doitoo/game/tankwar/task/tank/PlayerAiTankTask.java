@@ -28,6 +28,7 @@ public class PlayerAiTankTask implements GameDrawTask {
 
     public void draw(Canvas c) {
         deleteAITank();
+        G.addDebugInfo("tankNumber",AITank.AITanks.size()+"");
         for (AITank tank : AITank.AITanks) {
             tank.paint(c);
         }

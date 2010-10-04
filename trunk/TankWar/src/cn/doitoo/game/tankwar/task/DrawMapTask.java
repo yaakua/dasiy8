@@ -17,6 +17,8 @@ import cn.doitoo.game.tankwar.R;
 import cn.doitoo.game.tankwar.effect.ClickEffect;
 import cn.doitoo.game.tankwar.role.building.Pagoda;
 import cn.doitoo.game.tankwar.role.building.player.PlayerPagoda1;
+import cn.doitoo.game.tankwar.role.bullet.Bullet;
+import cn.doitoo.game.tankwar.role.bullet.LightingBullet;
 import cn.doitoo.game.tankwar.role.tank.player.PlayerHeroTank;
 
 import java.util.ArrayList;
@@ -130,6 +132,7 @@ public class DrawMapTask implements GameDrawTask {
         for (Pagoda pagoda : pagodas) {
             pagoda.paint(canvas);
         }
+//        bullet.paint(canvas);
     }
 
     private void deletePagoda() {

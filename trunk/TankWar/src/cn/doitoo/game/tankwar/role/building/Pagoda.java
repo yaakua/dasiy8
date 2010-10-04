@@ -4,6 +4,7 @@ import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Point;
 import android.graphics.Rect;
+import cn.doitoo.game.framework.context.G;
 import cn.doitoo.game.framework.role.MovableRole;
 import cn.doitoo.game.tankwar.role.bullet.Bullet;
 import cn.doitoo.game.tankwar.role.bullet.LightingBullet;
@@ -18,9 +19,12 @@ import java.util.List;
  * 炮塔基类 User: 阳葵 Date: 2010-7-6 Time: 15:46:13
  */
 public abstract class Pagoda extends MovableRole {
-    // 炮塔所属的子弹
-    private List<Bullet> bullets = new ArrayList<Bullet>();
     public static List<Pagoda> pagodas = new ArrayList<Pagoda>();
+    // 被攻击的对象
+    private List<MovableRole> attackTanks = new ArrayList<MovableRole>();
+
+    //发射的子弹（一次只有一发）
+    private Bullet bullet = null;
     /**
      * 炮塔类型
      */
@@ -29,18 +33,18 @@ public abstract class Pagoda extends MovableRole {
     /**
      * 射程
      */
-    private int range = 400;
+    private int range = 300;
     private Bitmap bitmap;
-
     // 生命条
     protected Blood blood;
-
     // 生命
     protected int life = 10000;
-
+    //攻击范围
     private Rect attackRect;
+    //防御力
     protected int defense = 10;
-    private int power = 10;
+    //攻击力
+    private int power = 20;
 
     public enum PagodaType {
         Player, Opponent
@@ -56,6 +60,7 @@ public abstract class Pagoda extends MovableRole {
         blood.setRole(this);
         attackRect = computeAttackRect();
         pagodas.add(this);
+        new PagodaThread(this).start();
     }
 
     public abstract Bitmap getBitmap();
@@ -81,23 +86,23 @@ public abstract class Pagoda extends MovableRole {
         Point screenPoint = this.getScreenPoint();
         c.drawBitmap(bitmap, screenPoint.x, screenPoint.y, null);
         blood.paint(c);
-        drawBullets(c);
-        attack();
+        drawBullet(c);
+        this.attack();
     }
 
-    private void drawBullets(Canvas c) {
-        // 画子弹
-        if (bullets.isEmpty()) {
+    /**
+     * 画子弹
+     *
+     * @param c
+     */
+    private void drawBullet(Canvas c) {
+        if (bullet == null) {
             return;
         }
-        Iterator<Bullet> bulletIt = bullets.iterator();
-        while (bulletIt.hasNext()) {
-            Bullet bullet = bulletIt.next();
-            if (bullet.isVisabled())
-                bullet.paint(c);
-            else if (!attackRect.contains(bullet.getX(), bullet.getY()) || bullet.getAttackRole() == null || !bullet.getAttackRole().isVisabled() || !bullet.isVisabled())
-                bulletIt.remove();
-        }
+        if (bullet.isVisabled())
+            bullet.paint(c);
+        else
+            bullet = null;
     }
 
     public void setRange(int range) {
@@ -116,15 +121,18 @@ public abstract class Pagoda extends MovableRole {
             return;
         }
         attackRect = computeAttackRect();
-        Point centerPoint = this.getCenterPoint();
+        Iterator it = attackTanks.iterator();
+        while (it.hasNext()) {
+            it.next();
+            it.remove();
+        }
         for (AITank aiTank : AITank.AITanks) {
+            if (!aiTank.isVisabled())
+                continue;
             int x = aiTank.getX();
             int y = aiTank.getY();
             if (attackRect.contains(x, y)) {
-                Bullet bullet = new LightingBullet(centerPoint.x, centerPoint.y);
-                bullet.setAttackRole(aiTank);
-                bullet.setPower(this.power);
-                bullets.add(bullet);
+                attackTanks.add(aiTank);
             }
         }
 //        for (HeroTank heroTank : HeroTank.HeroTanks) {
@@ -160,6 +168,40 @@ public abstract class Pagoda extends MovableRole {
 
     public void setLife(int life) {
         this.life = life;
+    }
+
+    /**
+     * 由线程来控制炮塔的子弹发射速度
+     */
+    class PagodaThread extends Thread {
+        private Pagoda father;
+
+        PagodaThread(Pagoda pagoda) {
+            this.father = pagoda;
+        }
+
+        @Override
+        public void run() {
+            while (father.isVisabled()) {
+                try {
+                    Thread.sleep(1500);
+                    if (!father.attackTanks.isEmpty() && father.bullet == null) {
+                        G.addDebugInfo("attackedTanks", father.attackTanks.size() + "");
+                        MovableRole role = father.attackTanks.get(0);  //取第一被攻击者的坐标为子弹显示的坐标
+                        Point centerPoint = role.getCenterPoint();
+                        LightingBullet bullet = new LightingBullet(centerPoint.x - role.getWidth(), centerPoint.y -(175-role.getHeight()*2));
+                        bullet.setAttackeds(father.attackTanks);
+                        bullet.setPower(father.power);
+                        father.bullet = bullet;
+                    } else {
+                        G.addDebugInfo("attackTanks", father.attackTanks.size() + "");
+                        father.bullet = null;
+                    }
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+        }
     }
 
 }

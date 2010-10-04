@@ -17,6 +17,8 @@ public class G {
     private static Context context;
     private static DoitooMap doitooMap;
     private static Map<String, Object> map = new LinkedHashMap<String, Object>();
+    //用于屏幕显示调试信息
+    private static Map<String, String> debugInfoMap = new LinkedHashMap<String, String>();
 
     public static Object get(String key) {
         return map.get(key);
@@ -82,5 +84,13 @@ public class G {
 
     public static void setContext(Context context) {
         G.context = context;
+    }
+
+    public static void addDebugInfo(String key, String value) {
+        G.debugInfoMap.put(key, value);
+    }
+
+    public static Map getDebugInfoMap() {
+        return G.debugInfoMap;
     }
 }
