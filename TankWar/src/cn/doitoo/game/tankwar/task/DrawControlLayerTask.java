@@ -13,6 +13,9 @@ import cn.doitoo.game.tankwar.effect.SelectEffect;
 import cn.doitoo.game.tankwar.role.control.ImageButton;
 import cn.doitoo.game.tankwar.role.tank.player.PlayerHeroTank;
 
+import java.util.Map;
+import java.util.Set;
+
 /**
  * 绘画控制层界面
  *
@@ -76,7 +79,24 @@ public class DrawControlLayerTask implements GameDrawTask {
         } else if (hiddenTankCount >= 10) {
             c.drawText("GAME OVER", 240, 100, tipPaint);
         }
+        this.drawDebugInfo(c);
+    }
 
+    /**
+     * 显示DEBUG信息
+     *
+     * @param c
+     */
+    private void drawDebugInfo(Canvas c) {
+        Map<String, String> debugInfoMap = G.getDebugInfoMap();
+        Set<String> set = debugInfoMap.keySet();
+        int x = 10;
+        int y = 40;
+        for (String key : set) {
+            String value = debugInfoMap.get(key);
+            c.drawText("INFO:" + key + "==>" + value, x, y, tipPaint);
+            y += 13;
+        }
     }
 
 

@@ -19,7 +19,7 @@ public final class R {
         public static final int icon=0x7f020005;
         public static final int image1262=0x7f020006;
         public static final int image1297=0x7f020007;
-        public static final int lighting_bullet01=0x7f020008;
+        public static final int linghtbullet01=0x7f020008;
         public static final int loadmain=0x7f020009;
         public static final int npc01=0x7f02000a;
         public static final int npc02=0x7f02000b;

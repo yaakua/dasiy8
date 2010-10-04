@@ -2,6 +2,7 @@ package cn.doitoo.game.tankwar.role.tank;
 
 import android.graphics.*;
 import android.util.Log;
+import cn.doitoo.game.framework.context.G;
 import cn.doitoo.game.framework.exception.ViewException;
 import cn.doitoo.game.framework.role.MovableRole;
 import cn.doitoo.game.framework.util.CoordinateUtil;
@@ -22,7 +23,7 @@ public abstract class Tank extends MovableRole {
     @SuppressWarnings("unused")
     private TankType tankType;
     //坦克生命
-    private int life = 1000;
+    private int life = 100;
     //防御力
     private int defense = 5;
     //攻击力
@@ -242,12 +243,14 @@ public abstract class Tank extends MovableRole {
             life -= power;
         }
         if (life <= 0) {
+            G.addDebugInfo("tankVisabled","false");
             this.setVisabled(false);
         } else {
             blood.setCurrentLife(life);
             this.setLife(life);
         }
-        Log.d("tank is attack", this.isAttack() + "");
+        G.addDebugInfo("tank", "遭到攻击，生命值：" + life);
+        Log.d("tank is attack", life + "");
     }
 
     /**
