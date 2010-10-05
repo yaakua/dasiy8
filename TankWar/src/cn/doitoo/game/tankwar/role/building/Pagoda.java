@@ -46,6 +46,8 @@ public abstract class Pagoda extends MovableRole {
     //攻击力
     private int power = 20;
 
+    private int threadSleep=0;
+
     public enum PagodaType {
         Player, Opponent
     }
@@ -182,14 +184,19 @@ public abstract class Pagoda extends MovableRole {
 
         @Override
         public void run() {
+              try {
+               Thread.sleep(father.threadSleep);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
             while (father.isVisabled()) {
                 try {
                     Thread.sleep(1500);
                     if (!father.attackTanks.isEmpty() && father.bullet == null) {
                         G.addDebugInfo("attackedTanks", father.attackTanks.size() + "");
-                        MovableRole role = father.attackTanks.get(0);  //取第一被攻击者的坐标为子弹显示的坐标
-                        Point centerPoint = role.getCenterPoint();
-                        LightingBullet bullet = new LightingBullet(centerPoint.x - role.getWidth(), centerPoint.y -(175-role.getHeight()*2));
+                        Point centerPoint = father.getCenterPoint();
+                        LightingBullet bullet = new LightingBullet(centerPoint.x-father.getWidth() , centerPoint.y-father.getHeight()-90);
+                        bullet.setAttackRole(father.attackTanks.get(0));//设置第一个被攻击者为子弹显示的位置
                         bullet.setAttackeds(father.attackTanks);
                         bullet.setPower(father.power);
                         father.bullet = bullet;
@@ -205,4 +212,7 @@ public abstract class Pagoda extends MovableRole {
         }
     }
 
+    public void setThreadSleep(int threadSleep) {
+        this.threadSleep = threadSleep;
+    }
 }

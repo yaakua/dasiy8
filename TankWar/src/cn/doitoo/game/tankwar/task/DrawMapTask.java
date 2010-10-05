@@ -119,6 +119,7 @@ public class DrawMapTask implements GameDrawTask {
     private void initPagodas() {
         PlayerPagoda1 pagoda1 = new PlayerPagoda1(320, 672);
         PlayerPagoda1 pagoda2 = new PlayerPagoda1(544, 672);
+        pagoda2.setThreadSleep(1500);  //炮塔2延迟一段时间才进行攻击。
         pagodas.add(pagoda1);
         pagodas.add(pagoda2);
     }

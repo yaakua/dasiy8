@@ -31,11 +31,6 @@ public class PlayerAiTankTask implements GameDrawTask {
         for (AITank tank : AITank.AITanks) {
             tank.paint(c);
         }
-        /* if (aiTankEmpty) {
-            attackTime++;
-            G.set("attackCount", attackCount, true);
-
-        }*/
     }
 
     public void deleteAITank() {
@@ -65,9 +60,9 @@ public class PlayerAiTankTask implements GameDrawTask {
                     Thread.sleep(1000);
                     if (AITank.AITanks.isEmpty()) {
                         time++;
-                        if (time >= 30) {
+                        if (time >= 15) {
                             int type = count;
-                            int totalCount = 5;
+                            int totalCount = 15;
                             new MakePlayAiTankThread(father, totalCount, type).start();
                             time = 0;
                             count++;
@@ -96,7 +91,7 @@ public class PlayerAiTankTask implements GameDrawTask {
         //当前已产生的怪物数量
         private int currentCount = 0;
         //每次产生的怪物数量
-        private int number = 1;
+        private int number = 3;
 
         MakePlayAiTankThread(PlayerAiTankTask father, int totalCount, int type) {
             this.father = father;
@@ -134,13 +129,13 @@ public class PlayerAiTankTask implements GameDrawTask {
             x += (i * 31);
             AITank aiTank;
             if (type == 1) {
-                aiTank = new AITank1(x, 31);
+                aiTank = new AITank1(x, 64);
             } else if (type == 2) {
-                aiTank = new AITank2(x, 31);
+                aiTank = new AITank2(x, 64);
             } else if (type == 3) {
-                aiTank = new AITank3(x, 31);
+                aiTank = new AITank3(x, 64);
             } else {
-                aiTank = new AITank1(x, 31);
+                aiTank = new AITank1(x, 64);
             }
             Point startNodePoint1 = new Point(x, 31);
             Point endNodePoint1 = new Point(465, 868);

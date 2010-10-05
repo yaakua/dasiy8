@@ -243,7 +243,6 @@ public abstract class Tank extends MovableRole {
             life -= power;
         }
         if (life <= 0) {
-            G.addDebugInfo("tankVisabled","false");
             this.setVisabled(false);
         } else {
             blood.setCurrentLife(life);
