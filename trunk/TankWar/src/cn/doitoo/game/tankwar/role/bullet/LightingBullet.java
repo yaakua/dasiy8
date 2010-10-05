@@ -106,6 +106,7 @@ public class LightingBullet extends Bullet {
                     e.printStackTrace();
                 }
             }
+            this.interrupt();
         }
 
     }

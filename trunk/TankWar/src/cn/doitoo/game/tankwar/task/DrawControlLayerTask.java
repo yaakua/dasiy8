@@ -36,7 +36,7 @@ public class DrawControlLayerTask implements GameDrawTask {
         rectPaint = new Paint();
         rectPaint.setColor(Color.GRAY);
         rectPaint.setAlpha(150);
-        tipPaint.setColor(Color.GREEN);
+        tipPaint.setColor(Color.RED);
         tipPaint.setTextSize(16F);
         int screenWidth = G.getInt("screenWidth");
         rect = new Rect(0, 0, screenWidth, 48);
@@ -70,7 +70,7 @@ public class DrawControlLayerTask implements GameDrawTask {
         int count = G.getInt("attackCount");
         int time = G.getInt("attackTime");
         if (time > 0 && time < 30) {
-            c.drawText("第" + count + "波攻击即将在" + (30 - time) / 10 + "秒后开始", 200, 200, tipPaint);
+            c.drawText("第" + count + "波攻击即将在" + (30-time) + "秒后开始", 200, 200, tipPaint);
         }
 
         int hiddenTankCount = G.getInt("hiddenTankCount");

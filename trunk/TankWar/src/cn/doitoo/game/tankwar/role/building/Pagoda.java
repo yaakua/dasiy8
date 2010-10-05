@@ -201,6 +201,7 @@ public abstract class Pagoda extends MovableRole {
                     e.printStackTrace();
                 }
             }
+            this.interrupt();
         }
     }
 
