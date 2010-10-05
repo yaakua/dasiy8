@@ -40,7 +40,7 @@ public class LightingBullet extends Bullet {
                 }
             }
         }
-        this.setStep_array(new int[]{0, 1, 2, 3});
+        this.setStep_array(new int[]{0, 1, 2, 3, 4,5});
         new LightingBulletThread(this).start();
     }
 
@@ -48,7 +48,7 @@ public class LightingBullet extends Bullet {
     public Bitmap getBitmap() {
         Context context = G.getContext();
         if (bitmap == null) {
-            bitmap = Util.getBitMapById(context, R.drawable.linghtbullet01);
+            bitmap = Util.getBitMapById(context, R.drawable.linghtbullet02);
         }
         return bitmap;
     }
@@ -67,7 +67,7 @@ public class LightingBullet extends Bullet {
     public void paint(Canvas c) {
         // 由世界坐标转成屏幕坐标
         Point screenPoint = this.getScreenPoint();
-        if (drawMap == null){
+        if (drawMap == null) {
             drawMap = animations.get(0);
         }
         c.drawBitmap(drawMap, screenPoint.x, screenPoint.y, null);
@@ -92,12 +92,17 @@ public class LightingBullet extends Bullet {
         public void run() {
             while (father.isVisabled()) {
                 try {
-                    Thread.sleep(100);
+                    Thread.sleep(200);
                     int step = father.getStep_array()[father.getStep()];
                     father.drawMap = animations.get(step);
+                    if (step != 0 && step != 1) {
+                        MovableRole attackRole = father.getAttackRole();
+                        Point centerPoint = attackRole.getCenterPoint();
+                        father.setPosition(centerPoint.x-father.getWidth()/2, centerPoint.y-father.getHeight());
+                    }
                     //G.addDebugInfo("step", step + "");
                     //子弹动画显示完成后，减少被攻击者的生命值
-                    if (step == 3) {
+                    if (step == 5) {
                         //G.addDebugInfo("bullet", "正在减少生命值");
                         father.subLife(father.getPower());
                         father.setVisabled(false);

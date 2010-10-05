@@ -20,18 +20,19 @@ public final class R {
         public static final int image1262=0x7f020006;
         public static final int image1297=0x7f020007;
         public static final int linghtbullet01=0x7f020008;
-        public static final int loadmain=0x7f020009;
-        public static final int npc01=0x7f02000a;
-        public static final int npc02=0x7f02000b;
-        public static final int npc03=0x7f02000c;
-        public static final int npc04=0x7f02000d;
-        public static final int npc05=0x7f02000e;
-        public static final int npc06=0x7f02000f;
-        public static final int pagoda01=0x7f020010;
-        public static final int pakechara_conew2=0x7f020011;
-        public static final int pakechara_conew3=0x7f020012;
-        public static final int pakechara_conew4=0x7f020013;
-        public static final int pakechara_conew5=0x7f020014;
+        public static final int linghtbullet02=0x7f020009;
+        public static final int loadmain=0x7f02000a;
+        public static final int npc01=0x7f02000b;
+        public static final int npc02=0x7f02000c;
+        public static final int npc03=0x7f02000d;
+        public static final int npc04=0x7f02000e;
+        public static final int npc05=0x7f02000f;
+        public static final int npc06=0x7f020010;
+        public static final int pagoda01=0x7f020011;
+        public static final int pakechara_conew2=0x7f020012;
+        public static final int pakechara_conew3=0x7f020013;
+        public static final int pakechara_conew4=0x7f020014;
+        public static final int pakechara_conew5=0x7f020015;
     }
     public static final class id {
         public static final int gameView=0x7f050000;
