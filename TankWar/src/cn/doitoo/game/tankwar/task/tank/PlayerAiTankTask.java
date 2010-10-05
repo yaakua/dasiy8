@@ -12,35 +12,30 @@ import cn.doitoo.game.tankwar.role.tank.aitank.AITank2;
 import cn.doitoo.game.tankwar.role.tank.aitank.AITank3;
 
 import java.util.Iterator;
+import java.util.List;
 
 /**
  * Created by IntelliJ IDEA. User: 阳葵 Date: 2010-7-5 Time: 21:51:16
  */
 public class PlayerAiTankTask implements GameDrawTask {
-    private int time = 0;
     private boolean aiTankEmpty;
-
-    private int count = 1;
 
     public PlayerAiTankTask() {
         aiTankEmpty = true;
+        new PlayerAiTankTaskTimeThread(this).start();
     }
 
     public void draw(Canvas c) {
         deleteAITank();
-        G.addDebugInfo("tankNumber",AITank.AITanks.size()+"");
+        G.addDebugInfo("tankNumber", AITank.AITanks.size() + "");
         for (AITank tank : AITank.AITanks) {
             tank.paint(c);
         }
-        if (aiTankEmpty) {
-            time++;
-            if (time > 30) {
-                addAiTank(6);
-            } else {
-                G.set("attackCount", count, true);
-                G.set("attackTime", time, true);
-            }
-        }
+        /* if (aiTankEmpty) {
+            attackTime++;
+            G.set("attackCount", attackCount, true);
+
+        }*/
     }
 
     public void deleteAITank() {
@@ -54,8 +49,78 @@ public class PlayerAiTankTask implements GameDrawTask {
         aiTankEmpty = AITank.AITanks.isEmpty();
     }
 
-    public void addAiTank(int number) {
-        if (count > 3) return;
+    class PlayerAiTankTaskTimeThread extends Thread {
+        private PlayerAiTankTask father;
+        private int time = 0;
+        private int count = 1;
+
+        PlayerAiTankTaskTimeThread(PlayerAiTankTask father) {
+            this.father = father;
+        }
+
+        @Override
+        public void run() {
+            try {
+                while (count < 4) {
+                    Thread.sleep(1000);
+                    if (AITank.AITanks.isEmpty()) {
+                        time++;
+                        if (time >= 30) {
+                            int type = count;
+                            int totalCount = 5;
+                            new MakePlayAiTankThread(father, totalCount, type).start();
+                            time = 0;
+                            count++;
+                        } else {
+                            G.set("attackCount", count, true);
+                            G.set("attackTime", time, true);
+                        }
+                    }
+                }
+                this.interrupt();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
+    /**
+     * 每隔1秒产生指定种类的怪物，总数为totalCount
+     */
+    class MakePlayAiTankThread extends Thread {
+        private PlayerAiTankTask father;
+        //需要产生的总怪物数
+        private int totalCount = 0;
+        //怪物种类
+        private int type = 0;
+        //当前已产生的怪物数量
+        private int currentCount = 0;
+        //每次产生的怪物数量
+        private int number = 1;
+
+        MakePlayAiTankThread(PlayerAiTankTask father, int totalCount, int type) {
+            this.father = father;
+            this.totalCount = totalCount;
+            this.type = type;
+        }
+
+        @Override
+        public void run() {
+            while (currentCount < totalCount) {
+                try {
+                    Thread.sleep(1000);
+                    father.addAiTank(number, type);
+                    currentCount += number;
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+            //销毁线程
+            this.interrupt();
+        }
+    }
+
+    public void addAiTank(int number, int type) {
         int precent = number / 3;
         for (int i = 0; i < number; i++) {
             int x;
@@ -68,11 +133,11 @@ public class PlayerAiTankTask implements GameDrawTask {
             }
             x += (i * 31);
             AITank aiTank;
-            if (count == 1) {
+            if (type == 1) {
                 aiTank = new AITank1(x, 31);
-            } else if (count == 2) {
+            } else if (type == 2) {
                 aiTank = new AITank2(x, 31);
-            } else if (count == 3) {
+            } else if (type == 3) {
                 aiTank = new AITank3(x, 31);
             } else {
                 aiTank = new AITank1(x, 31);
@@ -80,10 +145,12 @@ public class PlayerAiTankTask implements GameDrawTask {
             Point startNodePoint1 = new Point(x, 31);
             Point endNodePoint1 = new Point(465, 868);
             aiTank.setEndPoint(endNodePoint1);
-            aiTank.setPathList(Util.computeShortestPath(startNodePoint1, endNodePoint1));
+            long start = System.currentTimeMillis();
+            List pathList = Util.computeShortestPath(startNodePoint1, endNodePoint1);
+            G.addDebugInfo("computeShortestPath" + i, (System.currentTimeMillis() - start) + "");
+            aiTank.setPathList(pathList);
         }
-        count++;
-        time = 0;
     }
+
 
 }
