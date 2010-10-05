@@ -25,23 +25,28 @@ public class LightingBullet extends Bullet {
     public LightingBullet(int x, int y) {
         super(x, y);
         if (animations.isEmpty()) {
-            int sourceWidth = bitmap.getWidth();
-            int sourceHeight = bitmap.getHeight();
-            int w = this.getWidth();
-            int h = this.getHeight();
-            int rows = sourceHeight / h;
-            int cols = sourceWidth / w;
-            for (int i = 0; i < rows; i++) {
-                for (int j = 0; j < cols; j++) {
-                    int left = j * w;
-                    int top = i * h;
-                    Bitmap map = Bitmap.createBitmap(bitmap, left, top, w, h);
-                    animations.add(map);
-                }
+            //将子弹与爆炸效果放在一个动画当中
+            createAnimations(animations, bitmap, this.getWidth(), this.getHeight());
+            createAnimations(animations, Util.getBitMapById(G.getContext(), R.drawable.yellowfireexplode01), 192, 192);
+        }
+        this.setStep_array(new int[]{0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10});
+        new LightingBulletThread(this).start();
+    }
+
+    private void createAnimations(List<Bitmap> animations, Bitmap bitmap
+            , int w, int h) {
+        int sourceWidth = bitmap.getWidth();
+        int sourceHeight = bitmap.getHeight();
+        int rows = sourceHeight / h;
+        int cols = sourceWidth / w;
+        for (int i = 0; i < rows; i++) {
+            for (int j = 0; j < cols; j++) {
+                int left = j * w;
+                int top = i * h;
+                Bitmap map = Bitmap.createBitmap(bitmap, left, top, w, h);
+                animations.add(map);
             }
         }
-        this.setStep_array(new int[]{0, 1, 2, 3, 4,5});
-        new LightingBulletThread(this).start();
     }
 
     @Override
@@ -98,14 +103,19 @@ public class LightingBullet extends Bullet {
                     if (step != 0 && step != 1) {
                         MovableRole attackRole = father.getAttackRole();
                         Point centerPoint = attackRole.getCenterPoint();
-                        father.setPosition(centerPoint.x-father.getWidth()/2, centerPoint.y-father.getHeight());
+                        father.setPosition(centerPoint.x - father.getWidth() / 2, centerPoint.y - father.getHeight());
+                    }
+                    if (step > 5) { //爆炸效果显示位置
+                        father.setPosition(father.getX() - 52, father.getY() + 80);
                     }
                     //G.addDebugInfo("step", step + "");
                     //子弹动画显示完成后，减少被攻击者的生命值
-                    if (step == 5) {
+                    if (step == 10) {
                         //G.addDebugInfo("bullet", "正在减少生命值");
                         father.subLife(father.getPower());
                         father.setVisabled(false);
+                        /* YellowFireExplode explode = new YellowFireExplode(father.getX(), father.getY());
+                        explode.setOwner(father);*/
                     }
                 } catch (InterruptedException e) {
                     e.printStackTrace();

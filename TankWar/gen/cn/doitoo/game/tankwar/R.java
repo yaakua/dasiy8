@@ -33,6 +33,8 @@ public final class R {
         public static final int pakechara_conew3=0x7f020013;
         public static final int pakechara_conew4=0x7f020014;
         public static final int pakechara_conew5=0x7f020015;
+        public static final int yellowfireexplode01=0x7f020016;
+        public static final int yellowfireexplode02=0x7f020017;
     }
     public static final class id {
         public static final int gameView=0x7f050000;
