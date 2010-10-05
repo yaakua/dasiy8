@@ -60,7 +60,7 @@ public class PlayerAiTankTask implements GameDrawTask {
                     Thread.sleep(1000);
                     if (AITank.AITanks.isEmpty()) {
                         time++;
-                        if (time >= 15) {
+                        if (time >5) {
                             int type = count;
                             int totalCount = 15;
                             new MakePlayAiTankThread(father, totalCount, type).start();
